@@ -1,0 +1,1 @@
+__user_contracts: {TaskManager::setValue, TaskManager::setAchieved}

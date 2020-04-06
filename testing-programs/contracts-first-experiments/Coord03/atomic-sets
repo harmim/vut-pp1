@@ -1,0 +1,1 @@
+__user_contracts: {Vars::getX, Vars::getY} {Vars::setX, Vars::setY}

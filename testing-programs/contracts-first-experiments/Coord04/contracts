@@ -1,0 +1,5 @@
+Coord::resetX Coord::resetY <- { Coord::resetX }
+Coord::resetX Coord::resetY <- { Coord::resetY }
+
+Coord::resetY Coord::resetX <- { Coord::resetX }
+Coord::resetY Coord::resetX <- { Coord::resetY }

@@ -1,0 +1,13 @@
+Found 1 issue
+
+Coord03.cc:128: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Vars::getX' and 'Vars::getY' should be called atomically.
+  126.           std::cout << "Running t3 ..." << std::endl;
+  127.           int x3 = v.getX();
+  128. >         int y3 = v.getY();
+  129.           use(x3,y3);
+  130.       }
+
+Summary of the reports
+
+  ATOMICITY_VIOLATION: 1

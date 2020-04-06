@@ -1,0 +1,13 @@
+Found 1 issue
+
+Nasa.cc:94: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'TaskManager::setValue' and 'TaskManager::setAchieved' should be called atomically.
+  92.           tm.setValue(v, N);
+  93.           /* achieve property */
+  94. >         tm.setAchieved(N);
+  95.
+  96.           //tm.unlock_table();
+
+Summary of the reports
+
+  ATOMICITY_VIOLATION: 1

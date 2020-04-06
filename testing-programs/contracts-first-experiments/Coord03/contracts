@@ -1,0 +1,9 @@
+Vars::getX Vars::getY <- { Vars::getX }
+Vars::getX Vars::getY <- { Vars::getY }
+Vars::getY Vars::getX <- { Vars::getX }
+Vars::getY Vars::getX <- { Vars::getY }
+
+Vars::setX Vars::setY <- { Vars::setX }
+Vars::setX Vars::setY <- { Vars::setY }
+Vars::setY Vars::setX <- { Vars::setX }
+Vars::setY Vars::setX <- { Vars::setY }

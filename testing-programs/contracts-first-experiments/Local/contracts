@@ -1,0 +1,5 @@
+Cell::getValue Cell::setValue <- { Cell::getValue }
+Cell::getValue Cell:setValue <- { Cell::setValue }
+
+Cell::setValue Cell::getValue <- { Cell::getValue }
+Cell::setValue Cell::getValue <- { Cell::setValue }

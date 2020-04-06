@@ -1,0 +1,13 @@
+Found 1 issue
+
+AccountTest.cc:56: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Account::getBalance' and 'Account::setBalance' should be called atomically.
+  54.           int tmp = account.getBalance();
+  55.           tmp = tmp + a;
+  56. >         account.setBalance(tmp);
+  57.       }
+  58.
+
+Summary of the reports
+
+  ATOMICITY_VIOLATION: 1

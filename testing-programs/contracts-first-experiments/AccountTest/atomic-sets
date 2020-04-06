@@ -1,0 +1,1 @@
+__user_contracts: {Account::getBalance, Account::setBalance}

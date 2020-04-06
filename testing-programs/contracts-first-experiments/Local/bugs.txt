@@ -1,0 +1,13 @@
+Found 1 issue
+
+Local.cc:35: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Cell::getValue' and 'Cell::setValue' should be called atomically.
+  33.       tmp = x.getValue();
+  34.       tmp++;
+  35. >     x.setValue(tmp);
+  36.   }
+  37.
+
+Summary of the reports
+
+  ATOMICITY_VIOLATION: 1
