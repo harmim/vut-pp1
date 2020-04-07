@@ -1,0 +1,5 @@
+Cell::getValue:
+run: {Cell::getValue, Cell::setValue}
+main:
+Cell::setValue:
+Cell::Cell:

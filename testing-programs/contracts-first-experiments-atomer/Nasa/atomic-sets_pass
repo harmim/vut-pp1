@@ -1,0 +1,21 @@
+LockTable::operator[]:
+LockTable::LockTable:
+TaskManager::lock_table:
+TaskManager::TaskManager:
+TaskManager::setAchieved:
+Daemon::tryIssueWarning: {Daemon::issueWarning}
+main:
+LockTable::~LockTable:
+Task::Task:
+Daemon::operator():
+Daemon::Daemon:
+Task::operator(): {TaskManager::setAchieved, TaskManager::setValue}
+SystemState::SystemState:
+TaskManager::unsetAchieved:
+Daemon::Daemon:
+TaskManager::setValue:
+Task::Task:
+Daemon::issueWarning:
+Task::Task:
+Cell::Cell:
+TaskManager::unlock_table:

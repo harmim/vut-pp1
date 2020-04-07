@@ -1,0 +1,13 @@
+Found 1 issue
+
+Coord04_fail.cc:61: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Coord::resetX' and 'Coord::resetY' should be called atomically.
+  59.           coord.resetX();
+  60.           // inconsistent state (0, y)
+  61. >         coord.resetY();
+  62.       }
+  63.   };
+
+Summary of the reports
+
+  ATOMICITY_VIOLATION: 1

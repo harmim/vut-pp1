@@ -1,0 +1,11 @@
+Account::~Account:
+Account::getName:
+Account::getBalance:
+main:
+Account::Account:
+Update::operator():
+Account::setBalance:
+Update::Update:
+Update::Update:
+Update::update: {Account::getBalance, Account::setBalance}
+Account::Account:

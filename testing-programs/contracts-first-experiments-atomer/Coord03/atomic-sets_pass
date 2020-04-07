@@ -1,0 +1,36 @@
+T3::T3:
+main:
+Vars::~Vars:
+T3::T3:
+std::__wrap_iter<std::thread*>::operator++:
+std::operator!=<std::thread_*>:
+Vars::Vars:
+T1::T1:
+std::make_pair<int,_int>:
+T1::operator():
+T1::T1:
+T3::use:
+T4::operator():
+T4::T4:
+T3::operator(): {Vars::getX, Vars::getY}
+std::__wrap_iter<std::thread*>::operator*:
+Vars::getY:
+T2::T2:
+std::operator==<std::thread_*,_std::thread_*>:
+Vars::setXY:
+Vars::getX:
+std::move<std::thread_&>:
+Vars::setX:
+T4::use:
+Vars::setY:
+T2::T2:
+T2::operator():
+std::__wrap_iter<std::thread*>::base:
+T2::use:
+T4::use:
+std::pair<int,int>::pair<int,_int,_false>:
+Vars::getXY: {std::make_pair<int,_int>}
+std::__wrap_iter<std::thread*>::__wrap_iter:
+std::pair<int,int>::pair:
+std::forward<int>:
+T4::T4:

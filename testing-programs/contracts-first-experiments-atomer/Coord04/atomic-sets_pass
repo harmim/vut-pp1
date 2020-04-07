@@ -1,0 +1,9 @@
+CoordMain::CoordMain: 
+CoordMain::reset: {Coord::resetX, Coord::resetY}
+Coord::Coord: 
+main: 
+Coord::resetY: 
+Coord::swap: 
+CoordMain::CoordMain: 
+Coord::resetX: 
+CoordMain::operator(): 
