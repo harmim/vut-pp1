@@ -1,5 +1,4 @@
-Found 1 issue
-
+#0
 Test.java:68: error: ATOMICITY_VIOLATION
   Atomicity Violation! - Functions 'void Locks.f1()' and 'void Locks.f2()' should be called atomically.
   66.   	public void testViolations()
@@ -8,6 +7,5 @@ Test.java:68: error: ATOMICITY_VIOLATION
   69.   	}
   70.   }
 
-Summary of the reports
-
+Found 1 issue
   ATOMICITY_VIOLATION: 1
