@@ -1,0 +1,44 @@
+void StandardContext.removeFilterDef(FilterDef): {Object Map.remove(Object), String FilterDef.getFilterName()}
+String[] StandardContext.findMimeMappings(): {Object[] Set.toArray(Object[]), Set Map.keySet(), int Map.size()}
+void StandardContext.removeMessageDestination(String): {Object HashMap.remove(Object)}
+MessageDestination[] StandardContext.findMessageDestinations(): {Collection HashMap.values(), Object[] Collection.toArray(Object[]), int HashMap.size()}
+void StandardContext.removeWelcomeFile(String): {boolean String.equals(Object)}
+void StandardContext.removeRoleMapping(String): {Object Map.remove(Object)}
+void StandardContext.removeMimeMapping(String): {Object Map.remove(Object)}
+boolean StandardContext.findWelcomeFile(String): {boolean String.equals(Object)}
+void StandardContext.removeWrapperLifecycle(String): {boolean String.equals(Object)}
+void StandardContext.removeApplicationParameter(String): {String ApplicationParameter.getName(), boolean String.equals(Object)}
+void StandardContext.addSecurityRole(String): {Object[] Arrays.copyOf(Object[],int)}
+void StandardContext.setLoader(Loader): {LifecycleState LifecycleBase.getState(), boolean LifecycleState.isAvailable()} {LifecycleState LifecycleBase.getState(), boolean LifecycleState.isAvailable(), void Lifecycle.start()} {LifecycleState LifecycleBase.getState(), boolean LifecycleState.isAvailable(), void Lifecycle.start(), void Lifecycle.stop()} {LifecycleState LifecycleBase.getState(), boolean LifecycleState.isAvailable(), void Lifecycle.start(), void Lifecycle.stop(), void Loader.setContext(Context)} {LifecycleState LifecycleBase.getState(), boolean LifecycleState.isAvailable(), void Lifecycle.start(), void Loader.setContext(Context)} {LifecycleState LifecycleBase.getState(), boolean LifecycleState.isAvailable(), void Lifecycle.stop()} {LifecycleState LifecycleBase.getState(), boolean LifecycleState.isAvailable(), void Lifecycle.stop(), void Loader.setContext(Context)} {LifecycleState LifecycleBase.getState(), boolean LifecycleState.isAvailable(), void Loader.setContext(Context)}
+void StandardContext.removeWatchedResource(String): {boolean String.equals(Object)}
+boolean StandardContext.findSecurityRole(String): {boolean String.equals(Object)}
+void StandardContext.addServletMappingDecoded(String,String,boolean): {Container ContainerBase.findChild(String), Object HashMap.get(Object), Object Map.get(Object), Object Map.put(Object,Object), void Wrapper.removeMapping(String)} {Object Map.get(Object), Object Map.put(Object,Object)}
+void StandardContext.addFilterDef(FilterDef): {Object Map.put(Object,Object), String FilterDef.getFilterName()}
+void StandardContext$ContextFilterMaps.remove(FilterMap): {void System.arraycopy(Object,int,Object,int,int)}
+void StandardContext.addWrapperLifecycle(String): {Object[] Arrays.copyOf(Object[],int)}
+void StandardContext.removeSecurityRole(String): {boolean String.equals(Object)}
+void StandardContext.removeApplicationListener(String): {boolean String.equals(Object)}
+void StandardContext.removeConstraint(SecurityConstraint): {boolean SecurityConstraint.equals(Object)}
+void StandardContext.addWelcomeFile(String): {Iterator List.iterator(), Object Iterator.next(), Object[] Arrays.copyOf(Object[],int), boolean Iterator.hasNext(), int List.size(), void ContainerBase.fireContainerEvent(String,Object), void ContainerListener.containerEvent(ContainerEvent), void PropertyChangeSupport.firePropertyChange(String,boolean,boolean), void StandardContext.setReplaceWelcomeFiles(boolean)} {Object[] Arrays.copyOf(Object[],int)}
+void StandardContext.addParameter(String,String): {Object Map.put(Object,Object)}
+void StandardContext$ContextFilterMaps.addBefore(FilterMap): {void System.arraycopy(Object,int,Object,int,int)}
+String[] StandardContext.findServletMappings(): {Object[] Set.toArray(Object[]), Set Map.keySet(), int Map.size()}
+void StandardContext.addMessageDestination(MessageDestination): {Object HashMap.put(Object,Object), String ResourceBase.getName()}
+String StandardContext.findRoleMapping(String): {Object Map.get(Object)}
+void StandardContext.addApplicationListener(String): {String ResourceBundle.getString(String), String StringBuffer.toString(), String StringManager.getString(String), String StringManager.getString(String,Object[]), StringBuffer MessageFormat.format(Object[],StringBuffer,FieldPosition), boolean String.equals(Object), void Log.info(Object), void MessageFormat.setLocale(Locale)} {boolean String.equals(Object)}
+Wrapper StandardContext.createWrapper(): {Class Class.forName(String), Constructor Class.getConstructor(Class[]), Object Constructor.newInstance(Object[]), boolean List.add(Object), void ContainerBase.addContainerListener(ContainerListener)} {Class Class.forName(String), Constructor Class.getConstructor(Class[]), Object Constructor.newInstance(Object[]), boolean List.add(Object), void LifecycleBase.addLifecycleListener(LifecycleListener)}
+FilterDef[] StandardContext.findFilterDefs(): {Collection Map.values(), Object[] Collection.toArray(Object[]), int Map.size()}
+void StandardContext.addWrapperListener(String): {Object[] Arrays.copyOf(Object[],int)}
+void StandardContext.addApplicationParameter(ApplicationParameter): {Object[] Arrays.copyOf(Object[],int), String ApplicationParameter.getName()} {Object[] Arrays.copyOf(Object[],int), String ApplicationParameter.getName(), boolean ApplicationParameter.getOverride(), boolean String.equals(Object)} {Object[] Arrays.copyOf(Object[],int), String ApplicationParameter.getName(), boolean String.equals(Object)} {String ApplicationParameter.getName(), boolean ApplicationParameter.getOverride(), boolean String.equals(Object)}
+void StandardContext.removeServletMapping(String): {Object Map.remove(Object)}
+boolean StandardContext.resourcesStop(): {void WebResourceRoot.stop()}
+String StandardContext.findServletMapping(String): {Object Map.get(Object)}
+void StandardContext.addConstraint(SecurityConstraint): {Object[] Arrays.copyOf(Object[],int)}
+void StandardContext.addMimeMapping(String,String): {Object Map.put(Object,Object), String String.toLowerCase(Locale)}
+void StandardContext.addWatchedResource(String): {Object[] Arrays.copyOf(Object[],int)}
+void StandardContext.addRoleMapping(String,String): {Object Map.put(Object,Object)}
+FilterDef StandardContext.findFilterDef(String): {Object Map.get(Object)}
+void StandardContext.setResources(WebResourceRoot): {LifecycleState LifecycleBase.getState(), String ResourceBundle.getString(String), String StringManager.getString(String), boolean LifecycleState.isAvailable()} {LifecycleState LifecycleBase.getState(), boolean LifecycleState.isAvailable()} {LifecycleState LifecycleBase.getState(), boolean LifecycleState.isAvailable(), void PropertyChangeSupport.firePropertyChange(String,Object,Object)} {LifecycleState LifecycleBase.getState(), boolean LifecycleState.isAvailable(), void PropertyChangeSupport.firePropertyChange(String,Object,Object), void WebResourceRoot.setContext(Context)}
+void StandardContext$ContextFilterMaps.add(FilterMap): {Object[] Arrays.copyOf(Object[],int)}
+void StandardContext.removeWrapperListener(String): {boolean String.equals(Object)}
+MessageDestination StandardContext.findMessageDestination(String): {Object HashMap.get(Object)}

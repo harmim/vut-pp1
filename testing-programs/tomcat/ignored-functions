@@ -1,0 +1,6 @@
+void StandardContext.startInternal()
+void StandardContext.stopInternal()
+boolean StandardContext.filterStop()
+void StandardContext.reload()
+void StandardContext.setManager(Manager)
+boolean StandardContext.filterStart()

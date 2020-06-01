@@ -1,0 +1,2621 @@
+#0
+java/org/apache/catalina/util/ErrorPageSupport.java:42: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.put(Object,Object)' should be called atomically.
+  40.           String exceptionType = errorPage.getExceptionType();
+  41.           if (exceptionType == null) {
+  42. >             statusPages.put(Integer.valueOf(errorPage.getErrorCode()), errorPage);
+  43.           } else {
+  44.               exceptionPages.put(exceptionType, errorPage);
+
+#1
+java/org/apache/catalina/util/ErrorPageSupport.java:44: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.put(Object,Object)' should be called atomically.
+  42.               statusPages.put(Integer.valueOf(errorPage.getErrorCode()), errorPage);
+  43.           } else {
+  44. >             exceptionPages.put(exceptionType, errorPage);
+  45.           }
+  46.       }
+
+#2
+java/org/apache/tomcat/util/IntrospectionUtils.java:68: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  66.               for (Method item : methods) {
+  67.                   Class<?> paramT[] = item.getParameterTypes();
+  68. >                 if (setter.equals(item.getName()) && paramT.length == 1
+  69.                           && "java.lang.String".equals(paramT[0].getName())) {
+  70.   
+
+#3
+java/org/apache/tomcat/util/IntrospectionUtils.java:69: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  67.                   Class<?> paramT[] = item.getParameterTypes();
+  68.                   if (setter.equals(item.getName()) && paramT.length == 1
+  69. >                         && "java.lang.String".equals(paramT[0].getName())) {
+  70.   
+  71.                       item.invoke(o, new Object[]{value});
+
+#4
+java/org/apache/tomcat/util/IntrospectionUtils.java:79: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  77.               for (Method method : methods) {
+  78.                   boolean ok = true;
+  79. >                 if (setter.equals(method.getName())
+  80.                           && method.getParameterTypes().length == 1) {
+  81.   
+
+#5
+java/org/apache/tomcat/util/IntrospectionUtils.java:87: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  85.   
+  86.                       // Try a setFoo ( int )
+  87. >                     if ("java.lang.Integer".equals(paramType.getName())
+  88.                               || "int".equals(paramType.getName())) {
+  89.                           try {
+
+#6
+java/org/apache/tomcat/util/IntrospectionUtils.java:88: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  86.                       // Try a setFoo ( int )
+  87.                       if ("java.lang.Integer".equals(paramType.getName())
+  88. >                             || "int".equals(paramType.getName())) {
+  89.                           try {
+  90.                               params[0] = Integer.valueOf(value);
+
+#7
+java/org/apache/tomcat/util/IntrospectionUtils.java:95: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  93.                           }
+  94.                           // Try a setFoo ( long )
+  95. >                     } else if ("java.lang.Long".equals(paramType.getName())
+  96.                               || "long".equals(paramType.getName())) {
+  97.                           try {
+
+#8
+java/org/apache/tomcat/util/IntrospectionUtils.java:96: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  94.                           // Try a setFoo ( long )
+  95.                       } else if ("java.lang.Long".equals(paramType.getName())
+  96. >                             || "long".equals(paramType.getName())) {
+  97.                           try {
+  98.                               params[0] = Long.valueOf(value);
+
+#9
+java/org/apache/tomcat/util/IntrospectionUtils.java:104: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  102.   
+  103.                           // Try a setFoo ( boolean )
+  104. >                     } else if ("java.lang.Boolean".equals(paramType.getName())
+  105.                               || "boolean".equals(paramType.getName())) {
+  106.                           params[0] = Boolean.valueOf(value);
+
+#10
+java/org/apache/tomcat/util/IntrospectionUtils.java:105: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  103.                           // Try a setFoo ( boolean )
+  104.                       } else if ("java.lang.Boolean".equals(paramType.getName())
+  105. >                             || "boolean".equals(paramType.getName())) {
+  106.                           params[0] = Boolean.valueOf(value);
+  107.   
+
+#11
+java/org/apache/tomcat/util/IntrospectionUtils.java:109: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  107.   
+  108.                           // Try a setFoo ( InetAddress )
+  109. >                     } else if ("java.net.InetAddress".equals(paramType
+  110.                               .getName())) {
+  111.                           try {
+
+#12
+java/org/apache/tomcat/util/IntrospectionUtils.java:133: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  131.   
+  132.                   // save "setProperty" for later
+  133. >                 if ("setProperty".equals(method.getName())) {
+  134.                       if (method.getReturnType() == Boolean.TYPE) {
+  135.                           setPropertyMethodBool = method;
+
+#13
+java/org/apache/catalina/util/ErrorPageSupport.java:60: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.get(Object)' should be called atomically.
+  58.   
+  59.       public ErrorPage find(int statusCode) {
+  60. >         return statusPages.get(Integer.valueOf(statusCode));
+  61.       }
+  62.   
+
+#14
+java/org/apache/catalina/util/ErrorPageSupport.java:84: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.get(Object)' should be called atomically.
+  82.           String name = clazz.getName();
+  83.           while (!Object.class.equals(clazz)) {
+  84. >             ErrorPage errorPage = exceptionPages.get(name);
+  85.               if (errorPage != null) {
+  86.                   return errorPage;
+
+#15
+java/org/apache/tomcat/util/buf/StringUtils.java:91: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'Object Iterator.next()' should be called atomically.
+  89.           }
+  90.           boolean first = true;
+  91. >         for (T value : iterable) {
+  92.               if (first) {
+  93.                   first = false;
+
+#16
+java/org/apache/catalina/util/LifecycleBase.java:122: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Iterator List.iterator()' and 'boolean Iterator.hasNext()' should be called atomically.
+  120.       protected void fireLifecycleEvent(String type, Object data) {
+  121.           LifecycleEvent event = new LifecycleEvent(this, type, data);
+  122. >         for (LifecycleListener listener : lifecycleListeners) {
+  123.               listener.lifecycleEvent(event);
+  124.           }
+
+#17
+java/org/apache/catalina/util/LifecycleBase.java:122: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'Object Iterator.next()' should be called atomically.
+  120.       protected void fireLifecycleEvent(String type, Object data) {
+  121.           LifecycleEvent event = new LifecycleEvent(this, type, data);
+  122. >         for (LifecycleListener listener : lifecycleListeners) {
+  123.               listener.lifecycleEvent(event);
+  124.           }
+
+#18
+java/org/apache/naming/ContextBindings.java:142: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  140.               if (context == null) {
+  141.                   throw new NamingException(
+  142. >                         sm.getString("contextBindings.unknownContext", obj));
+  143.               }
+  144.               threadBindings.put(Thread.currentThread(), context);
+
+#19
+java/org/apache/naming/StringManager.java:151: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String ResourceBundle.getString(String)' and 'void MessageFormat.setLocale(Locale)' should be called atomically.
+  149.   
+  150.           MessageFormat mf = new MessageFormat(value);
+  151. >         mf.setLocale(locale);
+  152.           return mf.format(args, new StringBuffer(), null).toString();
+  153.       }
+
+#20
+java/org/apache/naming/StringManager.java:145: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  143.        */
+  144.       public String getString(final String key, final Object... args) {
+  145. >         String value = getString(key);
+  146.           if (value == null) {
+  147.               value = key;
+
+#21
+java/org/apache/naming/StringManager.java:151: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'void MessageFormat.setLocale(Locale)' should be called atomically.
+  149.   
+  150.           MessageFormat mf = new MessageFormat(value);
+  151. >         mf.setLocale(locale);
+  152.           return mf.format(args, new StringBuffer(), null).toString();
+  153.       }
+
+#22
+java/org/apache/naming/StringManager.java:152: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'StringBuffer MessageFormat.format(Object[],StringBuffer,FieldPosition)' and 'String StringBuffer.toString()' should be called atomically.
+  150.           MessageFormat mf = new MessageFormat(value);
+  151.           mf.setLocale(locale);
+  152. >         return mf.format(args, new StringBuffer(), null).toString();
+  153.       }
+  154.   
+
+#23
+java/org/apache/naming/StringManager.java:152: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void MessageFormat.setLocale(Locale)' and 'StringBuffer MessageFormat.format(Object[],StringBuffer,FieldPosition)' should be called atomically.
+  150.           MessageFormat mf = new MessageFormat(value);
+  151.           mf.setLocale(locale);
+  152. >         return mf.format(args, new StringBuffer(), null).toString();
+  153.       }
+  154.   
+
+#24
+java/org/apache/tomcat/util/res/StringManager.java:171: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String ResourceBundle.getString(String)' and 'void MessageFormat.setLocale(Locale)' should be called atomically.
+  169.   
+  170.           MessageFormat mf = new MessageFormat(value);
+  171. >         mf.setLocale(locale);
+  172.           return mf.format(args, new StringBuffer(), null).toString();
+  173.       }
+
+#25
+java/org/apache/tomcat/util/res/StringManager.java:165: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  163.        */
+  164.       public String getString(final String key, final Object... args) {
+  165. >         String value = getString(key);
+  166.           if (value == null) {
+  167.               value = key;
+
+#26
+java/org/apache/tomcat/util/res/StringManager.java:171: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'void MessageFormat.setLocale(Locale)' should be called atomically.
+  169.   
+  170.           MessageFormat mf = new MessageFormat(value);
+  171. >         mf.setLocale(locale);
+  172.           return mf.format(args, new StringBuffer(), null).toString();
+  173.       }
+
+#27
+java/org/apache/tomcat/util/res/StringManager.java:172: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'StringBuffer MessageFormat.format(Object[],StringBuffer,FieldPosition)' and 'String StringBuffer.toString()' should be called atomically.
+  170.           MessageFormat mf = new MessageFormat(value);
+  171.           mf.setLocale(locale);
+  172. >         return mf.format(args, new StringBuffer(), null).toString();
+  173.       }
+  174.   
+
+#28
+java/org/apache/tomcat/util/res/StringManager.java:172: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void MessageFormat.setLocale(Locale)' and 'StringBuffer MessageFormat.format(Object[],StringBuffer,FieldPosition)' should be called atomically.
+  170.           MessageFormat mf = new MessageFormat(value);
+  171.           mf.setLocale(locale);
+  172. >         return mf.format(args, new StringBuffer(), null).toString();
+  173.       }
+  174.   
+
+#29
+java/org/apache/tomcat/util/buf/UDecoder.java:218: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  216.                       if (ix + 2 > len) {
+  217.                           throw new IllegalArgumentException(
+  218. >                                 sm.getString("uDecoder.urlDecode.missingDigit", str));
+  219.                       }
+  220.                       char c1 = sourceChars[ix++];
+
+#30
+java/org/apache/tomcat/util/buf/UDecoder.java:226: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  224.                       } else {
+  225.                           throw new IllegalArgumentException(
+  226. >                                 sm.getString("uDecoder.urlDecode.missingDigit", str));
+  227.                       }
+  228.                   } else {
+
+#31
+java/org/apache/tomcat/util/descriptor/web/SecurityCollection.java:177: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object[] Arrays.copyOf(Object[],int)' should be called atomically.
+  175.           if (method == null)
+  176.               return;
+  177. >         String[] results = Arrays.copyOf(methods, methods.length + 1);
+  178.           results[methods.length] = method;
+  179.           methods = results;
+
+#32
+java/org/apache/tomcat/util/descriptor/web/SecurityCollection.java:192: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object[] Arrays.copyOf(Object[],int)' should be called atomically.
+  190.           if (method == null)
+  191.               return;
+  192. >         String[] results = Arrays.copyOf(omittedMethods, omittedMethods.length + 1);
+  193.           results[omittedMethods.length] = method;
+  194.           omittedMethods = results;
+
+#33
+java/org/apache/tomcat/util/descriptor/web/SecurityCollection.java:210: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object[] Arrays.copyOf(Object[],int)' should be called atomically.
+  208.   
+  209.           String decodedPattern = UDecoder.URLDecode(pattern, getCharset());
+  210. >         String[] results = Arrays.copyOf(patterns, patterns.length + 1);
+  211.           results[patterns.length] = decodedPattern;
+  212.           patterns = results;
+
+#34
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:262: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object[] Arrays.copyOf(Object[],int)' should be called atomically.
+  260.           }
+  261.   
+  262. >         String[] results = Arrays.copyOf(authRoles, authRoles.length + 1);
+  263.           results[authRoles.length] = authRole;
+  264.           authRoles = results;
+
+#35
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:252: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  250.               return;
+  251.   
+  252. >         if (ROLE_ALL_ROLES.equals(authRole)) {
+  253.               allRoles = true;
+  254.               return;
+
+#36
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:257: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  255.           }
+  256.   
+  257. >         if (ROLE_ALL_AUTHENTICATED_USERS.equals(authRole)) {
+  258.               authenticatedUsers = true;
+  259.               return;
+
+#37
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:262: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean String.equals(Object)' and 'Object[] Arrays.copyOf(Object[],int)' should be called atomically.
+  260.           }
+  261.   
+  262. >         String[] results = Arrays.copyOf(authRoles, authRoles.length + 1);
+  263.           results[authRoles.length] = authRole;
+  264.           authRoles = results;
+
+#38
+java/org/apache/tomcat/util/descriptor/web/SecurityCollection.java:271: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  269.       public boolean findPattern(String pattern) {
+  270.           for (String s : patterns) {
+  271. >             if (s.equals(pattern))
+  272.                   return true;
+  273.           }
+
+#39
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:291: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object[] Arrays.copyOf(Object[],int)' should be called atomically.
+  289.           collection.setCharset(getCharset());
+  290.   
+  291. >         SecurityCollection results[] = Arrays.copyOf(collections, collections.length + 1);
+  292.           results[collections.length] = collection;
+  293.           collections = results;
+
+#40
+java/org/apache/tomcat/util/modeler/ManagedBean.java:296: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  294.   
+  295.           // Load the ModelMBean implementation class
+  296. >         if(getClassName().equals(BASE_MBEAN)) {
+  297.               // Skip introspection
+  298.               mbean = new BaseModelMBean();
+
+#41
+java/org/apache/tomcat/util/modeler/ManagedBean.java:323: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Class Class.forName(String)' and 'Constructor Class.getConstructor(Class[])' should be called atomically.
+  321.               try {
+  322.                   // Stupid - this will set the default minfo first....
+  323. >                 mbean = (BaseModelMBean) clazz.getConstructor().newInstance();
+  324.               } catch (RuntimeOperationsException e) {
+  325.                   throw e;
+
+#42
+java/org/apache/tomcat/util/modeler/ManagedBean.java:323: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Constructor Class.getConstructor(Class[])' and 'Object Constructor.newInstance(Object[])' should be called atomically.
+  321.               try {
+  322.                   // Stupid - this will set the default minfo first....
+  323. >                 mbean = (BaseModelMBean) clazz.getConstructor().newInstance();
+  324.               } catch (RuntimeOperationsException e) {
+  325.                   throw e;
+
+#43
+java/org/apache/tomcat/util/modeler/ManagedBean.java:319: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  317.               if( clazz==null) {
+  318.                   throw new MBeanException
+  319. >                     (ex, sm.getString("managedMBean.cannotLoadClass", getClassName()));
+  320.               }
+  321.               try {
+
+#44
+java/org/apache/tomcat/util/modeler/Registry.java:320: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.put(Object,Object)' should be called atomically.
+  318.       public void addManagedBean(ManagedBean bean) {
+  319.           // XXX Use group + name
+  320. >         descriptors.put(bean.getName(), bean);
+  321.           if (bean.getType() != null) {
+  322.               descriptorsByClass.put(bean.getType(), bean);
+
+#45
+java/org/apache/tomcat/util/modeler/Registry.java:322: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.put(Object,Object)' should be called atomically.
+  320.           descriptors.put(bean.getName(), bean);
+  321.           if (bean.getType() != null) {
+  322. >             descriptorsByClass.put(bean.getType(), bean);
+  323.           }
+  324.       }
+
+#46
+java/org/apache/tomcat/util/modeler/Registry.java:338: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.get(Object)' should be called atomically.
+  336.       public ManagedBean findManagedBean(String name) {
+  337.           // XXX Group ?? Use Group + Type
+  338. >         ManagedBean mb = descriptors.get(name);
+  339.           if (mb == null)
+  340.               mb = descriptorsByClass.get(name);
+
+#47
+java/org/apache/tomcat/util/modeler/Registry.java:340: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.get(Object)' should be called atomically.
+  338.           ManagedBean mb = descriptors.get(name);
+  339.           if (mb == null)
+  340. >             mb = descriptorsByClass.get(name);
+  341.           return mb;
+  342.       }
+
+#48
+java/org/apache/catalina/core/ContainerBase.java:348: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  346.           while (current != null) {
+  347.               String name = current.getName();
+  348. >             if ((name == null) || (name.equals(""))) {
+  349.                   name = "/";
+  350.               } else if (name.startsWith("##")) {
+
+#49
+java/org/apache/tomcat/util/descriptor/web/SecurityCollection.java:360: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  358.           int n = -1;
+  359.           for (int i = 0; i < patterns.length; i++) {
+  360. >             if (patterns[i].equals(pattern)) {
+  361.                   n = i;
+  362.                   break;
+
+#50
+java/org/apache/catalina/util/LifecycleBase.java:429: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  427.   
+  428.       private void invalidTransition(String type) throws LifecycleException {
+  429. >         String msg = sm.getString("lifecycleBase.invalidTransition", type, toString(), state);
+  430.           throw new LifecycleException(msg);
+  431.       }
+
+#51
+java/org/apache/catalina/core/ContainerBase.java:474: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  472.       public void setName(String name) {
+  473.           if (name == null) {
+  474. >             throw new IllegalArgumentException(sm.getString("containerBase.nullName"));
+  475.           }
+  476.           String oldName = this.name;
+
+#52
+java/org/apache/tomcat/util/modeler/Registry.java:522: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  520.               managed = findManagedBean(type);
+  521.               if (managed == null) {
+  522. >                 log.warn(sm.getString("registry.noTypeMetadata", type));
+  523.                   return null;
+  524.               }
+
+#53
+java/org/apache/tomcat/util/modeler/BaseModelMBean.java:535: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String ResourceBundle.getString(String)' and 'String StringManager.getString(String)' should be called atomically.
+  533.               throw new RuntimeOperationsException
+  534.                   (new IllegalArgumentException(sm.getString("baseModelMBean.nullResource")),
+  535. >                         sm.getString("baseModelMBean.nullResource"));
+  536.   
+  537.   //        if (!"objectreference".equalsIgnoreCase(type))
+
+#54
+java/org/apache/tomcat/util/modeler/BaseModelMBean.java:534: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  532.           if (resource == null)
+  533.               throw new RuntimeOperationsException
+  534. >                 (new IllegalArgumentException(sm.getString("baseModelMBean.nullResource")),
+  535.                           sm.getString("baseModelMBean.nullResource"));
+  536.   
+
+#55
+java/org/apache/tomcat/util/modeler/BaseModelMBean.java:535: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  533.               throw new RuntimeOperationsException
+  534.                   (new IllegalArgumentException(sm.getString("baseModelMBean.nullResource")),
+  535. >                         sm.getString("baseModelMBean.nullResource"));
+  536.   
+  537.   //        if (!"objectreference".equalsIgnoreCase(type))
+
+#56
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:569: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object[] Arrays.copyOf(Object[],int)' and 'boolean Iterator.hasNext()' should be called atomically.
+  567.               // There will always be a single collection
+  568.               SecurityCollection collection = constraint.findCollections()[0];
+  569. >             for (String name : element.getMethodNames()) {
+  570.                   collection.addOmittedMethod(name);
+  571.               }
+
+#57
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:555: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'Object Iterator.next()' should be called atomically.
+  553.           Collection<HttpMethodConstraintElement> methods =
+  554.               element.getHttpMethodConstraints();
+  555. >         for (HttpMethodConstraintElement methodElement : methods) {
+  556.               SecurityConstraint constraint =
+  557.                   createConstraint(methodElement, urlPattern, true);
+
+#58
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:569: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'Object Iterator.next()' should be called atomically.
+  567.               // There will always be a single collection
+  568.               SecurityCollection collection = constraint.findCollections()[0];
+  569. >             for (String name : element.getMethodNames()) {
+  570.                   collection.addOmittedMethod(name);
+  571.               }
+
+#59
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:651: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object HashMap.get(Object)' should be called atomically.
+  649.                               // Build the interset of omitted methods for this
+  650.                               // pattern
+  651. >                             Set<String> om = urlOmittedMethodMap.get(pattern);
+  652.                               if (om == null) {
+  653.                                   om = new HashSet<>();
+
+#60
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:661: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object HashMap.get(Object)' should be called atomically.
+  659.                           } else {
+  660.                               // Build the union of methods for this pattern
+  661. >                             Set<String> m = urlMethodMap.get(pattern);
+  662.                               if (m == null) {
+  663.                                   m = new HashSet<>();
+
+#61
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:678: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object HashMap.remove(Object)' should be called atomically.
+  676.               if (coveredPatterns.contains(pattern)) {
+  677.                   // Fully covered. Ignore any partial coverage
+  678. >                 urlOmittedMethodMap.remove(pattern);
+  679.                   continue;
+  680.               }
+
+#62
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:682: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object HashMap.remove(Object)' should be called atomically.
+  680.               }
+  681.   
+  682. >             Set<String> omittedMethods = urlOmittedMethodMap.remove(pattern);
+  683.               Set<String> methods = entry.getValue();
+  684.   
+
+#63
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:696: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object[] Arrays.copyOf(Object[],int)' and 'boolean Iterator.hasNext()' should be called atomically.
+  694.                               pattern, msg.toString().trim()));
+  695.                       SecurityCollection collection = new SecurityCollection();
+  696. >                     for (String method : methods) {
+  697.                           collection.addOmittedMethod(method);
+  698.                       }
+
+#64
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:692: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringBuffer.toString()' and 'void Log.info(Object)' should be called atomically.
+  690.                   }
+  691.                   if (denyUncoveredHttpMethods) {
+  692. >                     log.info(sm.getString(
+  693.                               "securityConstraint.uncoveredHttpMethodFix",
+  694.                               pattern, msg.toString().trim()));
+
+#65
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:692: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  690.                   }
+  691.                   if (denyUncoveredHttpMethods) {
+  692. >                     log.info(sm.getString(
+  693.                               "securityConstraint.uncoveredHttpMethodFix",
+  694.                               pattern, msg.toString().trim()));
+
+#66
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:706: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  704.                       newConstraints.add(constraint);
+  705.                   } else {
+  706. >                     log.error(sm.getString(
+  707.                               "securityConstraint.uncoveredHttpMethod",
+  708.                               pattern, msg.toString().trim()));
+
+#67
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:692: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'void Log.info(Object)' should be called atomically.
+  690.                   }
+  691.                   if (denyUncoveredHttpMethods) {
+  692. >                     log.info(sm.getString(
+  693.                               "securityConstraint.uncoveredHttpMethodFix",
+  694.                               pattern, msg.toString().trim()));
+
+#68
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:674: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'Object Iterator.next()' should be called atomically.
+  672.   
+  673.           // Now check the potentially uncovered patterns
+  674. >         for (Map.Entry<String, Set<String>> entry : urlMethodMap.entrySet()) {
+  675.               String pattern = entry.getKey();
+  676.               if (coveredPatterns.contains(pattern)) {
+
+#69
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:687: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'Object Iterator.next()' should be called atomically.
+  685.               if (omittedMethods == null) {
+  686.                   StringBuilder msg = new StringBuilder();
+  687. >                 for (String method : methods) {
+  688.                       msg.append(method);
+  689.                       msg.append(' ');
+
+#70
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:696: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'Object Iterator.next()' should be called atomically.
+  694.                               pattern, msg.toString().trim()));
+  695.                       SecurityCollection collection = new SecurityCollection();
+  696. >                     for (String method : methods) {
+  697.                           collection.addOmittedMethod(method);
+  698.                       }
+
+#71
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:721: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'Object Iterator.next()' should be called atomically.
+  719.           }
+  720.           for (Map.Entry<String, Set<String>> entry :
+  721. >                 urlOmittedMethodMap.entrySet()) {
+  722.               String pattern = entry.getKey();
+  723.               if (coveredPatterns.contains(pattern)) {
+
+#72
+java/org/apache/tomcat/util/modeler/Registry.java:632: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  630.   
+  631.           if (bean == null) {
+  632. >             log.error(sm.getString("registry.nullBean", oname));
+  633.               return;
+  634.           }
+
+#73
+java/org/apache/catalina/core/ApplicationContext.java:655: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.remove(Object)' should be called atomically.
+  653.               return;
+  654.           }
+  655. >         value = attributes.remove(name);
+  656.           if (value == null) {
+  657.               return;
+
+#74
+java/org/apache/catalina/core/ApplicationContext.java:673: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'void ContainerBase.fireContainerEvent(String,Object)' should be called atomically.
+  671.               ServletContextAttributeListener listener = (ServletContextAttributeListener) obj;
+  672.               try {
+  673. >                 context.fireContainerEvent("beforeContextAttributeRemoved", listener);
+  674.                   listener.attributeRemoved(event);
+  675.                   context.fireContainerEvent("afterContextAttributeRemoved", listener);
+
+#75
+java/org/apache/catalina/core/ApplicationContext.java:673: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'int List.size()' and 'void ContainerBase.fireContainerEvent(String,Object)' should be called atomically.
+  671.               ServletContextAttributeListener listener = (ServletContextAttributeListener) obj;
+  672.               try {
+  673. >                 context.fireContainerEvent("beforeContextAttributeRemoved", listener);
+  674.                   listener.attributeRemoved(event);
+  675.                   context.fireContainerEvent("afterContextAttributeRemoved", listener);
+
+#76
+java/org/apache/catalina/core/ApplicationContext.java:673: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  671.               ServletContextAttributeListener listener = (ServletContextAttributeListener) obj;
+  672.               try {
+  673. >                 context.fireContainerEvent("beforeContextAttributeRemoved", listener);
+  674.                   listener.attributeRemoved(event);
+  675.                   context.fireContainerEvent("afterContextAttributeRemoved", listener);
+
+#77
+java/org/apache/catalina/core/ApplicationContext.java:675: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  673.                   context.fireContainerEvent("beforeContextAttributeRemoved", listener);
+  674.                   listener.attributeRemoved(event);
+  675. >                 context.fireContainerEvent("afterContextAttributeRemoved", listener);
+  676.               } catch (Throwable t) {
+  677.                   ExceptionUtils.handleThrowable(t);
+
+#78
+java/org/apache/tomcat/util/modeler/Registry.java:675: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.get(Object)' should be called atomically.
+  673.           }
+  674.   
+  675. >         if (searchedPaths.get(packageName) != null) {
+  676.               return;
+  677.           }
+
+#79
+java/org/apache/tomcat/util/modeler/Registry.java:687: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.put(Object,Object)' should be called atomically.
+  685.   
+  686.           log.debug("Found " + dURL);
+  687. >         searchedPaths.put(packageName, dURL);
+  688.           try {
+  689.               load("MbeansDescriptorsDigesterSource", dURL, null);
+
+#80
+java/org/apache/catalina/core/ApplicationContext.java:705: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.put(Object,Object)' should be called atomically.
+  703.           }
+  704.   
+  705. >         Object oldValue = attributes.put(name, value);
+  706.           boolean replaced = oldValue != null;
+  707.   
+
+#81
+java/org/apache/catalina/core/ApplicationContext.java:690: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  688.           // Name cannot be null
+  689.           if (name == null) {
+  690. >             throw new NullPointerException(sm.getString("applicationContext.setAttribute.namenull"));
+  691.           }
+  692.   
+
+#82
+java/org/apache/catalina/core/ApplicationContext.java:727: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'void ContainerBase.fireContainerEvent(String,Object)' should be called atomically.
+  725.               try {
+  726.                   if (replaced) {
+  727. >                     context.fireContainerEvent("beforeContextAttributeReplaced", listener);
+  728.                       listener.attributeReplaced(event);
+  729.                       context.fireContainerEvent("afterContextAttributeReplaced", listener);
+
+#83
+java/org/apache/catalina/core/ApplicationContext.java:731: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'void ContainerBase.fireContainerEvent(String,Object)' should be called atomically.
+  729.                       context.fireContainerEvent("afterContextAttributeReplaced", listener);
+  730.                   } else {
+  731. >                     context.fireContainerEvent("beforeContextAttributeAdded", listener);
+  732.                       listener.attributeAdded(event);
+  733.                       context.fireContainerEvent("afterContextAttributeAdded", listener);
+
+#84
+java/org/apache/catalina/core/ApplicationContext.java:727: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'int List.size()' and 'void ContainerBase.fireContainerEvent(String,Object)' should be called atomically.
+  725.               try {
+  726.                   if (replaced) {
+  727. >                     context.fireContainerEvent("beforeContextAttributeReplaced", listener);
+  728.                       listener.attributeReplaced(event);
+  729.                       context.fireContainerEvent("afterContextAttributeReplaced", listener);
+
+#85
+java/org/apache/catalina/core/ApplicationContext.java:731: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'int List.size()' and 'void ContainerBase.fireContainerEvent(String,Object)' should be called atomically.
+  729.                       context.fireContainerEvent("afterContextAttributeReplaced", listener);
+  730.                   } else {
+  731. >                     context.fireContainerEvent("beforeContextAttributeAdded", listener);
+  732.                       listener.attributeAdded(event);
+  733.                       context.fireContainerEvent("afterContextAttributeAdded", listener);
+
+#86
+java/org/apache/catalina/core/ApplicationContext.java:727: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  725.               try {
+  726.                   if (replaced) {
+  727. >                     context.fireContainerEvent("beforeContextAttributeReplaced", listener);
+  728.                       listener.attributeReplaced(event);
+  729.                       context.fireContainerEvent("afterContextAttributeReplaced", listener);
+
+#87
+java/org/apache/catalina/core/ApplicationContext.java:729: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  727.                       context.fireContainerEvent("beforeContextAttributeReplaced", listener);
+  728.                       listener.attributeReplaced(event);
+  729. >                     context.fireContainerEvent("afterContextAttributeReplaced", listener);
+  730.                   } else {
+  731.                       context.fireContainerEvent("beforeContextAttributeAdded", listener);
+
+#88
+java/org/apache/catalina/core/ApplicationContext.java:731: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  729.                       context.fireContainerEvent("afterContextAttributeReplaced", listener);
+  730.                   } else {
+  731. >                     context.fireContainerEvent("beforeContextAttributeAdded", listener);
+  732.                       listener.attributeAdded(event);
+  733.                       context.fireContainerEvent("afterContextAttributeAdded", listener);
+
+#89
+java/org/apache/catalina/core/ApplicationContext.java:733: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  731.                       context.fireContainerEvent("beforeContextAttributeAdded", listener);
+  732.                       listener.attributeAdded(event);
+  733. >                     context.fireContainerEvent("afterContextAttributeAdded", listener);
+  734.                   }
+  735.               } catch (Throwable t) {
+
+#90
+java/org/apache/catalina/core/ContainerBase.java:714: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'LifecycleState LifecycleBase.getState()' and 'boolean LifecycleState.isAvailable()' should be called atomically.
+  712.           // locking the children object can cause problems elsewhere
+  713.           try {
+  714. >             if ((getState().isAvailable() ||
+  715.                       LifecycleState.STARTING_PREP.equals(getState())) &&
+  716.                       startChildren) {
+
+#91
+java/org/apache/catalina/core/ContainerBase.java:715: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean LifecycleState.isAvailable()' and 'LifecycleState LifecycleBase.getState()' should be called atomically.
+  713.           try {
+  714.               if ((getState().isAvailable() ||
+  715. >                     LifecycleState.STARTING_PREP.equals(getState())) &&
+  716.                       startChildren) {
+  717.                   child.start();
+
+#92
+java/org/apache/catalina/core/ContainerBase.java:708: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  706.           }
+  707.   
+  708. >         fireContainerEvent(ADD_CHILD_EVENT, child);
+  709.   
+  710.           // Start child
+
+#93
+java/org/apache/tomcat/util/modeler/Registry.java:722: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.get(Object)' should be called atomically.
+  720.                   return;
+  721.               pkg = pkg.substring(0, lastComp);
+  722. >             if (searchedPaths.get(pkg) != null) {
+  723.                   return;
+  724.               }
+
+#94
+java/org/apache/tomcat/util/modeler/Registry.java:738: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Class Class.forName(String)' and 'Constructor Class.getConstructor(Class[])' should be called atomically.
+  736.   
+  737.           Class<?> c = Class.forName(type);
+  738. >         ModelerSource ds = (ModelerSource) c.getConstructor().newInstance();
+  739.           return ds;
+  740.       }
+
+#95
+java/org/apache/tomcat/util/modeler/Registry.java:738: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Constructor Class.getConstructor(Class[])' and 'Object Constructor.newInstance(Object[])' should be called atomically.
+  736.   
+  737.           Class<?> c = Class.forName(type);
+  738. >         ModelerSource ds = (ModelerSource) c.getConstructor().newInstance();
+  739.           return ds;
+  740.       }
+
+#96
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:749: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object[] Arrays.copyOf(Object[],int)' and 'boolean Iterator.hasNext()' should be called atomically.
+  747.                           pattern, msg.toString().trim()));
+  748.                   SecurityCollection collection = new SecurityCollection();
+  749. >                 for (String method : omittedMethods) {
+  750.                       collection.addMethod(method);
+  751.                   }
+
+#97
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:745: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringBuffer.toString()' and 'void Log.info(Object)' should be called atomically.
+  743.               }
+  744.               if (denyUncoveredHttpMethods) {
+  745. >                 log.info(sm.getString(
+  746.                           "securityConstraint.uncoveredHttpOmittedMethodFix",
+  747.                           pattern, msg.toString().trim()));
+
+#98
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:745: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  743.               }
+  744.               if (denyUncoveredHttpMethods) {
+  745. >                 log.info(sm.getString(
+  746.                           "securityConstraint.uncoveredHttpOmittedMethodFix",
+  747.                           pattern, msg.toString().trim()));
+
+#99
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:759: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  757.                   newConstraints.add(constraint);
+  758.               } else {
+  759. >                 log.error(sm.getString(
+  760.                           "securityConstraint.uncoveredHttpOmittedMethod",
+  761.                           pattern, msg.toString().trim()));
+
+#100
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:745: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'void Log.info(Object)' should be called atomically.
+  743.               }
+  744.               if (denyUncoveredHttpMethods) {
+  745. >                 log.info(sm.getString(
+  746.                           "securityConstraint.uncoveredHttpOmittedMethodFix",
+  747.                           pattern, msg.toString().trim()));
+
+#101
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:740: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'Object Iterator.next()' should be called atomically.
+  738.           if (omittedMethods.size() > 0) {
+  739.               StringBuilder msg = new StringBuilder();
+  740. >             for (String method : omittedMethods) {
+  741.                   msg.append(method);
+  742.                   msg.append(' ');
+
+#102
+java/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java:749: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'Object Iterator.next()' should be called atomically.
+  747.                           pattern, msg.toString().trim()));
+  748.                   SecurityCollection collection = new SecurityCollection();
+  749. >                 for (String method : omittedMethods) {
+  750.                       collection.addMethod(method);
+  751.                   }
+
+#103
+java/org/apache/catalina/core/ContainerBase.java:825: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  823.   
+  824.           if (!destroy) {
+  825. >             fireContainerEvent(REMOVE_CHILD_EVENT, child);
+  826.           }
+  827.   
+
+#104
+java/org/apache/catalina/core/StandardContext.java:1041: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  1039.           if (cookieProcessor == null) {
+  1040.               throw new IllegalArgumentException(
+  1041. >                     sm.getString("standardContext.cookieProcessor.null"));
+  1042.           }
+  1043.           this.cookieProcessor = cookieProcessor;
+
+#105
+java/org/apache/catalina/core/ContainerBase.java:1122: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'LifecycleState LifecycleBase.getState()' and 'boolean LifecycleState.isAvailable()' should be called atomically.
+  1120.       public void backgroundProcess() {
+  1121.   
+  1122. >         if (!getState().isAvailable())
+  1123.               return;
+  1124.   
+
+#106
+java/org/apache/catalina/core/ContainerBase.java:1195: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Iterator List.iterator()' and 'boolean Iterator.hasNext()' should be called atomically.
+  1193.           ContainerEvent event = new ContainerEvent(this, type, data);
+  1194.           // Note for each uses an iterator internally so this is safe
+  1195. >         for (ContainerListener listener : listeners) {
+  1196.               listener.containerEvent(event);
+  1197.           }
+
+#107
+java/org/apache/catalina/core/ContainerBase.java:1196: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object Iterator.next()' and 'void ContainerListener.containerEvent(ContainerEvent)' should be called atomically.
+  1194.           // Note for each uses an iterator internally so this is safe
+  1195.           for (ContainerListener listener : listeners) {
+  1196. >             listener.containerEvent(event);
+  1197.           }
+  1198.       }
+
+#108
+java/org/apache/catalina/core/ContainerBase.java:1195: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'Object Iterator.next()' should be called atomically.
+  1193.           ContainerEvent event = new ContainerEvent(this, type, data);
+  1194.           // Note for each uses an iterator internally so this is safe
+  1195. >         for (ContainerListener listener : listeners) {
+  1196.               listener.containerEvent(event);
+  1197.           }
+
+#109
+java/org/apache/catalina/core/ContainerBase.java:1195: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'int List.size()' and 'Iterator List.iterator()' should be called atomically.
+  1193.           ContainerEvent event = new ContainerEvent(this, type, data);
+  1194.           // Note for each uses an iterator internally so this is safe
+  1195. >         for (ContainerListener listener : listeners) {
+  1196.               listener.containerEvent(event);
+  1197.           }
+
+#110
+java/org/apache/catalina/core/ContainerBase.java:1195: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerListener.containerEvent(ContainerEvent)' and 'boolean Iterator.hasNext()' should be called atomically.
+  1193.           ContainerEvent event = new ContainerEvent(this, type, data);
+  1194.           // Note for each uses an iterator internally so this is safe
+  1195. >         for (ContainerListener listener : listeners) {
+  1196.               listener.containerEvent(event);
+  1197.           }
+
+#111
+java/org/apache/catalina/core/StandardContext.java:1310: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.put(Object,Object)' should be called atomically.
+  1308.       public void addServletContainerInitializer(
+  1309.               ServletContainerInitializer sci, Set<Class<?>> classes) {
+  1310. >         initializers.put(sci, classes);
+  1311.       }
+  1312.   
+
+#112
+java/org/apache/catalina/core/ApplicationContext.java:1377: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.put(Object,Object)' should be called atomically.
+  1375.   
+  1376.           if (attributes.containsKey(name))
+  1377. >             readOnlyAttributes.put(name, name);
+  1378.   
+  1379.       }
+
+#113
+java/org/apache/catalina/core/StandardContext.java:1419: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object[] Arrays.copyOf(Object[],int)' should be called atomically.
+  1417.       public void addApplicationLifecycleListener(Object listener) {
+  1418.           int len = applicationLifecycleListenersObjects.length;
+  1419. >         Object[] newListeners = Arrays.copyOf(
+  1420.                   applicationLifecycleListenersObjects, len + 1);
+  1421.           newListeners[len] = listener;
+
+#114
+java/org/apache/catalina/core/StandardContext.java:1459: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Class Class.forName(String)' and 'Constructor Class.getConstructor(Class[])' should be called atomically.
+  1457.               try {
+  1458.                   Class<?> clazz = Class.forName(charsetMapperClass);
+  1459. >                 this.charsetMapper = (CharsetMapper) clazz.getConstructor().newInstance();
+  1460.               } catch (Throwable t) {
+  1461.                   ExceptionUtils.handleThrowable(t);
+
+#115
+java/org/apache/catalina/core/StandardContext.java:1459: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Constructor Class.getConstructor(Class[])' and 'Object Constructor.newInstance(Object[])' should be called atomically.
+  1457.               try {
+  1458.                   Class<?> clazz = Class.forName(charsetMapperClass);
+  1459. >                 this.charsetMapper = (CharsetMapper) clazz.getConstructor().newInstance();
+  1460.               } catch (Throwable t) {
+  1461.                   ExceptionUtils.handleThrowable(t);
+
+#116
+java/org/apache/catalina/core/StandardContext.java:1915: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean LifecycleState.isAvailable()' and 'void PropertyChangeSupport.firePropertyChange(String,Object,Object)' should be called atomically.
+  1913.   
+  1914.           // Report this property change to interested listeners
+  1915. >         support.firePropertyChange("loader", oldLoader, loader);
+  1916.       }
+  1917.   
+
+#117
+java/org/apache/catalina/core/StandardContext.java:2018: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  2016.           if (config == null)
+  2017.               throw new IllegalArgumentException
+  2018. >                 (sm.getString("standardContext.loginConfig.required"));
+  2019.           String loginPage = config.getLoginPage();
+  2020.           if ((loginPage != null) && !loginPage.startsWith("/")) {
+
+#118
+java/org/apache/catalina/core/StandardContext.java:2023: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  2021.               if (isServlet22()) {
+  2022.                   if(log.isDebugEnabled())
+  2023. >                     log.debug(sm.getString("standardContext.loginConfig.loginWarning",
+  2024.                                    loginPage));
+  2025.                   config.setLoginPage("/" + loginPage);
+
+#119
+java/org/apache/catalina/core/StandardContext.java:2028: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  2026.               } else {
+  2027.                   throw new IllegalArgumentException
+  2028. >                     (sm.getString("standardContext.loginConfig.loginPage",
+  2029.                                     loginPage));
+  2030.               }
+
+#120
+java/org/apache/catalina/core/StandardContext.java:2036: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  2034.               if (isServlet22()) {
+  2035.                   if(log.isDebugEnabled())
+  2036. >                     log.debug(sm.getString("standardContext.loginConfig.errorWarning",
+  2037.                                    errorPage));
+  2038.                   config.setErrorPage("/" + errorPage);
+
+#121
+java/org/apache/catalina/core/StandardContext.java:2041: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  2039.               } else {
+  2040.                   throw new IllegalArgumentException
+  2041. >                     (sm.getString("standardContext.loginConfig.errorPage",
+  2042.                                     errorPage));
+  2043.               }
+
+#122
+java/org/apache/catalina/core/StandardContext.java:2028: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean String.equals(Object)' and 'String StringManager.getString(String,Object[])' should be called atomically.
+  2026.               } else {
+  2027.                   throw new IllegalArgumentException
+  2028. >                     (sm.getString("standardContext.loginConfig.loginPage",
+  2029.                                     loginPage));
+  2030.               }
+
+#123
+java/org/apache/catalina/core/StandardContext.java:2041: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean String.equals(Object)' and 'String StringManager.getString(String,Object[])' should be called atomically.
+  2039.               } else {
+  2040.                   throw new IllegalArgumentException
+  2041. >                     (sm.getString("standardContext.loginConfig.errorPage",
+  2042.                                     errorPage));
+  2043.               }
+
+#124
+java/org/apache/catalina/core/StandardContext.java:2084: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void PropertyChangeSupport.firePropertyChange(String,Object,Object)' and 'LifecycleState LifecycleBase.getState()' should be called atomically.
+  2082.                                      oldNamingResources, this.namingResources);
+  2083.   
+  2084. >         if (getState() == LifecycleState.NEW ||
+  2085.                   getState() == LifecycleState.INITIALIZING ||
+  2086.                   getState() == LifecycleState.INITIALIZED) {
+
+#125
+java/org/apache/catalina/core/StandardContext.java:2136: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  2134.       public void setPath(String path) {
+  2135.           boolean invalid = false;
+  2136. >         if (path == null || path.equals("/")) {
+  2137.               invalid = true;
+  2138.               this.path = "";
+
+#126
+java/org/apache/catalina/core/StandardContext.java:2139: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  2137.               invalid = true;
+  2138.               this.path = "";
+  2139. >         } else if ("".equals(path) || path.startsWith("/")) {
+  2140.               this.path = path;
+  2141.           } else {
+
+#127
+java/org/apache/catalina/core/StandardContext.java:2150: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  2148.           }
+  2149.           if (invalid) {
+  2150. >             log.warn(sm.getString(
+  2151.                       "standardContext.pathInvalid", path, this.path));
+  2152.           }
+
+#128
+java/org/apache/catalina/core/StandardContext.java:2494: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  2492.               if (!StandardWrapper.class.isAssignableFrom(wrapperClass)) {
+  2493.                   throw new IllegalArgumentException(
+  2494. >                     sm.getString("standardContext.invalidWrapperClass",
+  2495.                                    wrapperClassName));
+  2496.               }
+
+#129
+java/org/apache/catalina/core/StandardContext.java:2654: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'LifecycleState LifecycleBase.getState()' and 'boolean LifecycleState.isAvailable()' should be called atomically.
+  2652.           this.workDir = workDir;
+  2653.   
+  2654. >         if (getState().isAvailable()) {
+  2655.               postWorkDirectory();
+  2656.           }
+
+#130
+java/org/apache/catalina/core/StandardContext.java:2848: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  2846.               applicationListeners = results;
+  2847.           }
+  2848. >         fireContainerEvent("addApplicationListener", listener);
+  2849.   
+  2850.       }
+
+#131
+java/org/apache/catalina/core/StandardContext.java:2872: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object[] Arrays.copyOf(Object[],int)' and 'void ContainerBase.fireContainerEvent(String,Object)' should be called atomically.
+  2870.               applicationParameters = results;
+  2871.           }
+  2872. >         fireContainerEvent("addApplicationParameter", parameter);
+  2873.   
+  2874.       }
+
+#132
+java/org/apache/catalina/core/StandardContext.java:2872: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  2870.               applicationParameters = results;
+  2871.           }
+  2872. >         fireContainerEvent("addApplicationParameter", parameter);
+  2873.   
+  2874.       }
+
+#133
+java/org/apache/catalina/core/StandardContext.java:2897: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  2895.           }
+  2896.   
+  2897. >         boolean isJspServlet = "jsp".equals(child.getName());
+  2898.   
+  2899.           // Allow webapp to override JspServlet inherited from global web.xml.
+
+#134
+java/org/apache/catalina/core/StandardContext.java:2901: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Container ContainerBase.findChild(String)' and 'Object HashMap.get(Object)' should be called atomically.
+  2899.           // Allow webapp to override JspServlet inherited from global web.xml.
+  2900.           if (isJspServlet) {
+  2901. >             oldJspServlet = (Wrapper) findChild("jsp");
+  2902.               if (oldJspServlet != null) {
+  2903.                   removeChild(oldJspServlet);
+
+#135
+java/org/apache/catalina/core/StandardContext.java:2894: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  2892.           if (!(child instanceof Wrapper)) {
+  2893.               throw new IllegalArgumentException
+  2894. >                 (sm.getString("standardContext.notWrapper"));
+  2895.           }
+  2896.   
+
+#136
+java/org/apache/catalina/core/StandardContext.java:2944: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  2942.               if (collection.findMethods().length > 0 &&
+  2943.                       collection.findOmittedMethods().length > 0) {
+  2944. >                 throw new IllegalArgumentException(sm.getString(
+  2945.                           "standardContext.securityConstraint.mixHttpMethod"));
+  2946.               }
+
+#137
+java/org/apache/catalina/core/StandardContext.java:2939: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  2937.                       throw new IllegalArgumentException
+  2938.                               (sm.getString
+  2939. >                                     ("standardContext.securityConstraint.pattern",
+  2940.                                               patterns[j]));
+  2941.               }
+
+#138
+java/org/apache/catalina/core/StandardContext.java:2939: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean String.equals(Object)' and 'String StringManager.getString(String,Object[])' should be called atomically.
+  2937.                       throw new IllegalArgumentException
+  2938.                               (sm.getString
+  2939. >                                     ("standardContext.securityConstraint.pattern",
+  2940.                                               patterns[j]));
+  2941.               }
+
+#139
+java/org/apache/catalina/core/StandardContext.java:2970: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  2968.           if (errorPage == null)
+  2969.               throw new IllegalArgumentException
+  2970. >                 (sm.getString("standardContext.errorPage.required"));
+  2971.           String location = errorPage.getLocation();
+  2972.           if ((location != null) && !location.startsWith("/")) {
+
+#140
+java/org/apache/catalina/core/StandardContext.java:2975: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  2973.               if (isServlet22()) {
+  2974.                   if(log.isDebugEnabled())
+  2975. >                     log.debug(sm.getString("standardContext.errorPage.warning",
+  2976.                                    location));
+  2977.                   errorPage.setLocation("/" + location);
+
+#141
+java/org/apache/catalina/core/StandardContext.java:2980: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  2978.               } else {
+  2979.                   throw new IllegalArgumentException
+  2980. >                     (sm.getString("standardContext.errorPage.error",
+  2981.                                     location));
+  2982.               }
+
+#142
+java/org/apache/catalina/core/StandardContext.java:2980: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean String.equals(Object)' and 'String StringManager.getString(String,Object[])' should be called atomically.
+  2978.               } else {
+  2979.                   throw new IllegalArgumentException
+  2980. >                     (sm.getString("standardContext.errorPage.error",
+  2981.                                     location));
+  2982.               }
+
+#143
+java/org/apache/catalina/core/StandardContext.java:2986: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  2984.   
+  2985.           errorPageSupport.add(errorPage);
+  2986. >         fireContainerEvent("addErrorPage", errorPage);
+  2987.       }
+  2988.   
+
+#144
+java/org/apache/catalina/core/StandardContext.java:3001: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  2999.               filterDefs.put(filterDef.getFilterName(), filterDef);
+  3000.           }
+  3001. >         fireContainerEvent("addFilterDef", filterDef);
+  3002.   
+  3003.       }
+
+#145
+java/org/apache/catalina/core/StandardContext.java:3021: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object[] Arrays.copyOf(Object[],int)' and 'void ContainerBase.fireContainerEvent(String,Object)' should be called atomically.
+  3019.           // Add this filter mapping to our registered set
+  3020.           filterMaps.add(filterMap);
+  3021. >         fireContainerEvent("addFilterMap", filterMap);
+  3022.       }
+  3023.   
+
+#146
+java/org/apache/catalina/core/StandardContext.java:3021: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3019.           // Add this filter mapping to our registered set
+  3020.           filterMaps.add(filterMap);
+  3021. >         fireContainerEvent("addFilterMap", filterMap);
+  3022.       }
+  3023.   
+
+#147
+java/org/apache/catalina/core/StandardContext.java:3040: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3038.           // Add this filter mapping to our registered set
+  3039.           filterMaps.addBefore(filterMap);
+  3040. >         fireContainerEvent("addFilterMap", filterMap);
+  3041.       }
+  3042.   
+
+#148
+java/org/apache/catalina/core/StandardContext.java:3062: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  3060.               (servletNames.length == 0) && (urlPatterns.length == 0))
+  3061.               throw new IllegalArgumentException
+  3062. >                 (sm.getString("standardContext.filterMap.either"));
+  3063.           for (String urlPattern : urlPatterns) {
+  3064.               if (!validateURLPattern(urlPattern)) {
+
+#149
+java/org/apache/catalina/core/StandardContext.java:3056: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  3054.           if (findFilterDef(filterName) == null)
+  3055.               throw new IllegalArgumentException
+  3056. >                 (sm.getString("standardContext.filterMap.name", filterName));
+  3057.   
+  3058.           if (!filterMap.getMatchAllServletNames() &&
+
+#150
+java/org/apache/catalina/core/StandardContext.java:3066: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  3064.               if (!validateURLPattern(urlPattern)) {
+  3065.                   throw new IllegalArgumentException
+  3066. >                         (sm.getString("standardContext.filterMap.pattern",
+  3067.                                   urlPattern));
+  3068.               }
+
+#151
+java/org/apache/catalina/core/StandardContext.java:3066: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean String.equals(Object)' and 'String StringManager.getString(String,Object[])' should be called atomically.
+  3064.               if (!validateURLPattern(urlPattern)) {
+  3065.                   throw new IllegalArgumentException
+  3066. >                         (sm.getString("standardContext.filterMap.pattern",
+  3067.                                   urlPattern));
+  3068.               }
+
+#152
+java/org/apache/catalina/core/StandardContext.java:3095: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object HashMap.put(Object,Object)' and 'String ResourceBase.getName()' should be called atomically.
+  3093.               messageDestinations.put(md.getName(), md);
+  3094.           }
+  3095. >         fireContainerEvent("addMessageDestination", md.getName());
+  3096.   
+  3097.       }
+
+#153
+java/org/apache/catalina/core/StandardContext.java:3095: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3093.               messageDestinations.put(md.getName(), md);
+  3094.           }
+  3095. >         fireContainerEvent("addMessageDestination", md.getName());
+  3096.   
+  3097.       }
+
+#154
+java/org/apache/catalina/core/StandardContext.java:3113: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3111.               mimeMappings.put(extension.toLowerCase(Locale.ENGLISH), mimeType);
+  3112.           }
+  3113. >         fireContainerEvent("addMimeMapping", extension);
+  3114.   
+  3115.       }
+
+#155
+java/org/apache/catalina/core/StandardContext.java:3136: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.get(Object)' should be called atomically.
+  3134.           }
+  3135.   
+  3136. >         if (parameters.get(name) != null) {
+  3137.               throw new IllegalArgumentException(
+  3138.                       sm.getString("standardContext.parameter.duplicate", name));
+
+#156
+java/org/apache/catalina/core/StandardContext.java:3143: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object Map.get(Object)' and 'Object Map.put(Object,Object)' should be called atomically.
+  3141.           // Add this parameter to our defined set
+  3142.           synchronized (parameters) {
+  3143. >             parameters.put(name, value);
+  3144.           }
+  3145.   
+
+#157
+java/org/apache/catalina/core/StandardContext.java:3133: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  3131.           if ((name == null) || (value == null)) {
+  3132.               throw new IllegalArgumentException
+  3133. >                 (sm.getString("standardContext.parameter.required"));
+  3134.           }
+  3135.   
+
+#158
+java/org/apache/catalina/core/StandardContext.java:3138: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  3136.           if (parameters.get(name) != null) {
+  3137.               throw new IllegalArgumentException(
+  3138. >                     sm.getString("standardContext.parameter.duplicate", name));
+  3139.           }
+  3140.   
+
+#159
+java/org/apache/catalina/core/StandardContext.java:3146: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3144.           }
+  3145.   
+  3146. >         fireContainerEvent("addParameter", name);
+  3147.       }
+  3148.   
+
+#160
+java/org/apache/catalina/core/StandardContext.java:3162: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3160.               roleMappings.put(role, link);
+  3161.           }
+  3162. >         fireContainerEvent("addRoleMapping", role);
+  3163.   
+  3164.       }
+
+#161
+java/org/apache/catalina/core/StandardContext.java:3180: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object[] Arrays.copyOf(Object[],int)' and 'void ContainerBase.fireContainerEvent(String,Object)' should be called atomically.
+  3178.               securityRoles = results;
+  3179.           }
+  3180. >         fireContainerEvent("addSecurityRole", role);
+  3181.   
+  3182.       }
+
+#162
+java/org/apache/catalina/core/StandardContext.java:3180: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3178.               securityRoles = results;
+  3179.           }
+  3180. >         fireContainerEvent("addSecurityRole", role);
+  3181.   
+  3182.       }
+
+#163
+java/org/apache/catalina/core/StandardContext.java:3201: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Container ContainerBase.findChild(String)' and 'Object HashMap.get(Object)' should be called atomically.
+  3199.                                     boolean jspWildCard) {
+  3200.           // Validate the proposed mapping
+  3201. >         if (findChild(name) == null)
+  3202.               throw new IllegalArgumentException
+  3203.                   (sm.getString("standardContext.servletMap.name", name));
+
+#164
+java/org/apache/catalina/core/StandardContext.java:3219: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Container ContainerBase.findChild(String)' and 'Object HashMap.get(Object)' should be called atomically.
+  3217.               servletMappings.put(adjustedPattern, name);
+  3218.           }
+  3219. >         Wrapper wrapper = (Wrapper) findChild(name);
+  3220.           wrapper.addMapping(adjustedPattern);
+  3221.   
+
+#165
+java/org/apache/catalina/core/StandardContext.java:3219: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object Map.put(Object,Object)' and 'Container ContainerBase.findChild(String)' should be called atomically.
+  3217.               servletMappings.put(adjustedPattern, name);
+  3218.           }
+  3219. >         Wrapper wrapper = (Wrapper) findChild(name);
+  3220.           wrapper.addMapping(adjustedPattern);
+  3221.   
+
+#166
+java/org/apache/catalina/core/StandardContext.java:3203: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  3201.           if (findChild(name) == null)
+  3202.               throw new IllegalArgumentException
+  3203. >                 (sm.getString("standardContext.servletMap.name", name));
+  3204.           String adjustedPattern = adjustURLPattern(pattern);
+  3205.           if (!validateURLPattern(adjustedPattern))
+
+#167
+java/org/apache/catalina/core/StandardContext.java:3207: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  3205.           if (!validateURLPattern(adjustedPattern))
+  3206.               throw new IllegalArgumentException
+  3207. >                 (sm.getString("standardContext.servletMap.pattern", adjustedPattern));
+  3208.   
+  3209.           // Add this mapping to our registered set
+
+#168
+java/org/apache/catalina/core/StandardContext.java:3207: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean String.equals(Object)' and 'String StringManager.getString(String,Object[])' should be called atomically.
+  3205.           if (!validateURLPattern(adjustedPattern))
+  3206.               throw new IllegalArgumentException
+  3207. >                 (sm.getString("standardContext.servletMap.pattern", adjustedPattern));
+  3208.   
+  3209.           // Add this mapping to our registered set
+
+#169
+java/org/apache/catalina/core/StandardContext.java:3222: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3220.           wrapper.addMapping(adjustedPattern);
+  3221.   
+  3222. >         fireContainerEvent("addServletMapping", adjustedPattern);
+  3223.       }
+  3224.   
+
+#170
+java/org/apache/catalina/core/StandardContext.java:3239: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object[] Arrays.copyOf(Object[],int)' and 'void ContainerBase.fireContainerEvent(String,Object)' should be called atomically.
+  3237.               watchedResources = results;
+  3238.           }
+  3239. >         fireContainerEvent("addWatchedResource", name);
+  3240.       }
+  3241.   
+
+#171
+java/org/apache/catalina/core/StandardContext.java:3239: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3237.               watchedResources = results;
+  3238.           }
+  3239. >         fireContainerEvent("addWatchedResource", name);
+  3240.       }
+  3241.   
+
+#172
+java/org/apache/catalina/core/StandardContext.java:3264: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3262.           }
+  3263.           if(this.getState().equals(LifecycleState.STARTED))
+  3264. >             fireContainerEvent(ADD_WELCOME_FILE_EVENT, name);
+  3265.       }
+  3266.   
+
+#173
+java/org/apache/catalina/core/StandardContext.java:3282: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object[] Arrays.copyOf(Object[],int)' and 'void ContainerBase.fireContainerEvent(String,Object)' should be called atomically.
+  3280.               wrapperLifecycles = results;
+  3281.           }
+  3282. >         fireContainerEvent("addWrapperLifecycle", listener);
+  3283.   
+  3284.       }
+
+#174
+java/org/apache/catalina/core/StandardContext.java:3282: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3280.               wrapperLifecycles = results;
+  3281.           }
+  3282. >         fireContainerEvent("addWrapperLifecycle", listener);
+  3283.   
+  3284.       }
+
+#175
+java/org/apache/catalina/core/StandardContext.java:3301: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object[] Arrays.copyOf(Object[],int)' and 'void ContainerBase.fireContainerEvent(String,Object)' should be called atomically.
+  3299.               wrapperListeners = results;
+  3300.           }
+  3301. >         fireContainerEvent("addWrapperListener", listener);
+  3302.   
+  3303.       }
+
+#176
+java/org/apache/catalina/core/StandardContext.java:3301: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3299.               wrapperListeners = results;
+  3300.           }
+  3301. >         fireContainerEvent("addWrapperListener", listener);
+  3302.   
+  3303.       }
+
+#177
+java/org/apache/catalina/core/StandardContext.java:3318: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Constructor Class.getConstructor(Class[])' and 'Object Constructor.newInstance(Object[])' should be called atomically.
+  3316.           if (wrapperClass != null) {
+  3317.               try {
+  3318. >                 wrapper = (Wrapper) wrapperClass.getConstructor().newInstance();
+  3319.               } catch (Throwable t) {
+  3320.                   ExceptionUtils.handleThrowable(t);
+
+#178
+java/org/apache/catalina/core/StandardContext.java:3331: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object Constructor.newInstance(Object[])' and 'Class Class.forName(String)' should be called atomically.
+  3329.               for (String wrapperLifecycle : wrapperLifecycles) {
+  3330.                   try {
+  3331. >                     Class<?> clazz = Class.forName(wrapperLifecycle);
+  3332.                       LifecycleListener listener =
+  3333.                               (LifecycleListener) clazz.getConstructor().newInstance();
+
+#179
+java/org/apache/catalina/core/StandardContext.java:3346: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object Constructor.newInstance(Object[])' and 'Class Class.forName(String)' should be called atomically.
+  3344.               for (String wrapperListener : wrapperListeners) {
+  3345.                   try {
+  3346. >                     Class<?> clazz = Class.forName(wrapperListener);
+  3347.                       ContainerListener listener =
+  3348.                               (ContainerListener) clazz.getConstructor().newInstance();
+
+#180
+java/org/apache/catalina/core/StandardContext.java:3346: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean List.add(Object)' and 'Class Class.forName(String)' should be called atomically.
+  3344.               for (String wrapperListener : wrapperListeners) {
+  3345.                   try {
+  3346. >                     Class<?> clazz = Class.forName(wrapperListener);
+  3347.                       ContainerListener listener =
+  3348.                               (ContainerListener) clazz.getConstructor().newInstance();
+
+#181
+java/org/apache/catalina/core/StandardContext.java:3346: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void LifecycleBase.addLifecycleListener(LifecycleListener)' and 'Class Class.forName(String)' should be called atomically.
+  3344.               for (String wrapperListener : wrapperListeners) {
+  3345.                   try {
+  3346. >                     Class<?> clazz = Class.forName(wrapperListener);
+  3347.                       ContainerListener listener =
+  3348.                               (ContainerListener) clazz.getConstructor().newInstance();
+
+#182
+java/org/apache/catalina/core/StandardContext.java:3493: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.get(Object)' should be called atomically.
+  3491.       @Override
+  3492.       public String findMimeMapping(String extension) {
+  3493. >         return mimeMappings.get(extension.toLowerCase(Locale.ENGLISH));
+  3494.       }
+  3495.   
+
+#183
+java/org/apache/catalina/core/StandardContext.java:3518: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.get(Object)' should be called atomically.
+  3516.       @Override
+  3517.       public String findParameter(String name) {
+  3518. >         return parameters.get(name);
+  3519.       }
+  3520.   
+
+#184
+java/org/apache/catalina/core/StandardContext.java:3529: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Set Map.keySet()' and 'Object[] Set.toArray(Object[])' should be called atomically.
+  3527.       @Override
+  3528.       public String[] findParameters() {
+  3529. >         return parameters.keySet().toArray(new String[0]);
+  3530.       }
+  3531.   
+
+#185
+java/org/apache/catalina/core/StandardContext.java:3768: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3766.   
+  3767.           // Inform interested listeners
+  3768. >         fireContainerEvent("removeApplicationListener", listener);
+  3769.   
+  3770.       }
+
+#186
+java/org/apache/catalina/core/StandardContext.java:3808: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3806.   
+  3807.           // Inform interested listeners
+  3808. >         fireContainerEvent("removeApplicationParameter", name);
+  3809.   
+  3810.       }
+
+#187
+java/org/apache/catalina/core/StandardContext.java:3827: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  3825.           if (!(child instanceof Wrapper)) {
+  3826.               throw new IllegalArgumentException
+  3827. >                 (sm.getString("standardContext.notWrapper"));
+  3828.           }
+  3829.   
+
+#188
+java/org/apache/catalina/core/StandardContext.java:3869: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3867.   
+  3868.           // Inform interested listeners
+  3869. >         fireContainerEvent("removeConstraint", constraint);
+  3870.   
+  3871.       }
+
+#189
+java/org/apache/catalina/core/StandardContext.java:3883: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3881.       public void removeErrorPage(ErrorPage errorPage) {
+  3882.           errorPageSupport.remove(errorPage);
+  3883. >         fireContainerEvent("removeErrorPage", errorPage);
+  3884.       }
+  3885.   
+
+#190
+java/org/apache/catalina/core/StandardContext.java:3899: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3897.               filterDefs.remove(filterDef.getFilterName());
+  3898.           }
+  3899. >         fireContainerEvent("removeFilterDef", filterDef);
+  3900.   
+  3901.       }
+
+#191
+java/org/apache/catalina/core/StandardContext.java:3913: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3911.           filterMaps.remove(filterMap);
+  3912.           // Inform interested listeners
+  3913. >         fireContainerEvent("removeFilterMap", filterMap);
+  3914.       }
+  3915.   
+
+#192
+java/org/apache/catalina/core/StandardContext.java:3927: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3925.               messageDestinations.remove(name);
+  3926.           }
+  3927. >         fireContainerEvent("removeMessageDestination", name);
+  3928.   
+  3929.       }
+
+#193
+java/org/apache/catalina/core/StandardContext.java:3944: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3942.               mimeMappings.remove(extension);
+  3943.           }
+  3944. >         fireContainerEvent("removeMimeMapping", extension);
+  3945.   
+  3946.       }
+
+#194
+java/org/apache/catalina/core/StandardContext.java:3957: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.remove(Object)' should be called atomically.
+  3955.       @Override
+  3956.       public void removeParameter(String name) {
+  3957. >         parameters.remove(name);
+  3958.           fireContainerEvent("removeParameter", name);
+  3959.       }
+
+#195
+java/org/apache/catalina/core/StandardContext.java:3958: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3956.       public void removeParameter(String name) {
+  3957.           parameters.remove(name);
+  3958. >         fireContainerEvent("removeParameter", name);
+  3959.       }
+  3960.   
+
+#196
+java/org/apache/catalina/core/StandardContext.java:3973: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  3971.               roleMappings.remove(role);
+  3972.           }
+  3973. >         fireContainerEvent("removeRoleMapping", role);
+  3974.   
+  3975.       }
+
+#197
+java/org/apache/catalina/core/StandardContext.java:4011: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  4009.   
+  4010.           // Inform interested listeners
+  4011. >         fireContainerEvent("removeSecurityRole", role);
+  4012.   
+  4013.       }
+
+#198
+java/org/apache/catalina/core/StandardContext.java:4029: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Container ContainerBase.findChild(String)' and 'Object HashMap.get(Object)' should be called atomically.
+  4027.               name = servletMappings.remove(pattern);
+  4028.           }
+  4029. >         Wrapper wrapper = (Wrapper) findChild(name);
+  4030.           if( wrapper != null ) {
+  4031.               wrapper.removeMapping(pattern);
+
+#199
+java/org/apache/catalina/core/StandardContext.java:4031: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Container ContainerBase.findChild(String)' and 'void Wrapper.removeMapping(String)' should be called atomically.
+  4029.           Wrapper wrapper = (Wrapper) findChild(name);
+  4030.           if( wrapper != null ) {
+  4031. >             wrapper.removeMapping(pattern);
+  4032.           }
+  4033.           fireContainerEvent("removeServletMapping", pattern);
+
+#200
+java/org/apache/catalina/core/StandardContext.java:4031: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object HashMap.get(Object)' and 'void Wrapper.removeMapping(String)' should be called atomically.
+  4029.           Wrapper wrapper = (Wrapper) findChild(name);
+  4030.           if( wrapper != null ) {
+  4031. >             wrapper.removeMapping(pattern);
+  4032.           }
+  4033.           fireContainerEvent("removeServletMapping", pattern);
+
+#201
+java/org/apache/catalina/core/StandardContext.java:4033: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  4031.               wrapper.removeMapping(pattern);
+  4032.           }
+  4033. >         fireContainerEvent("removeServletMapping", pattern);
+  4034.       }
+  4035.   
+
+#202
+java/org/apache/catalina/core/StandardContext.java:4070: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  4068.           }
+  4069.   
+  4070. >         fireContainerEvent("removeWatchedResource", name);
+  4071.   
+  4072.       }
+
+#203
+java/org/apache/catalina/core/StandardContext.java:4110: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  4108.           // Inform interested listeners
+  4109.           if(this.getState().equals(LifecycleState.STARTED))
+  4110. >             fireContainerEvent(REMOVE_WELCOME_FILE_EVENT, name);
+  4111.   
+  4112.       }
+
+#204
+java/org/apache/catalina/core/StandardContext.java:4150: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  4148.   
+  4149.           // Inform interested listeners
+  4150. >         fireContainerEvent("removeWrapperLifecycle", listener);
+  4151.   
+  4152.       }
+
+#205
+java/org/apache/catalina/core/StandardContext.java:4190: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  4188.   
+  4189.           // Inform interested listeners
+  4190. >         fireContainerEvent("removeWrapperListener", listener);
+  4191.   
+  4192.       }
+
+#206
+java/org/apache/catalina/core/StandardContext.java:4317: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  4315.           // The WebResources API expects all paths to start with /. This is a
+  4316.           // special case for consistency with earlier Tomcat versions.
+  4317. >         if ("".equals(path)) {
+  4318.               path = "/";
+  4319.           }
+
+#207
+java/org/apache/catalina/core/StandardContext.java:4528: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.get(Object)' should be called atomically.
+  4526.        */
+  4527.       public FilterConfig findFilterConfig(String name) {
+  4528. >         return filterConfigs.get(name);
+  4529.       }
+  4530.   
+
+#208
+java/org/apache/catalina/core/StandardContext.java:4563: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  4561.           }
+  4562.           if (!ok) {
+  4563. >             getLogger().error(sm.getString("standardContext.applicationSkipped"));
+  4564.               return false;
+  4565.           }
+
+#209
+java/org/apache/catalina/core/StandardContext.java:4625: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'void ContainerBase.fireContainerEvent(String,Object)' should be called atomically.
+  4623.               ServletContextListener listener = (ServletContextListener) instance;
+  4624.               try {
+  4625. >                 fireContainerEvent("beforeContextInitialized", listener);
+  4626.                   if (noPluggabilityListeners.contains(listener)) {
+  4627.                       listener.contextInitialized(tldEvent);
+
+#210
+java/org/apache/catalina/core/StandardContext.java:4625: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'int List.size()' and 'void ContainerBase.fireContainerEvent(String,Object)' should be called atomically.
+  4623.               ServletContextListener listener = (ServletContextListener) instance;
+  4624.               try {
+  4625. >                 fireContainerEvent("beforeContextInitialized", listener);
+  4626.                   if (noPluggabilityListeners.contains(listener)) {
+  4627.                       listener.contextInitialized(tldEvent);
+
+#211
+java/org/apache/catalina/core/StandardContext.java:4625: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  4623.               ServletContextListener listener = (ServletContextListener) instance;
+  4624.               try {
+  4625. >                 fireContainerEvent("beforeContextInitialized", listener);
+  4626.                   if (noPluggabilityListeners.contains(listener)) {
+  4627.                       listener.contextInitialized(tldEvent);
+
+#212
+java/org/apache/catalina/core/StandardContext.java:4631: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  4629.                       listener.contextInitialized(event);
+  4630.                   }
+  4631. >                 fireContainerEvent("afterContextInitialized", listener);
+  4632.               } catch (Throwable t) {
+  4633.                   ExceptionUtils.handleThrowable(t);
+
+#213
+java/org/apache/catalina/core/StandardContext.java:4671: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  4669.                           (ServletContextListener) listeners[j];
+  4670.                       try {
+  4671. >                         fireContainerEvent("beforeContextDestroyed", listener);
+  4672.                           if (noPluggabilityListeners.contains(listener)) {
+  4673.                               listener.contextDestroyed(tldEvent);
+
+#214
+java/org/apache/catalina/core/StandardContext.java:4677: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  4675.                               listener.contextDestroyed(event);
+  4676.                           }
+  4677. >                         fireContainerEvent("afterContextDestroyed", listener);
+  4678.                       } catch (Throwable t) {
+  4679.                           ExceptionUtils.handleThrowable(t);
+
+#215
+java/org/apache/catalina/core/StandardContext.java:4812: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'Object Iterator.next()' should be called atomically.
+  4810.   
+  4811.           // Load the collected "load on startup" servlets
+  4812. >         for (ArrayList<Wrapper> list : map.values()) {
+  4813.               for (Wrapper wrapper : list) {
+  4814.                   try {
+
+#216
+java/org/apache/catalina/core/StandardContext.java:4813: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'Object Iterator.next()' should be called atomically.
+  4811.           // Load the collected "load on startup" servlets
+  4812.           for (ArrayList<Wrapper> list : map.values()) {
+  4813. >             for (Wrapper wrapper : list) {
+  4814.                   try {
+  4815.                       wrapper.load();
+
+#217
+java/org/apache/catalina/core/StandardContext.java:5191: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringBuffer.toString()' and 'void Log.info(Object)' should be called atomically.
+  5189.           if (!IntrospectionUtils.setProperty(cl, name, Boolean.toString(value))) {
+  5190.               // Failed to set
+  5191. >             log.info(sm.getString(
+  5192.                       "standardContext.webappClassLoader.missingProperty",
+  5193.                       name, Boolean.toString(value)));
+
+#218
+java/org/apache/catalina/core/StandardContext.java:5191: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  5189.           if (!IntrospectionUtils.setProperty(cl, name, Boolean.toString(value))) {
+  5190.               // Failed to set
+  5191. >             log.info(sm.getString(
+  5192.                       "standardContext.webappClassLoader.missingProperty",
+  5193.                       name, Boolean.toString(value)));
+
+#219
+java/org/apache/catalina/core/StandardContext.java:5191: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'void Log.info(Object)' should be called atomically.
+  5189.           if (!IntrospectionUtils.setProperty(cl, name, Boolean.toString(value))) {
+  5190.               // Failed to set
+  5191. >             log.info(sm.getString(
+  5192.                       "standardContext.webappClassLoader.missingProperty",
+  5193.                       name, Boolean.toString(value)));
+
+#220
+java/org/apache/catalina/core/StandardContext.java:5241: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.get(Object)' should be called atomically.
+  5239.               for (InjectionTarget injectionTarget: injectionTargets) {
+  5240.                   String clazz = injectionTarget.getTargetClass();
+  5241. >                 Map<String, String> injections = injectionMap.get(clazz);
+  5242.                   if (injections == null) {
+  5243.                       injections = new HashMap<>();
+
+#221
+java/org/apache/catalina/core/StandardContext.java:5244: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.put(Object,Object)' should be called atomically.
+  5242.                   if (injections == null) {
+  5243.                       injections = new HashMap<>();
+  5244. >                     injectionMap.put(clazz, injections);
+  5245.                   }
+  5246.                   injections.put(injectionTarget.getTargetName(), jndiName);
+
+#222
+java/org/apache/catalina/core/StandardContext.java:5239: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Iterator List.iterator()' and 'boolean Iterator.hasNext()' should be called atomically.
+  5237.           if (injectionTargets != null && injectionTargets.size() > 0) {
+  5238.               String jndiName = resource.getName();
+  5239. >             for (InjectionTarget injectionTarget: injectionTargets) {
+  5240.                   String clazz = injectionTarget.getTargetClass();
+  5241.                   Map<String, String> injections = injectionMap.get(clazz);
+
+#223
+java/org/apache/catalina/core/StandardContext.java:5244: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object Map.get(Object)' and 'Object Map.put(Object,Object)' should be called atomically.
+  5242.                   if (injections == null) {
+  5243.                       injections = new HashMap<>();
+  5244. >                     injectionMap.put(clazz, injections);
+  5245.                   }
+  5246.                   injections.put(injectionTarget.getTargetName(), jndiName);
+
+#224
+java/org/apache/catalina/core/StandardContext.java:5239: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'Object Iterator.next()' should be called atomically.
+  5237.           if (injectionTargets != null && injectionTargets.size() > 0) {
+  5238.               String jndiName = resource.getName();
+  5239. >             for (InjectionTarget injectionTarget: injectionTargets) {
+  5240.                   String clazz = injectionTarget.getTargetClass();
+  5241.                   Map<String, String> injections = injectionMap.get(clazz);
+
+#225
+java/org/apache/catalina/core/StandardContext.java:5270: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object HashMap.get(Object)' should be called atomically.
+  5268.           for (ApplicationParameter param : params) {
+  5269.               if (param.getOverride()) {
+  5270. >                 if (mergedParams.get(param.getName()) == null) {
+  5271.                       mergedParams.put(param.getName(),
+  5272.                               param.getValue());
+
+#226
+java/org/apache/catalina/core/StandardContext.java:5270: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean ApplicationParameter.getOverride()' and 'String ApplicationParameter.getName()' should be called atomically.
+  5268.           for (ApplicationParameter param : params) {
+  5269.               if (param.getOverride()) {
+  5270. >                 if (mergedParams.get(param.getName()) == null) {
+  5271.                       mergedParams.put(param.getName(),
+  5272.                               param.getValue());
+
+#227
+java/org/apache/catalina/core/StandardContext.java:5275: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean ApplicationParameter.getOverride()' and 'String ApplicationParameter.getName()' should be called atomically.
+  5273.                   }
+  5274.               } else {
+  5275. >                 mergedParams.put(param.getName(), param.getValue());
+  5276.               }
+  5277.           }
+
+#228
+java/org/apache/catalina/core/StandardContext.java:5280: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'Object Iterator.next()' should be called atomically.
+  5278.   
+  5279.           ServletContext sc = getServletContext();
+  5280. >         for (Map.Entry<String,String> entry : mergedParams.entrySet()) {
+  5281.               sc.setInitParameter(entry.getKey(), entry.getValue());
+  5282.           }
+
+#229
+java/org/apache/catalina/core/StandardContext.java:5472: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'LifecycleState LifecycleBase.getState()' and 'boolean LifecycleState.isAvailable()' should be called atomically.
+  5470.       public void backgroundProcess() {
+  5471.   
+  5472. >         if (!getState().isAvailable())
+  5473.               return;
+  5474.   
+
+#230
+java/org/apache/catalina/core/StandardContext.java:5572: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  5570.               return urlPattern;
+  5571.           if(log.isDebugEnabled())
+  5572. >             log.debug(sm.getString("standardContext.urlPattern.patternWarning",
+  5573.                            urlPattern));
+  5574.           return "/" + urlPattern;
+
+#231
+java/org/apache/catalina/core/StandardContext.java:5586: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  5584.       @Override
+  5585.       public boolean isServlet22() {
+  5586. >         return XmlIdentifiers.WEB_22_PUBLIC.equals(publicId);
+  5587.       }
+  5588.   
+
+#232
+java/org/apache/catalina/core/StandardContext.java:5598: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object[] Arrays.copyOf(Object[],int)' and 'boolean Iterator.hasNext()' should be called atomically.
+  5596.   
+  5597.           Collection<String> urlPatterns = registration.getMappings();
+  5598. >         for (String urlPattern : urlPatterns) {
+  5599.               boolean foundConflict = false;
+  5600.   
+
+#233
+java/org/apache/catalina/core/StandardContext.java:5598: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'boolean Iterator.hasNext()' and 'Object Iterator.next()' should be called atomically.
+  5596.   
+  5597.           Collection<String> urlPatterns = registration.getMappings();
+  5598. >         for (String urlPattern : urlPatterns) {
+  5599.               boolean foundConflict = false;
+  5600.   
+
+#234
+java/org/apache/catalina/core/StandardContext.java:5598: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'boolean Iterator.hasNext()' should be called atomically.
+  5596.   
+  5597.           Collection<String> urlPatterns = registration.getMappings();
+  5598. >         for (String urlPattern : urlPatterns) {
+  5599.               boolean foundConflict = false;
+  5600.   
+
+#235
+java/org/apache/catalina/core/StandardContext.java:5906: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.get(Object)' should be called atomically.
+  5904.               throw new IllegalArgumentException(
+  5905.                       sm.getString("standardContext.postconstruct.required"));
+  5906. >         if (postConstructMethods.get(clazz) != null)
+  5907.               throw new IllegalArgumentException(sm.getString(
+  5908.                       "standardContext.postconstruct.duplicate", clazz));
+
+#236
+java/org/apache/catalina/core/StandardContext.java:5910: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.put(Object,Object)' should be called atomically.
+  5908.                       "standardContext.postconstruct.duplicate", clazz));
+  5909.   
+  5910. >         postConstructMethods.put(clazz, method);
+  5911.           fireContainerEvent("addPostConstructMethod", clazz);
+  5912.       }
+
+#237
+java/org/apache/catalina/core/StandardContext.java:5910: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object Map.get(Object)' and 'Object Map.put(Object,Object)' should be called atomically.
+  5908.                       "standardContext.postconstruct.duplicate", clazz));
+  5909.   
+  5910. >         postConstructMethods.put(clazz, method);
+  5911.           fireContainerEvent("addPostConstructMethod", clazz);
+  5912.       }
+
+#238
+java/org/apache/catalina/core/StandardContext.java:5905: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  5903.           if (clazz == null || method == null)
+  5904.               throw new IllegalArgumentException(
+  5905. >                     sm.getString("standardContext.postconstruct.required"));
+  5906.           if (postConstructMethods.get(clazz) != null)
+  5907.               throw new IllegalArgumentException(sm.getString(
+
+#239
+java/org/apache/catalina/core/StandardContext.java:5907: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  5905.                       sm.getString("standardContext.postconstruct.required"));
+  5906.           if (postConstructMethods.get(clazz) != null)
+  5907. >             throw new IllegalArgumentException(sm.getString(
+  5908.                       "standardContext.postconstruct.duplicate", clazz));
+  5909.   
+
+#240
+java/org/apache/catalina/core/StandardContext.java:5911: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  5909.   
+  5910.           postConstructMethods.put(clazz, method);
+  5911. >         fireContainerEvent("addPostConstructMethod", clazz);
+  5912.       }
+  5913.   
+
+#241
+java/org/apache/catalina/core/StandardContext.java:5917: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.remove(Object)' should be called atomically.
+  5915.       @Override
+  5916.       public void removePostConstructMethod(String clazz) {
+  5917. >         postConstructMethods.remove(clazz);
+  5918.           fireContainerEvent("removePostConstructMethod", clazz);
+  5919.       }
+
+#242
+java/org/apache/catalina/core/StandardContext.java:5918: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  5916.       public void removePostConstructMethod(String clazz) {
+  5917.           postConstructMethods.remove(clazz);
+  5918. >         fireContainerEvent("removePostConstructMethod", clazz);
+  5919.       }
+  5920.   
+
+#243
+java/org/apache/catalina/core/StandardContext.java:5927: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.get(Object)' should be called atomically.
+  5925.               throw new IllegalArgumentException(
+  5926.                       sm.getString("standardContext.predestroy.required"));
+  5927. >         if (preDestroyMethods.get(clazz) != null)
+  5928.               throw new IllegalArgumentException(sm.getString(
+  5929.                       "standardContext.predestroy.duplicate", clazz));
+
+#244
+java/org/apache/catalina/core/StandardContext.java:5931: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.put(Object,Object)' should be called atomically.
+  5929.                       "standardContext.predestroy.duplicate", clazz));
+  5930.   
+  5931. >         preDestroyMethods.put(clazz, method);
+  5932.           fireContainerEvent("addPreDestroyMethod", clazz);
+  5933.       }
+
+#245
+java/org/apache/catalina/core/StandardContext.java:5931: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'Object Map.get(Object)' and 'Object Map.put(Object,Object)' should be called atomically.
+  5929.                       "standardContext.predestroy.duplicate", clazz));
+  5930.   
+  5931. >         preDestroyMethods.put(clazz, method);
+  5932.           fireContainerEvent("addPreDestroyMethod", clazz);
+  5933.       }
+
+#246
+java/org/apache/catalina/core/StandardContext.java:5926: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  5924.           if (clazz == null || method == null)
+  5925.               throw new IllegalArgumentException(
+  5926. >                     sm.getString("standardContext.predestroy.required"));
+  5927.           if (preDestroyMethods.get(clazz) != null)
+  5928.               throw new IllegalArgumentException(sm.getString(
+
+#247
+java/org/apache/catalina/core/StandardContext.java:5928: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  5926.                       sm.getString("standardContext.predestroy.required"));
+  5927.           if (preDestroyMethods.get(clazz) != null)
+  5928. >             throw new IllegalArgumentException(sm.getString(
+  5929.                       "standardContext.predestroy.duplicate", clazz));
+  5930.   
+
+#248
+java/org/apache/catalina/core/StandardContext.java:5932: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  5930.   
+  5931.           preDestroyMethods.put(clazz, method);
+  5932. >         fireContainerEvent("addPreDestroyMethod", clazz);
+  5933.       }
+  5934.   
+
+#249
+java/org/apache/catalina/core/StandardContext.java:5938: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.remove(Object)' should be called atomically.
+  5936.       @Override
+  5937.       public void removePreDestroyMethod(String clazz) {
+  5938. >         preDestroyMethods.remove(clazz);
+  5939.           fireContainerEvent("removePreDestroyMethod", clazz);
+  5940.       }
+
+#250
+java/org/apache/catalina/core/StandardContext.java:5939: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'void ContainerBase.fireContainerEvent(String,Object)' and 'int List.size()' should be called atomically.
+  5937.       public void removePreDestroyMethod(String clazz) {
+  5938.           preDestroyMethods.remove(clazz);
+  5939. >         fireContainerEvent("removePreDestroyMethod", clazz);
+  5940.       }
+  5941.   
+
+#251
+java/org/apache/catalina/core/StandardContext.java:5945: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.get(Object)' should be called atomically.
+  5943.       @Override
+  5944.       public String findPostConstructMethod(String clazz) {
+  5945. >         return postConstructMethods.get(clazz);
+  5946.       }
+  5947.   
+
+#252
+java/org/apache/catalina/core/StandardContext.java:5951: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'Object Map.get(Object)' should be called atomically.
+  5949.       @Override
+  5950.       public String findPreDestroyMethod(String clazz) {
+  5951. >         return preDestroyMethods.get(clazz);
+  5952.       }
+  5953.   
+
+#253
+java/org/apache/catalina/core/StandardContext.java:6025: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  6023.           }
+  6024.           if (!dir.mkdirs() && !dir.isDirectory()) {
+  6025. >             log.warn(sm.getString("standardContext.workCreateFail", dir,
+  6026.                       getName()));
+  6027.           }
+
+#254
+java/org/apache/catalina/core/StandardContext.java:6064: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Function 'boolean String.equals(Object)' should be called atomically.
+  6062.               return false;
+  6063.           }
+  6064. >         if (urlPattern.equals("")) {
+  6065.               return true;
+  6066.           }
+
+#255
+java/org/apache/catalina/core/StandardContext.java:6095: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringBuffer.toString()' and 'void Log.info(Object)' should be called atomically.
+  6093.                       urlPattern.startsWith("*.") && urlPattern.length() > 2 &&
+  6094.                           urlPattern.lastIndexOf('.') > 1) {
+  6095. >                 log.info(sm.getString("standardContext.suspiciousUrl", urlPattern, getName()));
+  6096.               }
+  6097.           }
+
+#256
+java/org/apache/catalina/core/StandardContext.java:6095: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'String StringManager.getString(String)' should be called atomically.
+  6093.                       urlPattern.startsWith("*.") && urlPattern.length() > 2 &&
+  6094.                           urlPattern.lastIndexOf('.') > 1) {
+  6095. >                 log.info(sm.getString("standardContext.suspiciousUrl", urlPattern, getName()));
+  6096.               }
+  6097.           }
+
+#257
+java/org/apache/catalina/core/StandardContext.java:6095: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String,Object[])' and 'void Log.info(Object)' should be called atomically.
+  6093.                       urlPattern.startsWith("*.") && urlPattern.length() > 2 &&
+  6094.                           urlPattern.lastIndexOf('.') > 1) {
+  6095. >                 log.info(sm.getString("standardContext.suspiciousUrl", urlPattern, getName()));
+  6096.               }
+  6097.           }
+
+#258
+java/org/apache/catalina/core/StandardContext.java:6359: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6357.           public int getEffectiveMajorVersion() {
+  6358.               throw new UnsupportedOperationException(
+  6359. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6360.           }
+  6361.   
+
+#259
+java/org/apache/catalina/core/StandardContext.java:6365: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6363.           public int getEffectiveMinorVersion() {
+  6364.               throw new UnsupportedOperationException(
+  6365. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6366.           }
+  6367.   
+
+#260
+java/org/apache/catalina/core/StandardContext.java:6455: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6453.           public boolean setInitParameter(String name, String value) {
+  6454.               throw new UnsupportedOperationException(
+  6455. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6456.           }
+  6457.   
+
+#261
+java/org/apache/catalina/core/StandardContext.java:6486: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6484.           public Dynamic addServlet(String servletName, String className) {
+  6485.               throw new UnsupportedOperationException(
+  6486. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6487.           }
+  6488.   
+
+#262
+java/org/apache/catalina/core/StandardContext.java:6492: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6490.           public Dynamic addServlet(String servletName, Servlet servlet) {
+  6491.               throw new UnsupportedOperationException(
+  6492. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6493.           }
+  6494.   
+
+#263
+java/org/apache/catalina/core/StandardContext.java:6499: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6497.                   Class<? extends Servlet> servletClass) {
+  6498.               throw new UnsupportedOperationException(
+  6499. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6500.           }
+  6501.   
+
+#264
+java/org/apache/catalina/core/StandardContext.java:6505: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6503.           public Dynamic addJspFile(String jspName, String jspFile) {
+  6504.               throw new UnsupportedOperationException(
+  6505. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6506.           }
+  6507.   
+
+#265
+java/org/apache/catalina/core/StandardContext.java:6512: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6510.                   throws ServletException {
+  6511.               throw new UnsupportedOperationException(
+  6512. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6513.           }
+  6514.   
+
+#266
+java/org/apache/catalina/core/StandardContext.java:6518: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6516.           public ServletRegistration getServletRegistration(String servletName) {
+  6517.               throw new UnsupportedOperationException(
+  6518. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6519.           }
+  6520.   
+
+#267
+java/org/apache/catalina/core/StandardContext.java:6524: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6522.           public Map<String,? extends ServletRegistration> getServletRegistrations() {
+  6523.               throw new UnsupportedOperationException(
+  6524. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6525.           }
+  6526.   
+
+#268
+java/org/apache/catalina/core/StandardContext.java:6531: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6529.                   String filterName, String className) {
+  6530.               throw new UnsupportedOperationException(
+  6531. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6532.           }
+  6533.   
+
+#269
+java/org/apache/catalina/core/StandardContext.java:6538: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6536.                   String filterName, Filter filter) {
+  6537.               throw new UnsupportedOperationException(
+  6538. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6539.           }
+  6540.   
+
+#270
+java/org/apache/catalina/core/StandardContext.java:6545: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6543.                   String filterName, Class<? extends Filter> filterClass) {
+  6544.               throw new UnsupportedOperationException(
+  6545. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6546.           }
+  6547.   
+
+#271
+java/org/apache/catalina/core/StandardContext.java:6552: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6550.                   throws ServletException {
+  6551.               throw new UnsupportedOperationException(
+  6552. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6553.           }
+  6554.   
+
+#272
+java/org/apache/catalina/core/StandardContext.java:6558: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6556.           public FilterRegistration getFilterRegistration(String filterName) {
+  6557.               throw new UnsupportedOperationException(
+  6558. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6559.           }
+  6560.   
+
+#273
+java/org/apache/catalina/core/StandardContext.java:6564: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6562.           public Map<String,? extends FilterRegistration> getFilterRegistrations() {
+  6563.               throw new UnsupportedOperationException(
+  6564. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6565.           }
+  6566.   
+
+#274
+java/org/apache/catalina/core/StandardContext.java:6570: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6568.           public SessionCookieConfig getSessionCookieConfig() {
+  6569.               throw new UnsupportedOperationException(
+  6570. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6571.           }
+  6572.   
+
+#275
+java/org/apache/catalina/core/StandardContext.java:6577: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6575.                   Set<SessionTrackingMode> sessionTrackingModes) {
+  6576.               throw new UnsupportedOperationException(
+  6577. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6578.           }
+  6579.   
+
+#276
+java/org/apache/catalina/core/StandardContext.java:6583: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6581.           public Set<SessionTrackingMode> getDefaultSessionTrackingModes() {
+  6582.               throw new UnsupportedOperationException(
+  6583. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6584.           }
+  6585.   
+
+#277
+java/org/apache/catalina/core/StandardContext.java:6589: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6587.           public Set<SessionTrackingMode> getEffectiveSessionTrackingModes() {
+  6588.               throw new UnsupportedOperationException(
+  6589. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6590.           }
+  6591.   
+
+#278
+java/org/apache/catalina/core/StandardContext.java:6595: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6593.           public void addListener(String className) {
+  6594.               throw new UnsupportedOperationException(
+  6595. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6596.           }
+  6597.   
+
+#279
+java/org/apache/catalina/core/StandardContext.java:6601: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6599.           public <T extends EventListener> void addListener(T t) {
+  6600.               throw new UnsupportedOperationException(
+  6601. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6602.           }
+  6603.   
+
+#280
+java/org/apache/catalina/core/StandardContext.java:6607: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6605.           public void addListener(Class<? extends EventListener> listenerClass) {
+  6606.               throw new UnsupportedOperationException(
+  6607. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6608.           }
+  6609.   
+
+#281
+java/org/apache/catalina/core/StandardContext.java:6614: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6612.                   throws ServletException {
+  6613.               throw new UnsupportedOperationException(
+  6614. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6615.           }
+  6616.   
+
+#282
+java/org/apache/catalina/core/StandardContext.java:6620: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6618.           public JspConfigDescriptor getJspConfigDescriptor() {
+  6619.               throw new UnsupportedOperationException(
+  6620. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6621.           }
+  6622.   
+
+#283
+java/org/apache/catalina/core/StandardContext.java:6626: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6624.           public ClassLoader getClassLoader() {
+  6625.               throw new UnsupportedOperationException(
+  6626. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6627.           }
+  6628.   
+
+#284
+java/org/apache/catalina/core/StandardContext.java:6632: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6630.           public void declareRoles(String... roleNames) {
+  6631.               throw new UnsupportedOperationException(
+  6632. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6633.           }
+  6634.   
+
+#285
+java/org/apache/catalina/core/StandardContext.java:6643: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6641.           public int getSessionTimeout() {
+  6642.               throw new UnsupportedOperationException(
+  6643. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6644.           }
+  6645.   
+
+#286
+java/org/apache/catalina/core/StandardContext.java:6649: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6647.           public void setSessionTimeout(int sessionTimeout) {
+  6648.               throw new UnsupportedOperationException(
+  6649. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6650.           }
+  6651.   
+
+#287
+java/org/apache/catalina/core/StandardContext.java:6655: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6653.           public String getRequestCharacterEncoding() {
+  6654.               throw new UnsupportedOperationException(
+  6655. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6656.           }
+  6657.   
+
+#288
+java/org/apache/catalina/core/StandardContext.java:6661: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6659.           public void setRequestCharacterEncoding(String encoding) {
+  6660.               throw new UnsupportedOperationException(
+  6661. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6662.           }
+  6663.   
+
+#289
+java/org/apache/catalina/core/StandardContext.java:6667: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6665.           public String getResponseCharacterEncoding() {
+  6666.               throw new UnsupportedOperationException(
+  6667. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6668.           }
+  6669.   
+
+#290
+java/org/apache/catalina/core/StandardContext.java:6673: error: ATOMICITY_VIOLATION
+  Atomicity Violation! - Functions 'String StringManager.getString(String)' and 'String ResourceBundle.getString(String)' should be called atomically.
+  6671.           public void setResponseCharacterEncoding(String encoding) {
+  6672.               throw new UnsupportedOperationException(
+  6673. >                     sm.getString("noPluggabilityServletContext.notAllowed"));
+  6674.           }
+  6675.       }
+
+Found 291 issues
+  ATOMICITY_VIOLATION: 291
