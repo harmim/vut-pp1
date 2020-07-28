@@ -2,82 +2,79 @@
 % Excel@FIT latex template adapted for project practice (PP) papers
 % ---------------------------------------------------------------------
 %  HISTORY:
-%    2015-02-04 - Herout: intial version for Excel@FIT 2015
+%    2015-02-04 - Herout: initial version for Excel@FIT 2015
 %    2015-04-03 - Herout: works with [czech] and [slovak] options
 %    2016-12-08 - Dytrych: template adapted for KNOT papers
 %    2019-09-18
 %    2019-12-04 - Veigend: template updated for project practice papers
+%    2020-07-21 - Harmim
 % ---------------------------------------------------------------------
-
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{PPFIT}[05/12/2019, v1.0]
+\ProvidesClass{PPFIT}[21/07/2020, v1.1]
 \RequirePackage{etoolbox}
 \RequirePackage{ifthen}
 \RequirePackage{calc}
 \AtEndOfClass{\RequirePackage{microtype}}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions*
-\LoadClass[fleqn,11pt]{article}
-\RequirePackage{ifpdf}      % Needed to pick between latex and pdflatex
+\LoadClass[fleqn, 11pt]{article}
+\RequirePackage{ifpdf} % Needed to pick between latex and pdflatex
 
 %----------------------------------------------------------------------
-%	PARAMETERS
+%   PARAMETERS
 %----------------------------------------------------------------------
 \newif\ifenglish \let\ifenglish\iftrue
 \newif\ifczech \let\ifczech\iffalse
 \newif\ifslovak \let\ifslovak\iffalse
 \newif\ifczechslovak \let\ifczechslovak\iffalse
 
-\DeclareOption{czech}{\let\ifczech\iftrue\let\ifczechslovak\iftrue\let\ifenglish\iffalse}
-\DeclareOption{slovak}{\let\ifslovak\iftrue\let\ifczechslovak\iftrue\let\ifczech\iffalse}
+\DeclareOption{czech}{%
+    \let\ifczech\iftrue\let\ifczechslovak\iftrue\let\ifenglish\iffalse
+}
+\DeclareOption{slovak}{%
+    \let\ifslovak\iftrue\let\ifczechslovak\iftrue\let\ifczech\iffalse
+}
 \DeclareOption*{}
 \ProcessOptions\relax
 
 %----------------------------------------------------------------------
-%	FONTS
+%   FONTS
 %----------------------------------------------------------------------
-
-\RequirePackage{times}      % Loads the Times-Roman Fonts
-\RequirePackage{mathptmx}   % Loads the Times-Roman Math Fonts
+\RequirePackage{times} % Loads the Times-Roman Fonts
+\RequirePackage{mathptmx} % Loads the Times-Roman Math Fonts
 
 %----------------------------------------------------------------------
-%	VARIOUS USEFUL PACKAGES
+%   VARIOUS USEFUL PACKAGES
 %----------------------------------------------------------------------
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
-\RequirePackage{amsmath,amsfonts,amssymb}
-\RequirePackage{graphicx,xcolor}
-\RequirePackage[czech,slovak,english]{babel}
+\RequirePackage{amsmath, amsfonts, amssymb}
+\RequirePackage{graphicx, xcolor}
+\RequirePackage[czech, slovak, british]{babel}
 \RequirePackage{booktabs}
 
 %----------------------------------------------------------------------
-%	MARGINS
+%   MARGINS
 %----------------------------------------------------------------------
-
-\RequirePackage[left=2cm,%
-                right=2cm,%
-				top=2.25cm,%
-				bottom=2.25cm,%
-				headheight=11pt,%
-				a4paper]{geometry}%
+\RequirePackage[%
+    left=2cm, right=2cm, top=2.25cm, bottom=2.25cm, headheight=11pt, a4paper
+]{geometry}
 
 %----------------------------------------------------------------------
-%	FIGURES AND TABLES CAPTIONS
+%   FIGURES AND TABLES CAPTIONS
 %----------------------------------------------------------------------
-
-\RequirePackage[labelfont={bf,sf,small},%
-                labelsep=period,%
-                justification=raggedright]{caption}
+\RequirePackage[%
+    labelfont={bf, sf, small}, labelsep=period, justification=raggedright
+]{caption}
 \setlength{\abovecaptionskip}{4pt}
 \setlength{\belowcaptionskip}{-10pt}
 
 %----------------------------------------------------------------------
-%	PAGE HEADER
+%   PAGE HEADER
 %----------------------------------------------------------------------
-
-\RequirePackage{fancyhdr}  % Needed to define custom headers/footers
-\RequirePackage{lastpage}  % Number of pages in the document
-\pagestyle{fancy}          % Enables the custom headers/footers
+\RequirePackage{fancyhdr} % Needed to define custom headers/footers
+\RequirePackage{lastpage} % Number of pages in the document
+\pagestyle{fancy} % Enables the custom headers/footers
 % Headers
 \lhead{}%
 \chead{}%
@@ -90,17 +87,18 @@
 \renewcommand{\footrulewidth}{0pt}% % No footer rule
 
 %----------------------------------------------------------------------
-%	SECTION/SUBSECTION/PARAGRAPH SET-UP
+%   SECTION/SUBSECTION/PARAGRAPH SET-UP
 %----------------------------------------------------------------------
-
 \RequirePackage[explicit]{titlesec}
 \titleformat{\section}
   {\color{white}\large\sffamily\bfseries}
   {}
   {0em}
-  {\colorbox{color-blue!100}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{\arabic{section}. #1}}}
+  {\colorbox{color-blue!100}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep\relax}{\arabic{section}. #1}}%
+  }
   []
-\titleformat{name=\section,numberless}
+\titleformat{name=\section, numberless}
   {\color{white}\large\sffamily\bfseries}
   {}
   {0em}
@@ -129,11 +127,14 @@
 \titlespacing*{\paragraph}{0pc}{1.5ex \@plus2pt \@minus1pt}{10pt}
 
 %----------------------------------------------------------------------
-%	TABLEOFCONTENTS SET-UP
+%   TABLEOFCONTENTS SET-UP
 %----------------------------------------------------------------------
 \newlength{\tocsep}
-\setlength\tocsep{1.5pc} % Sets the indentation of the sections in the table of contents
-\setcounter{tocdepth}{3} % Three levels in the table of contents section: sections, subsections and subsubsections
+% Sets the indentation of the sections in the table of contents
+\setlength\tocsep{1.5pc}
+% Three levels in the table of contents section: sections, subsections and
+% subsubsections
+\setcounter{tocdepth}{3}
 
 \usepackage{titletoc}
 \contentsmargin{0cm}
@@ -157,9 +158,8 @@
   [\ \textbullet\ ]
 
 %----------------------------------------------------------------------
-%	MULTIPLE AUTHOR SET
+%   MULTIPLE AUTHOR SET
 %----------------------------------------------------------------------
-
 \newcount\@authcnt
 \newcount\@tmpcnt\@tmpcnt\z@
 
@@ -180,17 +180,14 @@
 
 
 %----------------------------------------------------------------------
-%	LIST CONTROL
+%   LIST CONTROL
 %----------------------------------------------------------------------
-
-\RequirePackage{enumitem}
-%\setlist{nolistsep} % Uncomment to remove spacing between items in lists (enumerate, itemize)
+\RequirePackage[inline]{enumitem}
 \setlist{noitemsep}
 
 %----------------------------------------------------------------------
-%	ABSTRACT+AUTHOR FRAME
+%   ABSTRACT+AUTHOR FRAME
 %----------------------------------------------------------------------
-
 \newcommand{\PaperTitle}[1]{\def\@PaperTitle{#1}}
 \newcommand{\Archive}[1]{\def\@Archive{#1}}
 \newcommand{\Authors}[1]{\def\@Authors{#1}}
@@ -209,34 +206,26 @@
 \newif\ifHaveSupplementary
 \HaveSupplementaryfalse
 
-\newcommand{\Supplementary}[1]{\global\HaveSupplementarytrue\def\@Supplementary{#1}}
-
+\newcommand{\Supplementary}[1]{%
+    \global\HaveSupplementarytrue\def\@Supplementary{#1}%
+}
 
 % ---------------------------------------------------------------------
-
 \renewcommand{\@maketitle}{%
 \twocolumn[{%
 \thispagestyle{empty}%
 {\Huge\sffamily\bfseries
 \includegraphics[height=9.5mm]{VUT-FIT-logo.png} \hfill
-\color{color-sections}{Project practice}
+\color{color-sections}{Project Practice}
 \\[2pt]
-\large{\url{http://fit.vut.cz}} \hfill \Huge{\@PPYear} \par%
+\large{\url{https://fit.vut.cz}} \hfill \Huge{\@PPYear} \par%
 }
-% {\raggedright%
-% %\includegraphics[width=67mm]{VUT-FIT-logo.pdf}\\[2pt]%
-% %\includegraphics[width=67mm]{ExcelAtFIT-logo.pdf}%
-% \href{http://fit.vut.cz}{\includegraphics[height=9.5mm]{VUT-FIT-logo.pdf}}\hfill%
-% \ifczechslovak
-% 	\Huge{Projektová praxe} \hfill
-% \else
-% 	\Huge{Project practice} \hfill
-% \fi
-% \\[2pt] \hfill \Huge{\color{color-sections}{\@PPYear}}\par}%
 \vskip20pt%
-{\raggedright\color{color-sections}\sffamily\bfseries\fontsize{20}{25}\selectfont \@PaperTitle\par}%
+{\raggedright\color{color-sections}\sffamily\bfseries\fontsize{20}{25}%
+\selectfont \@PaperTitle\par}%
 \vskip10pt%
-{\raggedright\color{color-sections}\sffamily\fontsize{12}{16}\selectfont  \@Authors\par}%
+{\raggedright\color{color-sections}\sffamily%
+\fontsize{12}{16}\selectfont  \@Authors\par}%
 \vskip18pt%
 \ifHaveTeaser\parbox{\linewidth}{\centering\@Teaser}\vskip10pt\fi%
 \fcolorbox{color-blue}{white}{%
@@ -245,7 +234,8 @@
 \parbox{\textwidth-4\fboxsep-2\fboxrule}{%
 \sffamily\textbf{\abstractname}\\\@Abstract\\[4pt]%
 \textbf{\keywordname:} \@Keywords%
-\\[4pt]\textbf{\supplementaryname:} \ifHaveSupplementary\@Supplementary\else\textit{N/A}\fi %
+\\[4pt]\textbf{\supplementaryname:}
+\ifHaveSupplementary\@Supplementary\else\textit{N/A}\fi %
 }%
 }%
 \vskip4pt%
@@ -260,24 +250,18 @@
 }%
 
 %----------------------------------------------------------------------
-%	REFERENCES
+%   REFERENCES
 %----------------------------------------------------------------------
-
 % Remove brackets from numbering in List of References
 \renewcommand{\@biblabel}[1]{[{\color{color-ref}#1}]}
-%\setlength{\bibitemsep}{0cm}
 \let\oldbibliography\thebibliography
 \renewcommand{\thebibliography}[1]{%
 \addcontentsline{toc}{section}{\refname}%
 \oldbibliography{#1}%
 \setlength\itemsep{0pt}}%
 
-
-
-
 %%% Make figure placement a little more predictable.
-% We trust the user to move figures if this results
-% in ugliness.
+% We trust the user to move figures if this results in ugliness.
 % Minimize bad page breaks at figures
 \renewcommand{\textfraction}{0.01}
 \renewcommand{\floatpagefraction}{0.99}
@@ -289,69 +273,69 @@
 \setcounter{topnumber}{99}
 \setcounter{bottomnumber}{99}
 
-
-
-
 %----------------------------------------------------------------------
-%	ADDED STUFF FOR Excel@FIT
+%   ADDED STUFF FOR Excel@FIT
 %----------------------------------------------------------------------
 \setlength{\columnsep}{0.55cm} % Distance between the two columns of text
 \setlength{\fboxrule}{0.75pt} % Width of the border around the abstract
 
-\definecolor{color-sections}{RGB}{3,5,80} % Color of the article title and sections
-%\definecolor{color-sections}{RGB}{3,5,80} % Color of the article title and sections
-%\definecolor{color-sections}{RGB}{10,20,120} % Color of the article title and sections
-\definecolor{color-links}{RGB}{10,15,160} % Color of the article title and sections
-%\definecolor{color-links}{RGB}{170,15,10} % Color of the article title and sections
-\definecolor{color-blue}{RGB}{8,83,252} % Color of the article title and sections
-\definecolor{color-orange}{RGB}{246,135,18} % Color of the article title and sections
-\definecolor{color2}{RGB}{20,20,20} % Color of the boxes behind the abstract and headings
-\definecolor{color-ref}{RGB}{223,52,30}
-\definecolor{color-lineno}{RGB}{90,140,160}
+% Color of the article title and sections
+\definecolor{color-sections}{RGB}{3, 5, 80}
+\definecolor{color-links}{RGB}{10, 15, 160}
+\definecolor{color-blue}{RGB}{8, 83, 252}
+\definecolor{color-orange}{RGB}{246, 135, 18}
+% Color of the boxes behind the abstract and headings
+\definecolor{color2}{RGB}{20 ,20, 20}
+\definecolor{color-ref}{RGB}{223, 52, 30}
+\definecolor{color-lineno}{RGB}{90, 140, 160}
 
-%\definecolor{color-sections}{RGB}{66,139,202} % Color of the article title and sections
-
-
+\PassOptionsToPackage{hyphens}{url}
 \usepackage{hyperref} % Required for hyperlinks
-\hypersetup{hidelinks,unicode,colorlinks,breaklinks=true,urlcolor=color-links,citecolor=color-ref,linkcolor=color-ref,bookmarksopen=false,pdftitle={Title},pdfauthor={Author}}
+\hypersetup{%
+    hidelinks, unicode, colorlinks, breaklinks=true, urlcolor=color-links,%
+    citecolor=color-ref, linkcolor=color-ref, bookmarksopen=false,%
+    pdftitle={Title}, pdfauthor={Author}%
+}
 
 \newcommand{\keywordname}{Keywords} % Defines the keywords heading name
-\newcommand{\supplementaryname}{Supplementary Material} % Defines the keywords heading name
+% Defines the keywords heading name
+\newcommand{\supplementaryname}{Supplementary Material}
 
 \setcounter{tocdepth}{1}
 
 \pagestyle{empty} % Removes page numbering from the first page
 
 \newcommand{\setslovaknames}{%
-	\renewcommand{\abstractname}{Abstrakt}%
-	\renewcommand{\keywordname}{Kľúčové slová}%
-	\renewcommand{\supplementaryname}{Priložené materiály}%
-	\renewcommand{\figurename}{Obrázok}%
-	\renewcommand{\tablename}{Tabuľka}%
-	\renewcommand{\refname}{Literatúra}%
+    \renewcommand{\abstractname}{Abstrakt}%
+    \renewcommand{\keywordname}{Kľúčové slová}%
+    \renewcommand{\supplementaryname}{Priložené materiály}%
+    \renewcommand{\figurename}{Obrázok}%
+    \renewcommand{\tablename}{Tabuľka}%
+    \renewcommand{\refname}{Literatúra}%
 }
 
 \newcommand{\setczechnames}{%
-	\renewcommand{\abstractname}{Abstrakt}%
-	\renewcommand{\keywordname}{Klíčová slova}%
-	\renewcommand{\supplementaryname}{Přiložené materiály}%
-	\renewcommand{\figurename}{Obrázek}%
-	\renewcommand{\tablename}{Tabulka}%
-	\renewcommand{\refname}{Literatura}%
-	}
+    \renewcommand{\abstractname}{Abstrakt}%
+    \renewcommand{\keywordname}{Klíčová slova}%
+    \renewcommand{\supplementaryname}{Přiložené materiály}%
+    \renewcommand{\figurename}{Obrázek}%
+    \renewcommand{\tablename}{Tabulka}%
+    \renewcommand{\refname}{Literatura}%
+}
 
 \newif\ifHaveSupplementary
 \HaveSupplementaryfalse
 
 \newcommand{\startdocument}{%
-	\ifExcelSlovak\setslovaknames\fi%
-	\ifExcelCzech\setczechnames\fi%
-	\flushbottom%
-	\maketitle%
-%	\tableofcontents%
-	\thispagestyle{empty}%
-	\ifPPFinal\else\setpagewiselinenumbers\linenumbers\renewcommand\linenumberfont{\scriptsize\color{color-lineno}}\fi%
-	}
+    \ifExcelSlovak\setslovaknames\fi%
+    \ifExcelCzech\setczechnames\fi%
+    \flushbottom%
+    \maketitle%
+%   \tableofcontents%
+    \thispagestyle{empty}%
+    \ifPPFinal\else\setpagewiselinenumbers\linenumbers\renewcommand%
+    \linenumberfont{\scriptsize\color{color-lineno}}\fi%
+}
 
 \renewcommand{\tabcolsep}{1.0mm}
 \renewcommand\arraystretch{0.90}
@@ -368,7 +352,6 @@
 \ExcelSlovakfalse
 \def\ExcelSlovakLabels{\global\ExcelSlovaktrue}
 
-
 \@ifclasswith{PPFIT}{czech}{\global\ExcelCzechtrue}{}
 \@ifclasswith{PPFIT}{slovak}{\global\ExcelSlovaktrue}{}
 
@@ -377,17 +360,14 @@
 \xpatchparametertext\@cline{-}{\cA-}{}{}
 
 %--------------------------------------------------------
-%	USEFUL PREPARATIONS
+%   USEFUL PREPARATIONS
 %--------------------------------------------------------
-
 \graphicspath{{images/}{plots/}}
 
 \usepackage{blindtext}
 \newcommand{\sgn}{\operatorname{sgn}}
 
 \usepackage{booktabs}
-
-\graphicspath{{images/}{plots/}}
 
 \newcommand{\todo}[1]{\textcolor{red}{\textbf{[[#1]]}}}
 \newcommand{\phony}[1]{\textcolor{gray}{#1}}

@@ -1,99 +1,129 @@
+% Author: Dominik Harmim <harmim6@gmail.com>
+
 \documentclass{PPFIT}
 
-%--------------------------------------------------------
-%--------------------------------------------------------
-%	PŘIZPŮSOBENÍ PDF / PDF CUSTOMIZATION
-%--------------------------------------------------------
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+%   PDF CUSTOMISATION
+%-------------------------------------------------------------------------------
 
 \hypersetup{
-	pdftitle={Static Analysis in Facebook Infer Focused on Atomicity},
-	pdfauthor={Dominik Harmim},
-	pdfkeywords={TODO, Keyword1, Keyword2, Keyword3}
+    pdftitle={Static Analysis in Facebook Infer Focused on Atomicity},
+    pdfauthor={Dominik Harmim <xharmi00@stud.fit.vutbr.cz>},
+    pdfkeywords={%
+        Facebook Infer, Static Analysis, Abstract Interpretation, Contracts for
+        Concurrency, Atomicity Violation, Concurrent Programs, Program Analysis,
+        Atomic Sets, Atomicity, Incremental Analysis, Modular Analysis,
+        Compositional Analysis, Interprocedural Analysis%
+    }
 }
 
-%--------------------------------------------------------
-%--------------------------------------------------------
-%  PŘEDBĚŽNÁ vs. KONEČNÁ VERZE / REVIEW vs. FINAL VERSION
-%--------------------------------------------------------
-%   NECHTE následující řádek zakomentovaný pro PŘEDBĚŽNÉ VERZE
-%   Pro KONEČNOU VERZI řádek odkomentujte.
-%   LEAVE this line commented out for the REVIEW VERSIONS
-%   UNCOMMENT this line to get the FINAL VERSION
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+%  REVIEW vs. FINAL VERSION
+%-------------------------------------------------------------------------------
 
 \PPFinalCopy
 
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+%   INFORMATION ABOUT THE ARTICLE
+%-------------------------------------------------------------------------------
 
 \PPYear{2019/2020}
 
-%--------------------------------------------------------
-%--------------------------------------------------------
-%	INFORMATION ABOUT THE ARTICLE
-%--------------------------------------------------------
 \PaperTitle{Static Analysis in Facebook Infer Focused on Atomicity}
 
 \Authors{Dominik Harmim*}
 \affiliation{*%
-	\href{mailto:xharmi00@stud.fit.vutbr.cz}{xharmi00@stud.fit.vutbr.cz},
-	\textit{Faculty of Information Technology, Brno University of Technology}}
-
-\Keywords{TODO\,---\,Keyword1\,---\,Keyword2\,---\,Keyword3}
-
-% \Supplementary{\href{http://youtu.be/S3msCdn3fNM}{Demonstation video} --- \href{http://fit.vut.cz/}{Downloadable code}}
-\Supplementary{TODO}
-
-%--------------------------------------------------------
-%--------------------------------------------------------
-%	ABSTRACT
-%--------------------------------------------------------
-\Abstract{TODO}
-% \Abstract{
-% What is the problem? What is the topic? The aim of this paper?
-% \phony{Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ullamcorper suscipit euismod. Mauris sed lectus non massa molestie congue. In hac habitasse platea dictumst.}
-% %
-% How is the problem solved, the aim achieved (methodology)?
-% \phony{Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ullamcorper suscipit euismod. Mauris sed lectus non massa molestie congue. In hac habitasse platea dictumst. Curabitur massa neque, commodo posuere fringilla ut, cursus at dui. Nulla quis purus a justo pellentesque.}
-% %
-% What are the specific results? How well is the problem solved?
-% \phony{Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ullamcorper suscipit euismod. Mauris sed lectus non massa molestie congue. In hac habitasse platea dictumst.}
-% %
-% So what? How useful is this to Science and to the reader?
-% \phony{Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ullamcorper suscipit euismod.}
-% }
-
-%--------------------------------------------------------
-%--------------------------------------------------------
-%	TEASER
-%--------------------------------------------------------
-\Teaser{
-%	\TeaserImage{placeholder.pdf}
-%	\TeaserImage{placeholder.pdf}
-%	\TeaserImage{placeholder.pdf}
+    \href{mailto:xharmi00@stud.fit.vutbr.cz}{xharmi00@stud.fit.vutbr.cz},
+    \textit{Faculty of Information Technology, Brno University of Technology}%
 }
 
-%--------------------------------------------------------
-%--------------------------------------------------------
-%--------------------------------------------------------
-%--------------------------------------------------------
+\Keywords{%
+    Facebook Infer\,---\,Static Analysis\,---\,Abstract Interpretation\,---\,%
+    Contracts for Concurrency\,---\,Atomicity Violation\,---\,Concurrent
+    Programs\,---\,Program Analysis\,---\,Atomic Sets\,---\,Atomicity%
+    \,---\,Incremental Analysis\,---\,Modular Analysis\,---\,Compositional
+    Analysis\,---\,Interprocedural Analysis%
+}
+
+\Supplementary{%
+    \href{https://github.com/harmim/infer}{Atomer Repository}\,---\,%
+    \href{https://github.com/harmim/infer/wiki/Atomer:-Atomicity-Violations%
+    -Analyser}{Atomer Wiki}\,---\,%
+    \href{http://www.fit.vutbr.cz/research/groups/verifit/tools/sa-plugins}{%
+        VeriFIT Static Analysis Plugins%
+    }\,---\,\href{https://github.com/facebook/infer}{Facebook Infer Repository}%
+}
+
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+%   ABSTRACT
+%-------------------------------------------------------------------------------
+
+\Abstract{%
+    The goal of this project practice is to improve, extend, and perform
+    new experiments with \emph{Atomer}\,--\,a~\emph{static analyser} that
+    detects \emph{atomicity violations}. Atomer was proposed and implemented
+    within a~bachelor's thesis at FIT BUT as a~module of \emph{Facebook Infer},
+    which is an open-source and extendable static analysis framework that
+    promotes efficient \emph{modular} and \emph{incremental} analysis. The
+    original analyser works on the level of \emph{sequences of function calls},
+    but in this project, it was changed to work on the level of \emph{sets of
+    function calls}. The solution is based on the assumption that sequences
+    executed \emph{atomically once} should probably be executed \emph{always
+    atomically}. Within this project, two new main features were introduced:
+    \begin{enumerate*}[label={(\roman*)}]
+        \item
+            support for \emph{C++ and Java locks},
+
+        \item
+            and distinguish \emph{multiple locks used}.
+    \end{enumerate*}
+    The new features were successfully verified and evaluated on smaller
+    programs created for testing purposes. Furthermore, new experiments on
+    \emph{publicly available real-life extensive programs} were made.%
+}
+
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+%   TEASER
+%-------------------------------------------------------------------------------
+
+\Teaser{%
+    \TeaserImage{infer-teaser.pdf}%
+}
+
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+
 \begin{document}
+
 \startdocument
-%--------------------------------------------------------
-%--------------------------------------------------------
-%	OBSAH ČLÁNKU / CONTENT OF THE ARTICLE
-%--------------------------------------------------------
+
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+%   CONTENT OF THE ARTICLE
+%-------------------------------------------------------------------------------
+
 \input{2020-PP1FIT-xharmi00-text.tex}
 
-%--------------------------------------------------------
-%--------------------------------------------------------
-%--------------------------------------------------------
-%	LITERATURA
-%--------------------------------------------------------
-%--------------------------------------------------------
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+%   References
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+
 \phantomsection
 \bibliographystyle{enplain}
-
 \bibliography{2020-PP1FIT-xharmi00}
 
-%--------------------------------------------------------
-%--------------------------------------------------------
-%--------------------------------------------------------
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+
 \end{document}

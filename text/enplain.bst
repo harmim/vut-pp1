@@ -5,12 +5,14 @@
 % Translated:  Jaroslav Dytrych
 % URI:         http://www.fit.vutbr.cz/study/DP/BP.php?id=7848
 %
-% File:        enplain.pst was created by translating czplain.bst, that was created by editing plain.bst
+% File:        enplain.pst was created by translating czplain.bst, that was
+%                 created by editing plain.bst
 % Date:        Created on June 31, 2019.
 %              Last edited 10. kveten 2009, 16:55.
 %              Edited by Adam Herout for FIT thesis template: 31.7.2019
 %              Edited by Jaroslav Dytrych to achieve conformance with
 %                standard for FIT thesis template: 10.10.2019
+%              Edited by Dominik Harmim: 21.7.2020
 % Description: English bibliographic style.
 % Use:
 % Encoding:    UTF-8
@@ -21,13 +23,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % -- Maximum number of authors to be processed.
-% If the author element contains a list with more authors than opt.aa, 
-% the bibliographic citation will display exactly opt.aa authors. 
+% If the author element contains a list with more authors than opt.aa,
+% the bibliographic citation will display exactly opt.aa authors.
 % This author listing will end with a string set in opt.etal.
 % FUNCTION {opt.aa} { #3 }
 % FUNCTION {opt.aa} { #4 }
-FUNCTION {opt.aa} { #5 }
-% FUNCTION {opt.aa} { #99 }
+% FUNCTION {opt.aa} { #5 }
+FUNCTION {opt.aa} { #99 }
 
 
 % -- Maximum number of authors to be processed.
@@ -40,19 +42,22 @@ FUNCTION {opt.ae} { #5 }
 
 
 % -- Separator for the list of authors.
-% Used to join names in the list. An exception to this are the last two names, 
+% Used to join names in the list. An exception to this are the last two names,
 % that are joined by a string specified in option opt.sep.ln.
-FUNCTION {opt.sep.bn} { ", " }
+% FUNCTION {opt.sep.bn} { ", " }
 % FUNCTION {opt.sep.bn} { " -- " }
+FUNCTION {opt.sep.bn} { "; " }
 
 
 % -- Separator for the last two names in the list of authors.
-FUNCTION {opt.sep.ln} { " and~" }
+% FUNCTION {opt.sep.ln} { " and~" }
 % FUNCTION {opt.sep.ln} { " -- " }
+FUNCTION {opt.sep.ln} { "; " }
 
 % -- Unfinished listing of names.
-% Used if the number of authors exceeds the limit set by options opt.aa or opt.ae.
-% It is also used, if the keyword "others" is used instead of the last author.
+% Used if the number of authors exceeds the limit set by options opt.aa or opt
+% ae.It is also used, if the keyword "others" is used instead of the last
+% author.
 FUNCTION {opt.etal} { "et~al." }
 
 % -- Signify editor (redactor).
@@ -63,14 +68,14 @@ FUNCTION {opt.ed} { "ed." }
 % FUNCTION {opt.ed} { "" }
 
 % -- Signify editor (redactor) after each name.
-% Signifies where option opt.ed should be used. Either after each name, 
+% Signifies where option opt.ed should be used. Either after each name,
 % or only at the end of the element.
 FUNCTION {opt.ed.all} { #0 }     % pouze na konci prvku
 % FUNCTION {opt.ed.all} { #1 }    % za kazdym jmenem
 
 % -- Separator between primary author(s) and title elements.
-FUNCTION {opt.sep.a} { "." }
-% FUNCTION {opt.sep.a} { ":" }
+% FUNCTION {opt.sep.a} { "." }
+FUNCTION {opt.sep.a} { ":" }
 
 % -- Separator between place of publication and publisher elements
 % (alternatively university or another institution).
@@ -79,8 +84,8 @@ FUNCTION {opt.sep.p} { ": " }
 % FUNCTION {opt.sep.p} { ", " }
 
 % -- Separator between title and subtitle elements.
-% If both title and subtitle elements are used, this string is used as a separator 
-% between these two elements.
+% If both title and subtitle elements are used, this string is used as
+% a separator between these two elements.
 FUNCTION {opt.sep.t} { ": " }
 % FUNCTION {opt.sep.t} { " : " }
 
@@ -129,6 +134,7 @@ ENTRY
     inserts         % number of appdendices pages
     isbn            % standard number
     issn            % standard number
+    doi
     journal
     journalsubtitle
     key
@@ -153,9 +159,9 @@ ENTRY
   { }
   { label }
 
-% Integer variables. Each variable (except for constants, that are only initialized 
-% in function init.state.consts -- before.all, mid.sentence, after.sentence,
-% after.block) has a list of functions, that modify its value.
+% Integer variables. Each variable (except for constants, that are only
+% initialized in function init.state.consts -- before.all, mid.sentence,
+% after.sentence, after.block) has a list of functions, that modify its value.
 %
 % output.state -- output.nonnull, output.bibitem, new.block, new.sentance
 %
@@ -168,7 +174,8 @@ ENTRY
 INTEGERS { output.state before.all mid.sentence after.sentence after.block
            ord ptr i x numnames namesleft nameptr }
 
-% String variables. Each variable has a list of functions, that modify its value.
+% String variables. Each variable has a list of functions, that modify its
+% value.
 %
 % s -- output.nonnull, format.names, format.names.ed, format.journal.issue,
 %      format.thesis.info, format.thesis.range, chop.word, sort.format.names
@@ -279,7 +286,7 @@ FUNCTION {output.nonnull}
   s
 }
 
-% If a nonnull value is at the top of stack, the output is executed with 
+% If a nonnull value is at the top of stack, the output is executed with
 % the output.nonnull function. Otherwise it is removed from stack.
 %
 % /** pseudocode without the use of a stack **/
@@ -300,7 +307,7 @@ FUNCTION {output}
 
 % If a nonnull value is at the top of stack, the output is executed with
 % the output.nonnull function. Otherwise it is removed from stack and warning
-% regarding missing value is printed to error output. It is used to inform the 
+% regarding missing value is printed to error output. It is used to inform the
 % user of a missing value that % is required by the czech standard.
 %
 % /** pseudocode without the use of a stack **/
@@ -507,7 +514,8 @@ FUNCTION {new.sentence.checka}
   if$
 }
 
-% Beginning of a new sentence if there are two nonnull values at the top of stack.
+% Beginning of a new sentence if there are two nonnull values at the top of
+% stack.
 %
 % void new.sentence.checkb (int.or.string anything.under.the.top,
 %                           int.or.string anything.from.the.top)
@@ -545,9 +553,10 @@ FUNCTION {field.or.null}
   if$
 }
 
-% Prints an error message in cases, where there are two nonnull mutually exclusive entries.
-% Function is called with two arguments -- the first one is a string containing names of both
-% items and the other one is the content of one of the items.
+% Prints an error message in cases, where there are two nonnull mutually
+% exclusive entries.Function is called with two arguments -- the first one is
+% a string containing names of both items and the other one is the content of
+% one of the items.
 %
 % void either.or.check (string field.names, int.or.string one.of.fields)
 % {
@@ -657,7 +666,7 @@ FUNCTION {dashify}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Conversion of string to number. A function call is expected after a successful
-% test using the 'is.ord' function. The expected input is a nonnull string 
+% test using the 'is.ord' function. The expected input is a nonnull string
 % comprised of digits only.
 %
 % int str.to.int (string to.convert)
@@ -718,12 +727,12 @@ FUNCTION {capitalize}
   if$
 }
 
-% Connects two strings from the top of the stack. These two strings are separated
-% by a whitespace or non-breaking space. String at the top of the stack is connected
-% to the other one, specifically behind it.
+% Connects two strings from the top of the stack. These two strings are
+% separated by a whitespace or non-breaking space. String at the top of the
+% stack is connected to the other one, specifically behind it.
 %
-% If either of the strings is empty, the other string is returned without any changes.
-% If both strings are empty, the function also returns an empty string.
+% If either of the strings is empty, the other string is returned without any
+% changes. If both strings are empty, the function also returns an empty string.
 %
 % string tie.or.connect (string under.the.top, string from.the.top)
 % {
@@ -762,12 +771,12 @@ FUNCTION {tie.or.connect}
   if$
 }
 
-% Connects two strings from the top of the stack. These two strings are separated
-% by a comma. String at the top of the stack is connected to the other one, 
-% specifically behind it.
+% Connects two strings from the top of the stack. These two strings are
+% separated by a comma. String at the top of the stack is connected to the
+% other one, specifically behind it.
 %
-% If either of the strings is empty, the other string is returned without any changes.
-% If both strings are empty, the function also returns an empty string.
+% If either of the strings is empty, the other string is returned without any
+% changes. If both strings are empty, the function also returns an empty string.
 %
 % string comma.connect (string under.the.top, string from.the.top)
 % {
@@ -796,7 +805,8 @@ FUNCTION {comma.connect}
   if$
 }
 
-% Connects two strings from the top of the stack. A whitespace is used as the separator.
+% Connects two strings from the top of the stack. A whitespace is used as the
+% separator.
 FUNCTION {space.connect}
 { 'u :=
   duplicate$ empty$
@@ -864,7 +874,8 @@ FUNCTION {cz.name.format}
 % string get.month.n (int n)
 % {
 %   int month = { 1 => "january", "february", "march", "april", "may", june",
-%                "july", "august", "september", "october", "november", "december" };
+%                "july", "august", "september", "october", "november",
+%                "december" };
 %   if ( (n > 0) && (n < 13) )
 %   {
 %     return month[n];
@@ -931,7 +942,8 @@ FUNCTION {get.month.n}
 % string get.month.n (int n)
 % {
 %   int month = { 1 => "january", "february", "march", "april", "may", "june",
-%                "july", "august", "september", "october", "november", "december"};
+%                "july", "august", "september", "october", "november",
+%                "december"};
 %   if ( (n > 0) && (n < 13) )
 %   {
 %     return month[n];
@@ -992,7 +1004,7 @@ FUNCTION {get.month.g}
   if$
 }
 
-% Use only at the beginning of a bibliographic citation! Can cause switching of 
+% Use only at the beginning of a bibliographic citation! Can cause switching of
 % elements elsewhere.
 %
 % void output.authors (string formatted.authors)
@@ -1078,9 +1090,11 @@ FUNCTION {format.names}
     { namesleft #1 >                % other names
       { opt.sep.bn t * * }
       { t purify$
-        "others" =                  % if the "others" keyword remains after purification
+        "others" =                  % if the "others" keyword remains after
+                                    %    purification
         { opt.etal tie.or.connect } % prints et al.
-        { opt.sep.ln * t * }        % otherwise last initials follow after the connective "and"
+        { opt.sep.ln * t * }        % otherwise last initials follow after the
+                                    %    connective "and"
         if$
       }
       if$
@@ -1186,9 +1200,11 @@ FUNCTION {format.names.ed}
         if$
       }
       { t purify$
-        "others" =                  % if the "others" keyword remains after purification
+        "others" =                  % if the "others" keyword remains after
+                                    %    purification
         { opt.etal tie.or.connect } % prints et al.
-        { opt.sep.ln t * *          % otherwise last initials follow after the connective "and"
+        { opt.sep.ln t * *          % otherwise last initials follow after the
+                                    %    connective "and"
           opt.ed.all
           { opt.ed tie.or.connect }
           'skip$
@@ -1207,7 +1223,8 @@ FUNCTION {format.names.ed}
   { opt.etal tie.or.connect }
   'skip$
   if$
-  opt.ed.all                        % possible addition of opt.ed at the end of the element
+  opt.ed.all                        % possible addition of opt.ed at the end
+                                    %    of the element
   'skip$
   { ", " * opt.ed tie.or.connect }
   if$
@@ -1317,7 +1334,7 @@ FUNCTION {format.title}
 %%FUNCTION {format.title}
 %%{ subtitle empty$
 %%    { title "t" change.case$ }
-%%    { title "t" change.case$ 
+%%    { title "t" change.case$
 %%      opt.sep.t * subtitle "t" change.case$ *
 %%    }
 %%  if$
@@ -1457,7 +1474,7 @@ FUNCTION {format.edition}
     { edition "1" =
       edition "21" =
       edition "31" =
-	      or or
+        or or
         { edition "st ed." * }
         { edition "2" =
           edition "22" =
@@ -1470,9 +1487,9 @@ FUNCTION {format.edition}
               or or
                 { edition "rd ed." * }
                 { edition "th ed." * }
-              if$ 
+              if$
             }
-          if$ 
+          if$
         }
       if$
     }
@@ -1522,13 +1539,13 @@ FUNCTION {format.edition}
 FUNCTION {format.date}
 { month empty$
     { year empty$
-        { "" 
+        { ""
           "empty year in " cite$ * warning$ }
         { year }
       if$
     }
   { year empty$
-      { "" 
+      { ""
         "just month (empty year) in " cite$ * warning$ }
       { month duplicate$ is.ord
           { str.to.int get.month.n " " * year * }
@@ -1926,8 +1943,9 @@ FUNCTION {format.chapter}
   if$
 }
 
-% Formatting of date of publication, year, number of publication + revision/update dated
-% + date of citation + location in source document (page range).
+% Formatting of date of publication, year, number of publication
+% + revision/update dated + date of citation + location in source document
+% (page range).
 %
 % string format.journal.issue ()
 % {
@@ -2023,6 +2041,14 @@ FUNCTION {format.issn}
   if$
 }
 
+% DOI formatting.
+FUNCTION {format.doi}
+{ doi empty$
+  { "" }
+  { "doi:" doi * }
+  if$
+}
+
 % Volume number formatting -- identifying a section for @InBook.
 %
 % string format.vol ()
@@ -2054,7 +2080,7 @@ FUNCTION {format.vol}
   capitalize
 }
 
-% Formats basic information (author and title) about conference proceedings for 
+% Formats basic information (author and title) about conference proceedings for
 % bibliographic citation of a paper in said proceedings.
 %
 % In <author> opt.sep.a() <proceedings title>.
@@ -2129,7 +2155,8 @@ FUNCTION {conference.basics}
   if$
 }
 
-% Formatuje zakladni informace (primarni odpovednost a titul) o sborniku pro bibliograficke citaci kapitoly v knize.
+% Formatuje zakladni informace (primarni odpovednost a titul) o sborniku
+% pro bibliograficke citaci kapitoly v knize.
 %
 % In <primarni odpovendost> opt.sep.a() <titul knihy>.
 %
@@ -2163,7 +2190,7 @@ FUNCTION {conference.basics}
 % }
 FUNCTION {inbook.basics}
 { editor empty$
-  { 
+  {
     ""
   }
   { format.editors
@@ -2413,7 +2440,7 @@ FUNCTION {empty.misc.check}
 %
 % int empty.unpublished.check ()
 % {
-%   if ( (empty$(author)) && (empty$(title)) && 
+%   if ( (empty$(author)) && (empty$(title)) &&
 %        (empty$(year)) &&
 %        (empty$(note)) && (!empty$(key)) )
 %   {
@@ -2534,11 +2561,14 @@ FUNCTION {format.manual.details}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Processes @Article type records.
-% Bibliographic citations of an article in a serial publication (magazine article).
+% Bibliographic citations of an article in a serial publication (magazine
+% article).
 %
-% Required elements:   author, title, journal, edition, year, volume, number, pages, issn
-% Optional elements: subtitle, journalsubtitle, publisher, address, contrybutory, url*, month, note
-% Elements of el. doc.:  howpublished*, revised*, cited*, version
+% Required elements:  author, title, journal, edition, year, volume, number,
+%                      pages, issn
+% Optional elements: subtitle, journalsubtitle, publisher, address,
+%                    contrybutory, url*, month, note, doi.
+% Elements of el. doc.: howpublished*, revised*, cited*, version.
 %
 % * Required element for el. doc.
 FUNCTION {article}
@@ -2560,7 +2590,8 @@ FUNCTION {article}
   contrybutory capitalize output
   new.block %% contrybutory (optional)
   format.howpublished output
-  new.block %% serial pub. title (required) a medium type (required for el. doc.)
+  new.block %% serial pub. title (required) a medium type
+            %%    (required for el. doc.)
   format.edition "edition" output.check
   new.block %% edition (required)
   format.journal.issue
@@ -2583,15 +2614,19 @@ FUNCTION {article}
   if$
   new.block %% availability (required for el. doc.)
   format.issn output
+  new.block
+  format.doi output
   fin.entry %% standard number ISSN (optional)
 }% @Article
 
 % Processes @Book type record.
 % Bibliographic citation of a monographic publication (book).
 %
-% Required elements:   author nebo editor, title, edition, address, publisher, year, isbn
-% Optional elements: subtitle, contrybutory, month, pages, series, number nebo volume, note, url*
-% Elements of el. doc.:  howpublished*, revised*, cited*, version
+% Required elements: author nebo editor, title, edition, address, publisher,
+%                      year, isbn
+% Optional elements: subtitle, contrybutory, month, pages, series, number nebo
+%                    volume, note, url*, doi.
+% Elements of el. doc.: howpublished*, revised*, cited*, version.
 %
 % * Required element for el. doc.
 FUNCTION {book}
@@ -2630,7 +2665,9 @@ FUNCTION {book}
   }
   if$
   new.block %% availability (required for el. doc.)
-  format.isbn "isbn" output.check
+  format.isbn output
+  new.block
+  format.doi output
   fin.entry %% standard number ISBN (required)
 }% @Book
 
@@ -2641,11 +2678,11 @@ FUNCTION {booklet} { book }
 %   HEROUT added @InCollection
 % Bibliographic citation of conference proceedings entry (paper).
 %
-% Required elements:   author, title, editor nebo organization, booktitle,
-%       edition, address, publisher, year, pages, isbn or issn.
+% Required elements: author, title, editor nebo organization, booktitle,
+%                    edition, address, publisher, year, pages, isbn or issn.
 % Optional elements: subtitle, booksubtitle, contrybutory, month, series,
-%       number nebo volume, note, url*.
-% Elements of el. doc.:  howpublished*, revised*, cited*, version.
+%                    number nebo volume, note, url*, doi.
+% Elements of el. doc.: howpublished*, revised*, cited*, version.
 %
 % * Required element for el. doc.
 FUNCTION {conference}
@@ -2669,7 +2706,8 @@ FUNCTION {conference}
   format.revised comma.connect
   format.cited tie.or.connect
   capitalize output
-  new.block %% publisher information, date of publication, revision/update and citation
+  new.block %% publisher information, date of publication, revision/update and
+            %%    citation
   format.bvolume output
   new.block %% series (if numbered, include number or volume)
   note capitalize output
@@ -2694,21 +2732,23 @@ FUNCTION {conference}
     }
     { format.isbn output }
   if$
+  new.block
+  format.doi output
   fin.entry %% standard numbers ISBN or ISSN (required)
 } % @Conference and @InProceedings and @InCollection
 
-% @InProceedings is simply a reference to @Conference. 
+% @InProceedings is simply a reference to @Conference.
 FUNCTION {inproceedings} { conference }
 FUNCTION {incollection} { conference }
 
 % Processes @Proceedings type of records.
-% 
+%
 % Bibliographic citation of monographies (books, proceedings and such).
 %
-% Required elements:   author or editor, title, edition, year, isbn or issn.
-% Optional elements: subtitle, booksubtitle, contrybutory, address, publisher, month, series,
-%       number or volume, note, url*.
-% Elements of el. doc.:  howpublished*, revised*, cited*, version.
+% Required elements:  author or editor, title, edition, year, isbn or issn.
+% Optional elements: subtitle, booksubtitle, contrybutory, address, publisher,
+%                     month, series, number or volume, note, url*, doi.
+% Elements of el. doc.: howpublished*, revised*, cited*, version.
 %
 % * Required element for el. doc.
 FUNCTION {proceedings}
@@ -2730,7 +2770,8 @@ FUNCTION {proceedings}
   format.revised comma.connect
   format.cited tie.or.connect
   capitalize output
-  new.block %% publishing information, date of publication, revision/update and citation
+  new.block %% publishing information, date of publication, revision/update
+            %%    and citation
   format.bvolume output
   new.block %% series (if numbered, then include it's number or volume)
   note capitalize output
@@ -2755,18 +2796,22 @@ FUNCTION {proceedings}
     }
     { format.isbn output }
   if$
+  new.block
+  format.doi output
   fin.entry %% ISBN or ISSN (required)
 } % @Proceedings
-			
+
 
 % Processes @Misc, @Webpage and @Website type records.
 % Advised to use for bibliographic citations of online documents and web pages.
 %
-% Required elements:   At least one of the optional elements!
-% Optional elements: author, secondarytitle, title, subtitle, howpublished, contrybutory, edition, month,
-%       year, revised*, cited, note, url, version
+% Required elements:  At least one of the optional elements!
+% Optional elements: author, secondarytitle, title, subtitle, howpublished,
+%                    contrybutory, edition, month, year, revised*, cited, note,
+%                    url, version
 %
-% Note: Displays warning if the year element is not used. Should not call format.date
+% Note: Displays warning if the year element is not used. Should not call
+%       format.date
 FUNCTION {misc}
 { empty.misc.check
   'skip$
@@ -2794,7 +2839,7 @@ FUNCTION {misc}
     publisher empty$
     and
     and
-      { 
+      {
         output
         format.date capitalize output
       }
@@ -2802,7 +2847,7 @@ FUNCTION {misc}
     if$
     revised empty$
       'skip$
-      { 
+      {
         new.block
         format.revised output
       }
@@ -2838,7 +2883,8 @@ FUNCTION {website} { misc }
 % Optional elements: author, title, subtitle, howpublished, edition, month,
 %       year, revised*, cited, note, url, version, path
 %
-% Note: Displays warning if the year element is not used. Should not call format.date
+% Note: Displays warning if the year element is not used. Should not call
+%       format.date
 FUNCTION {unpublished}
 { empty.unpublished.check
     'skip$
@@ -2887,7 +2933,7 @@ FUNCTION {unpublished}
 % Required elements:   author nebo editor, title, edition, volume, year,
 %       pages a/nebo chapter
 % Optional elements: subtitle, contrybutory, address, publisher, month,
-%       note, url*, isbn
+%       note, url*, isbn, doi.
 % Elements of el. doc.:  howpublished*, revised*, cited*, version
 %
 % * Required element for el. doc.
@@ -2931,7 +2977,9 @@ FUNCTION {inbook}
   }
   if$
   new.block %% availability (required for el. doc.)
-  format.isbn output
+  format.isbn
+  new.block
+  format.doi output
   fin.entry %% standard number ISBN (optional)
 }%@InBook
 
@@ -2967,7 +3015,8 @@ FUNCTION {techreport}
   new.block %% range (optional)
   format.cited
   capitalize output
-  new.block %% publishing institution information (optional) date of publication (required)
+  new.block %% publishing institution information (optional) date of publication
+            %%    (required)
   note capitalize output
   new.block %% notes (optional)
   format.url output
@@ -2977,9 +3026,10 @@ FUNCTION {techreport}
 
 % Processes @Manual type records.
 %
-% Required elements:   title, 
-% Optional elements: author, organization, year, address, edition, month, note, url*
-% Elements of el. doc.:  howpublished*, revised*, cited*
+% Required elements: title,
+% Optional elements: author, organization, year, address, edition, month, note,
+%                    url*.
+% Elements of el. doc.: howpublished*, revised*, cited*.
 %
 % Note: * Required element for el. doc.
 FUNCTION {manual}
@@ -2997,7 +3047,8 @@ FUNCTION {manual}
   format.revised comma.connect
   format.cited tie.or.connect
   capitalize output
-  new.block %% publishing institution information (optional) and date of publication (required)
+  new.block %% publishing institution information (optional) and date of
+            %%    publication (required)
   format.range output
   new.block %% number of pages (optional)
   note capitalize output
@@ -3013,7 +3064,7 @@ FUNCTION {manual}
 % Default version -- value #0 in choose.thesis.
 %
 % Required elements:   author, title, address, school, year, type
-% Optional elements: subtitle, pages, inserts, note, url, isbn
+% Optional elements: subtitle, pages, inserts, note, url, isbn, doi.
 FUNCTION {thesis}
 { output.bibitem
   format.authors
@@ -3033,9 +3084,13 @@ FUNCTION {thesis}
   type$ "l" change.case$
   duplicate$ "bachelorsthesis" =
     { pop$ "Bachelor's thesis" }
-    { "mastersthesis" =
-        { "Master's thesis" }
-        { "Dissertation" }
+    { duplicate$ "mastersthesis" =
+        { pop$ "Master's thesis" }
+        { duplicate$ "projectpractice" =
+            { pop$ "Project practice" }
+            { "Dissertation" }
+          if$
+        }
       if$
     }
   if$
@@ -3050,6 +3105,8 @@ FUNCTION {thesis}
   format.url output
   new.block %% availability (optional)
   format.isbn output
+  new.block
+  format.doi output
   fin.entry %% standard number ISBN (optional)
 }%@BachelorsThesis, @MastersThesis a @PhdThesis
 
@@ -3070,12 +3127,16 @@ FUNCTION {another.thesis}
   new.block %% title (required)
   type$ "l" change.case$
   duplicate$ "bachelorsthesis" =
-  { pop$ "Bachelor's thesis" }
-  { "mastersthesis" =
-    { "Master's thesis" }
-    { "Dissertation" }
-    if$
-  }
+    { pop$ "Bachelor's thesis" }
+    { duplicate$ "mastersthesis" =
+        { pop$ "Master's thesis" }
+        { duplicate$ "projectpractice" =
+            { pop$ "Project practice" }
+            { "Dissertation" }
+          if$
+        }
+      if$
+    }
   if$
   format.thesis.type
   school empty$
@@ -3102,7 +3163,8 @@ FUNCTION {another.thesis}
   fin.entry %% standard number ISBN (volitelne)
 }%@BachelorThesis, @MasterThesis a @PhdThesis
 
-% Chooses the correct format of bibliographic citation based on the opt.thesis option value
+% Chooses the correct format of bibliographic citation based on the opt.thesis
+% option value
 % for a thesis.
 FUNCTION {chosen.thesis}
 { opt.thesis #0 =
@@ -3120,6 +3182,9 @@ FUNCTION {mastersthesis} { chosen.thesis }
 % @PhdThesis type records are processed by thesis function.
 FUNCTION {phdthesis} { chosen.thesis }
 
+% @ProjectPractice type records are processed by thesis function.
+FUNCTION {projectpractice} { chosen.thesis }
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%% SLIGHTLY EDITED FUNCTIONS TAKEN FROM plain.bst %%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3127,7 +3192,7 @@ FUNCTION {phdthesis} { chosen.thesis }
 % loads bibliographic database
 READ
 
-% Prepares sorting value -- applies built-in function purify$ and converts 
+% Prepares sorting value -- applies built-in function purify$ and converts
 % to small letters.
 FUNCTION {sortify}
 { purify$
@@ -3202,7 +3267,8 @@ FUNCTION {author.sort}
     { key sortify }
   if$
 }
-% Dytrych: Původní funkce upřednostní jméno před klíčem a ten pak nelze použít k opravě českého řazení.
+% Dytrych: Původní funkce upřednostní jméno před klíčem a ten pak nelze použít
+% k opravě českého řazení.
 % FUNCTION {author.sort}
 % { author empty$
 %     { key empty$
@@ -3347,10 +3413,6 @@ ITERATE {longest.label.pass}
 % This function is extended with a conditional definition of \url{} command.
 FUNCTION {begin.bib}
 { "\makeatletter" write$ newline$
-%%%  "\@ifundefined{url}"
-%%%    "{\def\url#1{{\tt $<$#1$>$}}}" *
-%%%    "{\DeclareUrlCommand\url{\def\UrlLeft{<} \def\UrlRight{>} \urlstyle{tt}}}" *
-%%%    write$ newline$
   "\makeatother" write$ newline$
   preamble$ empty$
     'skip$
@@ -3359,7 +3421,8 @@ FUNCTION {begin.bib}
   "\begin{thebibliography}{"  longest.label  * "}" * write$ newline$
 }
 
-% Functions writes last lines to output file -- closes environment thebibliography.
+% Functions writes last lines to output file -- closes environment
+% thebibliography.
 FUNCTION {end.bib}
 { newline$
   "\end{thebibliography}" write$ newline$
