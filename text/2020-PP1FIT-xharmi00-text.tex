@@ -93,7 +93,209 @@ Finally, Section~\ref{sec:conc} concludes the paper.
 \section{Facebook Infer}
 \label{sec:fbinfer}
 
-\todo{foo}
+This section describes the principles and features of \emph{Facebook Infer}.
+The description is based on information provided at the Facebook Infer
+website\footnote{\textbf{Facebook Infer}
+website\,--\,\url{https://fbinfer.com}.} and
+in~\cite{projectPracticeMarcin2018}. Parts of this section are taken
+from~\cite{harmimBP, excel2019FBInfer}.
+
+Facebook Infer is an \emph{open-source}\footnote{\textbf{Open-source repository
+of Facebook Infer} on GitHub\,--\,\url{https://github.com/facebook/infer}.}
+\emph{static analysis framework} (Brief explanation of static analysis itself
+can be found in~\cite{harmimBP}\,--\,Section~2.1. In more detail, it is then
+explained in~\cite{staticAnalysisMoller, favStaticAnalysis}.), which can
+discover various kinds of software bugs of a~given program, with the stress
+put on \emph{scalability}. A~more detailed explanation of the architecture of
+Facebook Infer is shown in Section~\ref{sec:fbinferArch}. Facebook Infer is
+implemented in \emph{OCaml}\footnote{\textbf{OCaml}
+website\,--\,\url{https://ocaml.org}.}\,--\,\emph{functional} programming
+language, also supporting \emph{imperative} and \emph{object-oriented}
+paradigms. Further details about OCaml can be found in~\cite{realWorldOCaml}.
+Facebook Infer was originally a~standalone tool focused on \emph{sound
+verification} of the absence of \emph{memory safety violations}, which was
+first published in the well-known paper~\cite{inferBiabduction}.
+
+Facebook Infer can analyse programs written in several languages. In
+particular, it supports languages C, C++, Java, and Objective-C. Moreover, it
+is possible to extend Facebook Infer's \emph{frontend} for supporting other
+languages. Currently, Facebook Infer contains many analyses focusing on various
+kinds of bugs, e.g., \emph{Inferbo} (buffer overruns)~\cite{inferboOnline};
+\emph{RacerD} (data races)~\cite{racerD, racerDOnline,
+staticRaceDetectorTruePositive}; and other analyses that check for buffer
+overflows, some forms of deadlocks and starvation, null-dereferencing, memory
+leaks, resource leaks, etc.
+
+\subsection{Abstract Interpretation in Facebook Infer}
+
+Facebook Infer is a~general framework for static analysis of programs, and it
+is based on \emph{abstract interpretation} (Abstract interpretation is
+explained and formally defined in~\cite{harmimBP}\,--\,Section~2.1.1.
+Additional description can be found in~\cite{AIBasedFormalMethodsCousot,
+AILatticeModelCousot, AIInNutshellCousot, AICousotWeb, favAI,
+projectPracticeMarcin2018, wideningNarrowingCousot, programAnalysisNielson,
+staticAnalysisMoller, favLatticesAndFixpoints}). Despite the original approach
+taken from~\cite{inferBiabduction}, Facebook Infer aims to find bugs rather
+than \emph{formal verification}. It can be used to quickly develop new sorts of
+\emph{compositional} and \emph{incremental} analysers (\emph{intraprocedural}
+or \emph{interprocedural}~\cite{programAnalysisNielson}) based on the concept
+of function \emph{summaries}. In general, a~\emph{summary} is a~representation
+of \emph{preconditions} and \emph{postconditions} of a~function. However, in
+practice, a~summary is a~custom data structure that may be used for storing
+any information resulting from the analysis of particular functions. Facebook
+Infer generally does not compute the summaries in the course of the analysis
+along the \emph{Control Flow Graph}
+(\textbf{CFG}~\cite{controlFlowAnalysisAllen}) as it is done in classical
+analyses based on the concepts from~\cite{dataflowAnalysisGraphReachability,
+dataflowAnalysisApproaches}. Instead, Facebook Infer performs the analysis of
+a~program \emph{function-by-function along the call tree}, starting from its
+leafs (demonstrated in Example~\ref{ex:fbinferAnalysis}). Therefore, a~function
+is analysed, and a~summary is computed without knowledge of the call context.
+Then, the summary of a~function is used at all of its call sites. Since
+summaries do not differ for different contexts, the analysis becomes more
+scalable, but it can lead to a~loss of accuracy.
+
+In order to create a~new intraprocedural analyser in Facebook Infer,
+it is needed to define the following (listed items are described in more detail
+in~\cite{harmimBP}\,--\,Section~2.1.1):
+\begin{enumerate}
+    \item
+        The \emph{abstract domain}~$ Q $, i.e., a~type of an \emph{abstract
+        state}.
+
+    \item
+        Operator~$ \sqsubseteq $, i.e., an \emph{ordering} of abstract states.
+
+    \item
+        The \emph{join} operator~$ \circ $, i.e., the way of joining two
+        abstract states.
+
+    \item
+        The \emph{widening} operator~$ \triangledown $, i.e., the way how to
+        enforce termination of the abstract interpretation of an iteration.
+
+    \item
+        \emph{Transfer functions}~$ \tau $, i.e., a~transformer that takes an
+        abstract state as an input and produces an abstract state as an output.
+\end{enumerate}
+Further, in order to create an interprocedural analyser, it is required to
+define additionally:
+\begin{enumerate}
+    \item
+        The type of function summaries.
+
+    \item
+        The logic for using summaries in transfer functions, and the logic for
+        transforming an intraprocedural abstract state to a~summary.
+\end{enumerate}
+
+An important feature of Facebook Infer improving its scalability is
+\emph{incrementality} of the analysis. It allows one to analyse separate code
+changes only, instead of analysing the whole codebase. It is more suitable for
+extensive and variable projects, where ordinary analysis is not feasible. The
+incrementality is based on \emph{re-using summaries} of functions for which
+there is no change in them neither in the functions transitively invoked from
+them.
+
+\subsection{%
+    The Architecture of the Abstract Interpretation Framework in Facebook
+    Infer%
+}
+\label{sec:fbinferArch}
+
+The architecture of the abstract interpretation framework of Facebook Infer
+(\textbf{Infer.AI}) may be split into three major parts, as demonstrated in
+Figure~\ref{fig:inferArch}: a~\emph{frontend}, an \emph{analysis scheduler}
+(and a~\emph{results database}), and a~set of \emph{analyser plugins}.
+
+\begin{figure}[hbt]
+    \centering
+    \includegraphics[width=.9 \linewidth]{infer-architecture.pdf}
+    \caption{%
+        The architecture of Facebook Infer's abstract interpretation
+        framework~\cite{harmimBP, projectPracticeMarcin2018}
+    }
+    \label{fig:inferArch}
+\end{figure}
+
+The frontend compiles input programs into the \emph{Smallfoot Intermediate
+Language} (SIL) and represents them as a~CFG. There is a~separate CFG
+representation for each analysed function. Nodes of this CFG are formed as
+instructions of SIL. The SIL language consists of the following underlying
+instructions:
+\begin{itemize}
+    \item
+        \texttt{LOAD}: reading into a~temporary variable.
+
+    \item
+        \texttt{STORE}: writing to a~program variable, a~field of
+        a~structure, or an array.
+
+    \item
+        \texttt{PRUNE~e}~(often called \texttt{ASSUME}): evaluation of
+        a~condition~\texttt{e}.
+
+    \item
+        \texttt{CALL}: a~function call.
+\end{itemize}
+The frontend allows one to propose analyses that are \emph{language-independent}
+(to a~certain extent) because it supports input programs to be written in
+multiple languages.
+
+The next part of the architecture is the scheduler, which defines the order of
+the analysis of single functions according to the appropriate \emph{call
+graph}\footnote{\textbf{A~call graph} is a~\emph{directed graph} describing
+call dependencies among functions.}. The scheduler also checks if it is possible
+to analyse some functions simultaneously, which allows Facebook Infer to run
+the analysis in parallel.
+
+\begin{example}
+    \label{ex:fbinferAnalysis}
+    For demonstrating the order of the analysis in Facebook Infer and its
+    incrementality, assume a~call graph in Figure~\ref{fig:inferCallGraph}. At
+    first, leaf functions \texttt{F5} and \texttt{F6} are analysed. Further,
+    the analysis goes on towards the root of the call
+    graph\,--\,\texttt{F\textsubscript{MAIN}}, while taking into consideration
+    the dependencies denoted by the edges. This order ensures that a~summary is
+    available once a~nested function call is abstractly interpreted within the
+    analysis. When there is a~subsequent code change, only directly changed
+    functions and all the functions up the call path are re-analysed. For
+    instance, if there is a~change of source code of function \texttt{F4},
+    Facebook Infer triggers re-analysis of functions \texttt{F4}, \texttt{F2},
+    and \texttt{F\textsubscript{MAIN}} only.
+\end{example}
+
+\begin{figure}[hbt]
+    \centering
+    \includegraphics[width=.6 \linewidth]{infer-call-graph.pdf}
+    \caption{%
+        A~call graph for an illustration of Facebook Infer's analysis
+        process~\cite{harmimBP, excel2019FBInfer, projectPracticeMarcin2018}%
+    }
+    \label{fig:inferCallGraph}
+\end{figure}
+
+The last part of the architecture consists of a~set of analyser plugins. Each
+plugin performs some analysis by interpreting of SIL instructions. The result
+of the analysis of each function (function summary) is stored to the results
+database. The interpretation of SIL instructions (\emph{commands}) is done using
+an \emph{abstract interpreter} (also called a~\emph{control interpreter}) and
+\emph{transfer functions} (also called a~\emph{command interpreter}). The
+transfer functions take an actual \emph{abstract state} of an analysed function
+as an input, and by applying the interpreting command, produce a~new abstract
+state. The abstract interpreter interprets the command in an \emph{abstract
+domain} according to the CFG. This workflow is shown in a simplified form in
+Figure~\ref{fig:inferAnalysis}.
+
+\begin{figure}[hbt]
+    \centering
+    \includegraphics[width=.9 \linewidth]{infer-analysis.pdf}
+    \caption{%
+        Facebook Infer's abstract interpretation
+        process~\cite{harmimBP, projectPracticeMarcin2018}%
+    }
+    \label{fig:inferAnalysis}
+\end{figure}
 
 %-------------------------------------------------------------------------------
 %-------------------------------------------------------------------------------
@@ -103,7 +305,11 @@ Finally, Section~\ref{sec:conc} concludes the paper.
 \section{Atomicity Violations Detector}
 \label{sec:atomer}
 
-\todo{foo}
+\todo{TODO}
+% \cite{contracts2015}
+% \cite{contract}
+% \cite{excel2018Muzikovska}
+% \cite{muzikovskaBP}
 
 %-------------------------------------------------------------------------------
 %-------------------------------------------------------------------------------
@@ -113,33 +319,102 @@ Finally, Section~\ref{sec:conc} concludes the paper.
 \section{Experimental Evaluation}
 \label{sec:exp}
 
-\todo{foo}
+This section is devoted to \emph{testing} and \emph{experimental evaluation}
+of the new features of the \emph{Atomer} analyser presented in
+Section~\ref{sec:atomer}. Each feature was tested independently as soon as it
+had been implemented. It was tested on suitable programs created for testing
+purposes and got inspired by test programs from~\cite{harmimBP}. In more
+detail, it is described in Section~\ref{sec:expPurpos}. Moreover,
+Section~\ref{sec:expGluon} shows performed experiments on test programs
+derived from the static analyser \emph{Gluon}. Finally,
+Section~\ref{sec:expReal} is about the experimental evaluation of Atomer on
+publicly available \emph{real-life complex} programs.
 
-\cite{inferBiabduction}
-\cite{contracts2017}
-\cite{racerD}
-\cite{AILatticeModelCousot}
-\cite{dataflowAnalysisGraphReachability}
-\cite{dataflowAnalysisApproaches}
-\cite{excel2019FBInfer}
-\cite{staticAnalysisMoller}
-\cite{favStaticAnalysis}
-\cite{favAI}
-\cite{projectPracticeMarcin2018}
-\cite{programAnalysisNielson}
-\cite{AIBasedFormalMethodsCousot}
-\cite{AIInNutshellCousot}
-\cite{AICousotWeb}
-\cite{wideningNarrowingCousot}
-\cite{favLatticesAndFixpoints}
-\cite{staticRaceDetectorTruePositive}
-\cite{racerDOnline}
-\cite{realWorldOCaml}
-\cite{inferboOnline}
-\cite{contracts2015}
-\cite{controlFlowAnalysisAllen}
-\cite{contract}
-\cite{deadlockKroening}
+\subsection{Testing on Hand-Crafted Examples}
+\label{sec:expPurpos}
+
+The correct behaviour of Atomer was already tested in~\cite{harmimBP}, described
+in Section~5.1, and test programs are available in Appendix~A. There are
+reasonable \emph{C} programs that use \emph{PThread} locks. These programs
+contain sequences of function calls inside and outside \emph{atomic blocks},
+\emph{not paired lock/unlock calls}, \emph{iteration}, \emph{selection}, and
+\emph{nested function calls}. So, the functions are designed in order to
+check all the aspects of the analyser. It comprises all the components of
+the \emph{abstract state} and the \emph{summary}.
+
+Because working with \emph{sequences of function calls} was approximated to
+working with \emph{sets of function calls}, reference outputs for test programs
+from~\cite{harmimBP} (Appendix~A) were modified to the appropriate form, and the
+same tests were performed again\footnote{\textbf{Atomic sets} testing\,--\,%
+\url{https://github.com/harmim/vut-ibt/tree/master/experiments}.}. Further,
+new test programs were derived from those in~\cite{harmimBP}, and they were
+changed to test the new feature that adds support for distinguish \emph{multiple
+locks} used\footnote{\label{fn:test2}\textbf{Multiple locks} and
+\textbf{C++/Java} languages support testing\,--\,%
+\url{https://github.com/harmim/vut-pp1/tree/master/experiments}.}. In the end,
+several new test programs were written in \emph{C++} and \emph{Java}
+for validation that the support for these languages is
+working\textsuperscript{\ref{fn:test2}}. Various kinds of lock mechanisms were
+used.
+
+In all the cases above, it was proved the correct behaviour of the analysis
+of Atomer (concerning the proposal).
+
+\subsection{Experiments on Test Programs Derived from the Gluon Tool}
+\label{sec:expGluon}
+
+\emph{Gluon}\footnote{\textbf{Static analyser Gluon}\,--\,%
+\url{https://github.com/trxsys/gluon}.} is a~tool for static analysis of
+\emph{contracts for concurrency} in Java programs developed
+in~\cite{contracts2015, contracts2017}. Several validation examples\footnote{%
+\textbf{Validation examples for Gluon}\,--\,%
+\url{https://github.com/trxsys/gluon/tree/master/test/validation}.} in Java
+were created to validate the functionality of Gluon. These example programs were
+rewritten to C++\footnote{\textbf{Experiments on Gluon} example programs using
+\textbf{Atomer}\,--\,%
+\url{https://github.com/harmim/vut-pp1/tree/master/testing-programs/%
+contracts-first-experiments-atomer}.}, and existing \emph{atomicity violations}
+were successfully found. Moreover, programs were also rewritten to the form
+where atomicity violations are fixed by adding appropriate locks, and it was
+shown that Atomer founds no atomicity violations in such correct programs.
+
+\subsection{Evaluation on Real-Life Programs}
+\label{sec:expReal}
+
+In~\cite{harmimBP}, Atomer was evaluated on a~subset of \emph{real-life
+low-level concurrent} C programs from a~\emph{publicly available} benchmark.
+These programs were derived from the Debian GNU Linux distribution. The entire
+benchmark was initially used for an experimental evaluation of Daniel
+Kroening's static deadlock analyser for
+\emph{C/PThreads}~\cite{deadlockKroening} implemented in the CPROVER framework. 
+Several potential atomicity violations were found. In more detail, the results
+are listed in~\cite{harmimBP}, Section~5.2.
+
+Since Atomer supports analysis of Java programs, two \emph{real-life open-source
+extensive} Java programs were analysed\,--\,\emph{Apache Cassandra}\footnote{%
+\textbf{Apache Cassandra} repository\,--\,%
+\url{https://github.com/apache/cassandra}.} and \emph{Apache Tomcat}\footnote{%
+\textbf{Apache Tomcat} repository\,--\,\url{https://github.com/apache/tomcat}.}.
+In~\cite{contracts2015, contracts2017}, there were reported a~few
+\emph{atomicity-related} bugs\footnote{\textbf{Reported atomicity violations
+in Apache Cassandra}\,--\,%
+\url{https://issues.apache.org/jira/browse/CASSANDRA-7757}.}\footnote{\textbf{%
+Reported atomicity violation in Apache Tomcat}\,--\,%
+\url{https://bz.apache.org/bugzilla/show_bug.cgi?id=56784}.}. It turns out that
+the reported bugs were real atomicity violation errors, and they were later
+fixed. Thus, within this project, these programs were analysed by Atomer, and
+the bugs were successfully \emph{rediscovered}. Unfortunately, so far, quite
+some \emph{false alarms} were reported. However, make the analyser more
+\emph{accurate} is currently the work under progress. Besides, the results
+of the analysis can be used as an input for \emph{dynamic analysis}, which
+can be able to check whether the atomicity violations are real errors. For
+instance, one cloud uses \emph{ANaConDA}\footnote{\textbf{ANaConDA framework}
+website\,--\,%
+\url{http://www.fit.vutbr.cz/research/groups/verifit/tools/anaconda}.} dynamic
+analyser, which uses \emph{noise-based testing} with \emph{extrapolated
+checking} for violations of contracts for concurrency. ANaConDA could be
+instructed to concentrate its analysis and \emph{noise injection} to those
+sets whose atomicity was found broken.
 
 %-------------------------------------------------------------------------------
 %-------------------------------------------------------------------------------

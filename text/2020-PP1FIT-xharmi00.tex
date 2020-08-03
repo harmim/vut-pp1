@@ -2,6 +2,16 @@
 
 \documentclass{PPFIT}
 
+\usepackage{amsthm}
+
+% Definition theorem - Example.
+\theoremstyle{definition}
+\newtheorem{example}{Example}[section]
+
+\renewcommand{\ttdefault}{lmtt} % set Latin Modern tt as tt
+
+\interfootnotelinepenalty=10000
+
 %-------------------------------------------------------------------------------
 %-------------------------------------------------------------------------------
 %   PDF CUSTOMISATION
@@ -49,12 +59,11 @@
 }
 
 \Supplementary{%
-    \href{https://github.com/harmim/infer}{Atomer Repository}\,---\,%
-    \href{https://github.com/harmim/infer/wiki/Atomer:-Atomicity-Violations%
-    -Analyser}{Atomer Wiki}\,---\,%
-    \href{http://www.fit.vutbr.cz/research/groups/verifit/tools/sa-plugins}{%
-        VeriFIT Static Analysis Plugins%
-    }\,---\,\href{https://github.com/facebook/infer}{Facebook Infer Repository}%
+    Atomer Repository:~\url{https://github.com/harmim/infer}\,---\,Atomer Wiki:
+    \url{https://github.com/harmim/infer/wiki}\,---\,VeriFIT Static Analysis
+    Plugins: 
+    \url{https://www.fit.vutbr.cz/research/groups/verifit/tools/sa-plugins}\,%
+    ---\,Facebook Infer Repository: \url{https://github.com/facebook/infer}%
 }
 
 %-------------------------------------------------------------------------------
