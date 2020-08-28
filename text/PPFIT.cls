@@ -7,7 +7,7 @@
 %    2016-12-08 - Dytrych: template adapted for KNOT papers
 %    2019-09-18
 %    2019-12-04 - Veigend: template updated for project practice papers
-%    2020-07-21 - Harmim
+%    2020-08-28 - Harmim
 % ---------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{PPFIT}[21/07/2020, v1.1]
@@ -57,7 +57,7 @@
 %   MARGINS
 %----------------------------------------------------------------------
 \RequirePackage[%
-    left=2cm, right=2cm, top=2.25cm, bottom=2.25cm, headheight=11pt, a4paper
+    left=2cm, right=2cm, top=2.25cm, bottom=2.25cm, headheight=11pt, a4paper,
 ]{geometry}
 
 %----------------------------------------------------------------------

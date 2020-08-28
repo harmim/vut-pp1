@@ -48,9 +48,9 @@ especially in large projects, and even more laborious and time-consuming is
 finding and fixing them.
 
 In the thesis~\cite{harmimBP}, there was proposed the
-\emph{Atomer}\,--\,a~static analyser for finding some forms of atomicity
-violations implemented as a~module of Facebook Infer. In particular, the
-stress is put on the \emph{atomic execution of sequences of function
+\emph{Atomer}\,--\,a~\emph{static analyser} for finding some forms of
+atomicity violations implemented as a~module of Facebook Infer. In particular,
+the stress is put on the \emph{atomic execution of sequences of function
 calls}, which is often required, e.g., when using specific library calls.
 The idea of checking atomicity of certain sequences of function calls is
 inspired by the work of \emph{contracts for
@@ -69,7 +69,7 @@ performed. In particular, two new main features were introduced:
 \end{enumerate*}
 Moreover, working with \emph{sequences of function calls} was approximated
 by working with \emph{sets of function calls} to make the solution more
-scalable.
+\emph{scalable}.
 
 The development of Atomer has been discussed with developers of Facebook
 Infer, and it is a~part of the H2020 ECSEL project Aquas. Parts of this
@@ -94,8 +94,8 @@ Finally, Section~\ref{sec:conc} concludes the paper.
 \label{sec:fbinfer}
 
 This section describes the principles and features of \emph{Facebook Infer}.
-The description is based on information provided at the Facebook Infer
-website\footnote{\textbf{Facebook Infer}
+The description is based on information provided at the Facebook Infer's
+website\footnote{\textbf{Facebook Infer's}
 website\,--\,\url{https://fbinfer.com}.} and
 in~\cite{projectPracticeMarcin2018}. Parts of this section are taken
 from~\cite{harmimBP, excel2019FBInfer}.
@@ -108,7 +108,7 @@ explained in~\cite{staticAnalysisMoller, favStaticAnalysis}.), which can
 discover various kinds of software bugs of a~given program, with the stress
 put on \emph{scalability}. A~more detailed explanation of the architecture of
 Facebook Infer is shown in Section~\ref{sec:fbinferArch}. Facebook Infer is
-implemented in \emph{OCaml}\footnote{\textbf{OCaml}
+implemented in \emph{OCaml}\footnote{\textbf{OCaml's}
 website\,--\,\url{https://ocaml.org}.}\,--\,\emph{functional} programming
 language, also supporting \emph{imperative} and \emph{object-oriented}
 paradigms. Further details about OCaml can be found in~\cite{realWorldOCaml}.
@@ -197,9 +197,8 @@ incrementality is based on \emph{re-using summaries} of functions for which
 there is no change in them neither in the functions transitively invoked from
 them.
 
-\subsection{%
-    The Architecture of the Abstract Interpretation Framework in Facebook
-    Infer%
+\subsection{\sloppy%
+    Architecture of the Abstract Interpretation Framework in Facebook Infer%
 }
 \label{sec:fbinferArch}
 
@@ -284,7 +283,7 @@ an \emph{abstract interpreter} (also called a~\emph{control interpreter}) and
 transfer functions take an actual \emph{abstract state} of an analysed function
 as an input, and by applying the interpreting command, produce a~new abstract
 state. The abstract interpreter interprets the command in an \emph{abstract
-domain} according to the CFG. This workflow is shown in a simplified form in
+domain} according to the CFG. This workflow is shown in a~simplified form in
 Figure~\ref{fig:inferAnalysis}.
 
 \begin{figure}[hbt]
@@ -305,11 +304,243 @@ Figure~\ref{fig:inferAnalysis}.
 \section{Atomicity Violations Detector}
 \label{sec:atomer}
 
-\todo{TODO}
-% \cite{contracts2015}
-% \cite{contract}
-% \cite{excel2018Muzikovska}
-% \cite{muzikovskaBP}
+In the thesis~\cite{harmimBP} and the paper~\cite{excel2019FBInfer}, there
+was proposed the \emph{Atomer}\,--\,a~\emph{static analyser} for finding some
+forms of \emph{atomicity violations} implemented as a~module of \emph{Facebook
+Infer}. The proposed solution is slightly inspired by ideas from~\cite{contract,
+contracts2017, contracts2015, muzikovskaBP, excel2018Muzikovska}.
+
+As demonstrated in Figure~\ref{fig:atomerProposal}, the proposed analysis is
+divided into two parts (\emph{phases of the analysis}):
+\begin{enumerate}[label={\textbf{Phase~\arabic*}:}, leftmargin=5em]
+    \item
+        Detection of (likely) \emph{atomic sequences}.
+
+    \item
+        Detection of \emph{atomicity violations} (violations of the atomic
+        sequences).
+\end{enumerate}
+The design and implementation are in detail described
+in~\cite{harmimBP}\,--\,Chapters~3 and~4.
+
+\begin{figure}[hbt]
+    \centering
+    \includegraphics[width=.9 \linewidth]{analyser-proposal.pdf}
+    \caption{Phases of the proposed analyser}
+    \label{fig:atomerProposal}
+\end{figure}
+
+\subsection{\sloppy%
+    Approximation with Sets of Function Calls%
+}
+
+Working with \emph{sequences of function calls} was approximated by working
+with \emph{sets of function calls} to make the solution more \emph{scalable}.
+I.e., the solution is more scalable because the order of stored function calls
+is not relevant while working with sets. Thus, less memory is required
+because the same sets of function calls are not stored multiple times. The
+analysis is also faster since there are stored fewer function calls to work
+with. Indeed, the analysis is less accurate because this causes loss of
+some information. The analysis after the approximation is illustrated in
+Figure~\ref{fig:atomerProposalSets}.
+
+\begin{figure}[hbt]
+    \centering
+    \includegraphics[width=.9 \linewidth]{analyser-proposal-sets.pdf}
+    \caption{Phases of the analyser approximated with sets of function calls}
+    \label{fig:atomerProposalSets}
+\end{figure}
+
+\begin{example}
+    For demonstrating the approximation of the analysis with sets of
+    function calls, assume functions from Listing~\ref{list:approx}.
+    Before the approximation, when the analysis was working with sequences
+    of function calls, \textbf{Phase~1} of the analysis produced the
+    following \emph{summery} while analysed function~\texttt{f}:
+    (\textcolor{red}{(\texttt{a}, \texttt{b}, \texttt{c})}, \textcolor{blue}{%
+    (\texttt{x}, \texttt{a}, \texttt{b}, \texttt{c})}), and the following
+    summary while analysed function~\texttt{g}:
+    (\textcolor{red}{(\texttt{c}, \texttt{b}, \texttt{a})}, \textcolor{blue}{%
+    (\texttt{x}, \texttt{c}, \texttt{b}, \texttt{a})}), where
+    \textcolor{red}{the first component is a~sequence of atomic calls}
+    and \textcolor{blue}{the second component is a~sequence of all calls}.
+    Whereas, after the approximation, the produced summary for both
+    functions is the same because \textcolor{red}{the first component is
+    a~set of atomic calls} and \textcolor{blue}{the second component is
+    a~set of all calls}: (\textcolor{red}{\{\texttt{a}, \texttt{b},
+    \texttt{c}\}}, \textcolor{blue}{\{\texttt{a}, \texttt{b}, \texttt{c},
+    \texttt{x}\}}).
+\end{example}
+
+\begin{lstlisting}[%
+    style=c++, label={list:approx}, float=hbt, caption={%
+    A~code snippet used for illustration of the approximation
+    of the analysis with sets of function calls}%
+]
+void f(void)
+{
+    x();
+
+    <@\textcolor{red}{pthread\_mutex\_lock}@>(&L);
+    a(); b(); c();
+    <@\textcolor{red}{pthread\_mutex\_unlock}@>(&L);
+}
+
+void g(void)
+{
+    x();
+
+    <@\textcolor{red}{pthread\_mutex\_lock}@>(&L);
+    c(); b(); a();
+    <@\textcolor{red}{pthread\_mutex\_unlock}@>(&L);
+}
+\end{lstlisting}
+
+\begin{example}
+    In \textbf{Phase~2} of the analysis, if the result of the first phase
+    had been the following set of sequences of functions called atomically
+    \{(\texttt{a}, \texttt{b}, \texttt{c})\}, the analysis would have looked
+    for the following pairs of functions that are not called atomically:
+    (\texttt{a}, \texttt{b}), (\texttt{b}, \texttt{c}). Since the result
+    of the first phase was changed to the following set of sets of
+    functions called atomically \{\{\texttt{a}, \texttt{b}, \texttt{c}\}\},
+    the analysis now looks for the following pairs of functions that are
+    not called atomically: (\texttt{a}, \texttt{b}), (\texttt{b},
+    \texttt{a}), (\texttt{b}, \texttt{c}), (\texttt{c}, \texttt{b}),
+    (\texttt{a}, \texttt{c}), (\texttt{c}, \texttt{a}). I.e., it looks
+    for all the possible pairs from a~given set.
+\end{example}
+
+\subsection{Distinguishment of Multiple Locks Used}
+
+As it was Atomer designed in~\cite{harmimBP}, different locks were not
+distinguished at all. Only calls of locks/unlocks were identified, and
+parameters of these calls (\emph{lock objects}) were not considered. So,
+if there had been several lock objects used, the analysis would not have
+been working correctly. Therefore, lock objects are now taking into
+consideration. They are distinguishing using Facebook Infer's built-in
+mechanism called \emph{access paths}\footnote{Facebook Infer uses
+\textbf{syntactic access paths} for naming heap locations via the paths used
+to access them.~\cite{racerD}}. During the analysis (both phases), each
+\emph{atomic section} is identified by an access path of a~lock that
+guards that section.
+
+\begin{example}
+    Consider functions~\texttt{x} and~\texttt{y} from
+    Listing~\ref{list:multipleLocks}. There are two lock objects
+    \texttt{L1} and \texttt{L2} that are used simultaneously.
+    After the extension of the distinguishment of multiple locks used, the
+    analysis works as follows. In function~\texttt{x}, there is recognised
+    that lock~\texttt{L1} guards a~set of atomic calls \{\texttt{a},
+    \texttt{b}, \texttt{c}\}, and lock~\texttt{L2} guards \{\texttt{b}\}.
+    Further, in function~\texttt{y}, lock~\texttt{L1} guards \{\texttt{a},
+    \texttt{b}\}, and lock~\texttt{L2} guards \{\texttt{b}, \texttt{c}\}.
+\end{example}
+
+\begin{lstlisting}[%
+    style=c++, label={list:multipleLocks}, float=hbt, caption={%
+    A~code snippet used for illustration of distinguishing
+    multiple locks used}%
+]
+void x(void)
+{
+    <@\textcolor{red}{pthread\_mutex\_lock}@>(&<@\textcolor{red}{L1}@>);
+    a();
+    <@\textcolor{cyan}{pthread\_mutex\_lock}@>(&<@\textcolor{cyan}{L2}@>);
+    b();
+    <@\textcolor{cyan}{pthread\_mutex\_unlock}@>(&<@\textcolor{cyan}{L2}@>);
+    c();
+    <@\textcolor{red}{pthread\_mutex\_unlock}@>(&<@\textcolor{red}{L1}@>);
+}
+
+void y(void)
+{
+    <@\textcolor{red}{pthread\_mutex\_lock}@>(&<@\textcolor{red}{L1}@>);
+    a();
+    <@\textcolor{cyan}{pthread\_mutex\_lock}@>(&<@\textcolor{cyan}{L2}@>);
+    b();
+    <@\textcolor{red}{pthread\_mutex\_unlock}@>(&<@\textcolor{red}{L1}@>);
+    c();
+    <@\textcolor{cyan}{pthread\_mutex\_unlock}@>(&<@\textcolor{cyan}{L2}@>);
+}
+\end{lstlisting}
+
+\subsection{Support for C++ and Java}
+
+Atomer was extended to support analyses of \emph{C++} and \emph{Java}
+programs. In general, Facebook Infer can analyse programs written in C, C++,
+Java, and Objective-C. The Facebook Infer's \emph{frontend} compiles input
+programs into the \emph{Smallfoot Intermediate Language} (SIL) and represents
+them as a~\emph{CFG}. Individual analyses are then performed on SIL. However,
+in practice, there are not negligible differences between these languages.
+Thus, individual non-trivial analysers have to be adapted for specific
+languages.
+
+Earlier, Atomer supported only C/C++ languages using \emph{PThread locks}.
+Within this project, it was adjusted to support more complicated \emph{mutual
+exclusion} C++ mechanisms and to support analysis of Java programs with its
+mutual exclusion mechanisms. To identification of locks for different
+languages, it was used and extended the Facebook Infer's built-in module
+\texttt{ConcurrencyModels}.
+
+Currently, Atomer supports these lock mechanisms:
+\begin{itemize}
+    \item
+        \textbf{C/C++ classic locks:}
+        \begin{itemize}
+            \item \texttt{pthread\_mutex}
+            \item \texttt{std::mutex}
+            \item \texttt{std::lock}
+            \item \texttt{std::recursive\_mutex}
+            \item \texttt{std::recursive\_timed\_mutex}
+            \item \texttt{std::shared\_mutex}
+            \item \texttt{std::timed\_mutex}
+            \item \texttt{boost::shared\_mutex}
+            \item \texttt{boost::mutex}
+            \item \texttt{folly::MicroSpinLock}
+            \item \texttt{folly::RWSpinLock}
+            \item \texttt{folly::SharedMutex}
+            \item \texttt{folly::SharedMutexImpl}
+            \item \texttt{folly::SpinLock}
+            \item \texttt{apache::thrift::concurrency::\\Mutex}
+            \item \texttt{apache::thrift::concurrency::\\%
+                NoStarveReadWriteMutex}
+            \item \texttt{apache::thrift::concurrency::\\ReadWriteMutex}
+            \item \texttt{apache::thrift::concurrency::\\Monitor}
+        \end{itemize}
+
+    \item
+        \textbf{C/C++ lock guards:}
+        \begin{itemize}
+            \item \texttt{std::lock\_guard}
+            \item \texttt{std::shared\_lock}
+            \item \texttt{std::unique\_lock}
+            \item \texttt{folly::SharedMutex::ReadHolder}
+            \item \texttt{folly::SharedMutex::WriteHolder}
+            \item \texttt{folly::LockedPtr}
+            \item \texttt{folly::SpinLockGuard}
+            \item \texttt{apache::thrift::concurrency::\\Guard}
+            \item \texttt{apache::thrift::concurrency::\\RWGuard}
+        \end{itemize}
+
+    \item
+        \textbf{Java classic locks:}
+        \begin{itemize}
+            \item \texttt{java.util.concurrent.locks.Lock}
+            \item \texttt{java.util.concurrent.locks.\\ReentrantLock}
+            \item \texttt{java.util.concurrent.locks.\\%
+                ReentrantReadWriteLock.ReadLock}
+            \item \texttt{java.util.concurrent.locks.\\%
+                ReentrantReadWriteLock.\\WriteLock}
+        \end{itemize}
+
+    \item
+        \textbf{Java lock guards (\texttt{synchronized} keyword):}
+        \begin{itemize}
+            \item \texttt{synchronized} block
+            \item \texttt{synchronized} method
+        \end{itemize}
+\end{itemize}
 
 %-------------------------------------------------------------------------------
 %-------------------------------------------------------------------------------
@@ -328,7 +559,7 @@ detail, it is described in Section~\ref{sec:expPurpos}. Moreover,
 Section~\ref{sec:expGluon} shows performed experiments on test programs
 derived from the static analyser \emph{Gluon}. Finally,
 Section~\ref{sec:expReal} is about the experimental evaluation of Atomer on
-publicly available \emph{real-life complex} programs.
+\emph{publicly available real-life complex} programs.
 
 \subsection{Testing on Hand-Crafted Examples}
 \label{sec:expPurpos}
@@ -382,24 +613,24 @@ shown that Atomer founds no atomicity violations in such correct programs.
 \label{sec:expReal}
 
 In~\cite{harmimBP}, Atomer was evaluated on a~subset of \emph{real-life
-low-level concurrent} C programs from a~\emph{publicly available} benchmark.
+low-level concurrent} C~programs from a~\emph{publicly available} benchmark.
 These programs were derived from the Debian GNU Linux distribution. The entire
 benchmark was initially used for an experimental evaluation of Daniel
 Kroening's static deadlock analyser for
-\emph{C/PThreads}~\cite{deadlockKroening} implemented in the CPROVER framework. 
+\emph{C/PThreads}~\cite{deadlockKroening} implemented in the CPROVER framework.
 Several potential atomicity violations were found. In more detail, the results
-are listed in~\cite{harmimBP}, Section~5.2.
+are listed in~\cite{harmimBP}\,--\,Section~5.2.
 
 Since Atomer supports analysis of Java programs, two \emph{real-life open-source
-extensive} Java programs were analysed\,--\,\emph{Apache Cassandra}\footnote{%
-\textbf{Apache Cassandra} repository\,--\,%
-\url{https://github.com/apache/cassandra}.} and \emph{Apache Tomcat}\footnote{%
-\textbf{Apache Tomcat} repository\,--\,\url{https://github.com/apache/tomcat}.}.
-In~\cite{contracts2015, contracts2017}, there were reported a~few
-\emph{atomicity-related} bugs\footnote{\textbf{Reported atomicity violations
-in Apache Cassandra}\,--\,%
+extensive} Java programs \linebreak were analysed\,--\,\emph{Apache
+Cassandra}\footnote{\textbf{Apache Cassandra's} repository\,--\,%
+\url{https://github.com/apache/cassandra}.} and \emph{Apache
+Tomcat}\footnote{\textbf{Apache Tomcat's} repository\,--\,%
+\url{https://github.com/apache/tomcat}.}. In~\cite{contracts2015,
+contracts2017}, there were reported a~few \emph{atomicity-related}
+bugs\footnote{\textbf{Reported atomicity violations in Apache Cassandra}\,--\,%
 \url{https://issues.apache.org/jira/browse/CASSANDRA-7757}.}\footnote{\textbf{%
-Reported atomicity violation in Apache Tomcat}\,--\,%
+Reported atomicity violations in Apache Tomcat}\,--\,%
 \url{https://bz.apache.org/bugzilla/show_bug.cgi?id=56784}.}. It turns out that
 the reported bugs were real atomicity violation errors, and they were later
 fixed. Thus, within this project, these programs were analysed by Atomer, and
@@ -408,8 +639,8 @@ some \emph{false alarms} were reported. However, make the analyser more
 \emph{accurate} is currently the work under progress. Besides, the results
 of the analysis can be used as an input for \emph{dynamic analysis}, which
 can be able to check whether the atomicity violations are real errors. For
-instance, one cloud uses \emph{ANaConDA}\footnote{\textbf{ANaConDA framework}
-website\,--\,%
+instance, one cloud uses \emph{ANaConDA}\footnote{Website of \textbf{ANaConDA
+framework}\,--\,%
 \url{http://www.fit.vutbr.cz/research/groups/verifit/tools/anaconda}.} dynamic
 analyser, which uses \emph{noise-based testing} with \emph{extrapolated
 checking} for violations of contracts for concurrency. ANaConDA could be
@@ -431,7 +662,7 @@ of the paper then aimed at the description of a~static analyser for detecting
 \emph{atomicity violations}\,---\,\emph{Atomer}\,---\,implemented as a~module
 of Facebook Infer and its extensions and improvements. Lastly, it is described
 the experimental evaluation of the new features and other experiments performed
-in this project practice, and it is discussed possible future work.
+in this project practice.
 
 The original analyser works on the level of \emph{sequences of function calls},
 but in this project, it was changed to work on the level of \emph{sets of
@@ -449,8 +680,8 @@ atomically}. Within this project, two new main features were introduced:
 The introduced extensions and improvements were successfully tested on
 smaller \emph{hand-crafted} programs. It turned out that such innovations
 enhanced the \emph{accuracy} and \emph{scalability} of the analysis. Moreover,
-Atomer was experimentally evaluated on another software. Notably, it was
-evaluated on \emph{open-source real-life Java programs}\,--\,\emph{
+Atomer was experimentally evaluated on another software. \linebreak Notably,
+it was evaluated on \emph{open-source real-life Java programs}\,--\,\emph{%
 Apache Cassandra} and \emph{Tomcat}. Already fixed and reported real bugs
 were successfully rediscovered. Nevertheless, so far, quite some \emph{false
 alarms} are reported. However, a~result of the analyser can be used as an

@@ -8,11 +8,11 @@
 % File:        enplain.pst was created by translating czplain.bst, that was
 %                 created by editing plain.bst
 % Date:        Created on June 31, 2019.
-%              Last edited 10. kveten 2009, 16:55.
+%              Last edited 28. srpen 2020, 08:11.
 %              Edited by Adam Herout for FIT thesis template: 31.7.2019
 %              Edited by Jaroslav Dytrych to achieve conformance with
 %                standard for FIT thesis template: 10.10.2019
-%              Edited by Dominik Harmim: 21.7.2020
+%              Edited by Dominik Harmim: 28.8.2020
 % Description: English bibliographic style.
 % Use:
 % Encoding:    UTF-8
@@ -326,6 +326,14 @@ FUNCTION {output.check}
 { 't :=
   duplicate$ empty$
     { pop$ "empty " t * " in " * cite$ * warning$ }
+    { output.nonnull }
+  if$
+}
+
+FUNCTION {output.check.dummy}
+{ 't :=
+  duplicate$ empty$
+    { pop$ }
     { output.nonnull }
   if$
 }
@@ -1379,7 +1387,8 @@ FUNCTION {format.btitle}
 % }
 FUNCTION {format.from.btitle}
 { booktitle empty$
-  { "empty booktitle in " cite$ * warning$
+%  { "empty booktitle in " cite$ * warning$ empty warning
+   {
     ""
   }
   { booktitle capitalize
@@ -1547,6 +1556,25 @@ FUNCTION {format.date}
   { year empty$
       { ""
         "just month (empty year) in " cite$ * warning$ }
+      { month duplicate$ is.ord
+          { str.to.int get.month.n " " * year * }
+          { " " * year * }
+        if$
+      }
+    if$
+  }
+  if$
+}
+
+FUNCTION {format.date.misc}
+{ month empty$
+    { year empty$
+        { "" }
+        { year }
+      if$
+    }
+  { year empty$
+      { "" }
       { month duplicate$ is.ord
           { str.to.int get.month.n " " * year * }
           { " " * year * }
@@ -2005,7 +2033,8 @@ FUNCTION {format.journal.issue}
   }
   if$
   number empty$
-  { "empty number in " cite$ * warning$ }
+%  { "empty number in " cite$ * warning$ } empty warning
+  {}
   { number is.ord
     { "no.~" number *
       s swap$ comma.connect 's :=
@@ -2129,7 +2158,8 @@ FUNCTION {format.vol}
 FUNCTION {conference.basics}
 { editor empty$
   { organization empty$
-    { "empty editor and organization in " cite$ * warning$
+%    { "empty editor and organization in " cite$ * warning$ empty warning
+    {
       ""
     }
     { organization capitalize
@@ -2592,7 +2622,8 @@ FUNCTION {article}
   format.howpublished output
   new.block %% serial pub. title (required) a medium type
             %%    (required for el. doc.)
-  format.edition "edition" output.check
+%  format.edition "edition" output.check empty warning
+  format.edition "edition" output.check.dummy
   new.block %% edition (required)
   format.journal.issue
   format.revised comma.connect
@@ -2636,7 +2667,8 @@ FUNCTION {book}
   format.btitle "book title" output.check
   format.howpublished output
   new.block %% title (required) and medium type (required for el. doc.)
-  format.edition capitalize "edition" output.check
+%  format.edition capitalize "edition" output.check empty warning
+  format.edition capitalize "edition" output.check.dummy
   new.block %% edition (required)
   contrybutory capitalize output
   new.block %% secondary author(s) (optional)
@@ -2726,7 +2758,8 @@ FUNCTION {conference}
   new.block %% availability (required for el. doc.)
   isbn empty$
     { issn empty$
-        { "empty isbn and issn in " cite$ * warning$ }
+%        { "empty isbn and issn in " cite$ * warning$ } empty warning
+        {}
         { format.issn output }
       if$
     }
@@ -2841,9 +2874,11 @@ FUNCTION {misc}
     and
       {
         output
-        format.date capitalize output
+%        format.date capitalize output empty warning
+        format.date.misc capitalize output
       }
-      { format.date comma.connect output }
+%      { format.date comma.connect output } empty warning
+       { format.date.misc comma.connect output }
     if$
     revised empty$
       'skip$
@@ -2862,7 +2897,8 @@ FUNCTION {misc}
       year empty$
       revised empty$
       and
-      { "empty year and revised in " cite$ * warning$ }
+%      { "empty year and revised in " cite$ * warning$ } empty warning
+       {  }
       'skip$
       if$
     }

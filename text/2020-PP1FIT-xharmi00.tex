@@ -3,6 +3,7 @@
 \documentclass{PPFIT}
 
 \usepackage{amsthm}
+\usepackage{listings}
 
 % Definition theorem - Example.
 \theoremstyle{definition}
@@ -10,7 +11,46 @@
 
 \renewcommand{\ttdefault}{lmtt} % set Latin Modern tt as tt
 
-\interfootnotelinepenalty=10000
+\interfootnotelinepenalty=10000 % do not separate footnotes to multiple pages
+
+% fix underfull \hbox in bibliography
+\apptocmd{\sloppy}{\hbadness 10000\relax}{}{}
+
+%%% BEGIN listings settings %%%
+\definecolor{bluekeywords}{rgb}{.13, .13, 1}
+\definecolor{greencomments}{rgb}{0, .5, 0}
+\definecolor{redstrings}{rgb}{.9, 0, 0}
+
+\lstset{
+    basicstyle=\ttfamily,
+    backgroundcolor=\color{white},
+    columns=fullflexible,
+    showstringspaces=false,
+    commentstyle=\color{gray}\upshape,
+    captionpos=b,
+    tabsize=4,
+    keepspaces=true
+}
+
+\lstdefinestyle{c++}{
+    language=c,
+    showspaces=false,
+    showtabs=false,
+    breaklines=true,
+    showstringspaces=false,
+    breakatwhitespace=true,
+    escapeinside={<@}{@>},
+    commentstyle=\color{greencomments},
+    keywordstyle=\color{bluekeywords},
+    stringstyle=\color{redstrings},
+    basicstyle=\ttfamily,
+    captionpos=b,
+    numbers=left,
+    xleftmargin=1.5em,
+    frame=single,
+    morekeywords={String, this}
+}
+%%% END listings settings %%%
 
 %-------------------------------------------------------------------------------
 %-------------------------------------------------------------------------------
@@ -30,7 +70,7 @@
 
 %-------------------------------------------------------------------------------
 %-------------------------------------------------------------------------------
-%  REVIEW vs. FINAL VERSION
+%   REVIEW vs. FINAL VERSION
 %-------------------------------------------------------------------------------
 
 \PPFinalCopy
@@ -61,7 +101,7 @@
 \Supplementary{%
     Atomer Repository:~\url{https://github.com/harmim/infer}\,---\,Atomer Wiki:
     \url{https://github.com/harmim/infer/wiki}\,---\,VeriFIT Static Analysis
-    Plugins: 
+    Plugins:
     \url{https://www.fit.vutbr.cz/research/groups/verifit/tools/sa-plugins}\,%
     ---\,Facebook Infer Repository: \url{https://github.com/facebook/infer}%
 }
