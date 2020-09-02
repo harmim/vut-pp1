@@ -118,17 +118,18 @@
     within a~bachelor's thesis at FIT BUT as a~module of \emph{Facebook Infer},
     which is an open-source and extendable static analysis framework that
     promotes efficient \emph{modular} and \emph{incremental} analysis. The
-    original analyser works on the level of \emph{sequences of function calls},
-    but in this project, it was changed to work on the level of \emph{sets of
-    function calls}. The solution is based on the assumption that sequences
-    executed \emph{atomically once} should probably be executed \emph{always
-    atomically}. Within this project, two new main features were introduced:
+    original analyser is based on the assumption that \emph{sequences of
+    function calls} executed \emph{atomically once} should probably be
+    executed \emph{always atomically}, and it naturally works with. In this
+    work, to improve \emph{scalability}, the use of sequences is
+    \emph{approximated by sets}. Further, in this project, two new features
+    were introduced:
     \begin{enumerate*}[label={(\roman*)}]
         \item
-            support for \emph{C++ and Java locks},
+            support for \emph{C++} and \emph{Java} locks,
 
         \item
-            and distinguish \emph{multiple locks used}.
+            and distinguishing \emph{multiple locks used}.
     \end{enumerate*}
     The new features were successfully verified and evaluated on smaller
     programs created for testing purposes. Furthermore, new experiments on

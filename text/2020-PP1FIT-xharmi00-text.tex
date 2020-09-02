@@ -16,7 +16,7 @@ testing} are often used, and they are satisfactory in many cases. Nevertheless,
 they can still leave too many bugs undetected, because they can analyse
 only particular program flows dependent on the input data. An alternative
 solution is \emph{static analysis} that has its shortcomings as well, such
-as the \emph{scalability} on large codebases or considerably high rate of
+as the \emph{scalability} on large codebases or a~considerably high rate of
 incorrectly reported errors (so-called \emph{false positives} or \emph{false
 alarms}).
 
@@ -33,7 +33,7 @@ Facebook Infer is a~framework for building new analysers quickly and easily.
 Unfortunately, the current version of Facebook Infer still lacks better
 support for \emph{concurrency} bugs. While it provides a~reasonably advanced
 \emph{data race} analyser, it is limited to Java and C++ programs only and
-fails for C~programs, which use a~more \emph{low-level} lock manipulation.
+fails for C~programs, which use a~\emph{lower-level lock manipulation}.
 
 In \emph{concurrent programs}, there are often \emph{atomicity requirements}
 for execution of specific sequences of instructions. Violating these
@@ -47,7 +47,7 @@ it is difficult to avoid errors in \emph{atomicity-dependent programs},
 especially in large projects, and even more laborious and time-consuming is
 finding and fixing them.
 
-In the thesis~\cite{harmimBP}, there was proposed the
+In the thesis~\cite{harmimBP}, there was proposed
 \emph{Atomer}\,--\,a~\emph{static analyser} for finding some forms of
 atomicity violations implemented as a~module of Facebook Infer. In particular,
 the stress is put on the \emph{atomic execution of sequences of function
@@ -59,13 +59,13 @@ atomicity of specific sequences of calls is the most straightforward (yet
 very useful in practice) kind of contracts for concurrency. The implementation
 mainly targets C/C++ programs that use \emph{PThread} locks. Within this
 project practice, Atomer was improved, extended, and other experiments were
-performed. In particular, two new main features were introduced:
+performed. In particular, two new features were introduced:
 \begin{enumerate*}[label={(\roman*)}]
     \item
-        support for \emph{C++ and Java locks},
+        support for \emph{C++} and \emph{Java} locks,
 
     \item
-        and distinguish \emph{multiple locks used}.
+        and a~way to distinguish \emph{multiple locks used}.
 \end{enumerate*}
 Moreover, working with \emph{sequences of function calls} was approximated
 by working with \emph{sets of function calls} to make the solution more
@@ -73,17 +73,17 @@ by working with \emph{sets of function calls} to make the solution more
 
 The development of Atomer has been discussed with developers of Facebook
 Infer, and it is a~part of the H2020 ECSEL project Aquas. Parts of this
-paper are taken from the thesis~\cite{harmimBP} and the
+report are taken from the thesis~\cite{harmimBP} and the
 paper~\cite{excel2019FBInfer} written in collaboration with Vladimír Marcin
 and Ondřej Pavela.
 
-The rest of the paper is organised as follows. In Section~\ref{sec:fbinfer},
-there is described Facebook Infer framework. Atomer is described in
+The rest of the report is organised as follows. In Section~\ref{sec:fbinfer},
+there is described the Facebook Infer framework. Atomer is described in
 Section~\ref{sec:atomer}, together with all the extensions and improvements
 implemented within this project practice. Subsequently,
 Section~\ref{sec:exp} discusses the experimental evaluation of the new
 features and other experiments that were performed in this project.
-Finally, Section~\ref{sec:conc} concludes the paper.
+Finally, Section~\ref{sec:conc} concludes the report.
 
 %-------------------------------------------------------------------------------
 %-------------------------------------------------------------------------------
@@ -102,14 +102,15 @@ from~\cite{harmimBP, excel2019FBInfer}.
 
 Facebook Infer is an \emph{open-source}\footnote{\textbf{Open-source repository
 of Facebook Infer} on GitHub\,--\,\url{https://github.com/facebook/infer}.}
-\emph{static analysis framework} (Brief explanation of static analysis itself
-can be found in~\cite{harmimBP}\,--\,Section~2.1. In more detail, it is then
-explained in~\cite{staticAnalysisMoller, favStaticAnalysis}.), which can
-discover various kinds of software bugs of a~given program, with the stress
-put on \emph{scalability}. A~more detailed explanation of the architecture of
-Facebook Infer is shown in Section~\ref{sec:fbinferArch}. Facebook Infer is
-implemented in \emph{OCaml}\footnote{\textbf{OCaml's}
-website\,--\,\url{https://ocaml.org}.}\,--\,\emph{functional} programming
+\emph{static analysis framework}\footnote{A~brief explanation of \textbf{static
+analysis} itself can be found in~\cite{harmimBP}\,--\,Section~2.1. In more
+detail, it is then explained in~\cite{staticAnalysisMoller,
+favStaticAnalysis}.}, which can discover various kinds of software bugs of
+a~given program, with the stress put on \emph{scalability}. A~more detailed
+explanation of the architecture of Facebook Infer is shown in
+Section~\ref{sec:fbinferArch}. Facebook Infer is implemented in
+\emph{OCaml}\footnote{\textbf{OCaml's}
+website\,--\,\url{https://ocaml.org}.}\,--\,a~\emph{functional} programming
 language, also supporting \emph{imperative} and \emph{object-oriented}
 paradigms. Further details about OCaml can be found in~\cite{realWorldOCaml}.
 Facebook Infer was originally a~standalone tool focused on \emph{sound
@@ -129,14 +130,15 @@ leaks, resource leaks, etc.
 \subsection{Abstract Interpretation in Facebook Infer}
 
 Facebook Infer is a~general framework for static analysis of programs, and it
-is based on \emph{abstract interpretation} (Abstract interpretation is
-explained and formally defined in~\cite{harmimBP}\,--\,Section~2.1.1.
-Additional description can be found in~\cite{AIBasedFormalMethodsCousot,
-AILatticeModelCousot, AIInNutshellCousot, AICousotWeb, favAI,
-projectPracticeMarcin2018, wideningNarrowingCousot, programAnalysisNielson,
-staticAnalysisMoller, favLatticesAndFixpoints}). Despite the original approach
-taken from~\cite{inferBiabduction}, Facebook Infer aims to find bugs rather
-than \emph{formal verification}. It can be used to quickly develop new sorts of
+is based on \emph{abstract interpretation}\footnote{\textbf{Abstract
+interpretation} is explained and formally
+defined in~\cite{harmimBP}\,--\,Section~2.1.1. Additional description can be
+found in~\cite{AIBasedFormalMethodsCousot, AILatticeModelCousot,
+AIInNutshellCousot, AICousotWeb, favAI, projectPracticeMarcin2018,
+wideningNarrowingCousot, programAnalysisNielson, staticAnalysisMoller,
+favLatticesAndFixpoints}.}. Despite the original approach taken
+from~\cite{inferBiabduction}, Facebook Infer aims to find bugs rather than
+\emph{formal verification}. It can be used to quickly develop new sorts of
 \emph{compositional} and \emph{incremental} analysers (\emph{intraprocedural}
 or \emph{interprocedural}~\cite{programAnalysisNielson}) based on the concept
 of function \emph{summaries}. In general, a~\emph{summary} is a~representation
@@ -156,8 +158,8 @@ summaries do not differ for different contexts, the analysis becomes more
 scalable, but it can lead to a~loss of accuracy.
 
 In order to create a~new intraprocedural analyser in Facebook Infer,
-it is needed to define the following (listed items are described in more detail
-in~\cite{harmimBP}\,--\,Section~2.1.1):
+it is needed to define the following (the listed items are described in more
+detail in~\cite{harmimBP}\,--\,Section~2.1.1):
 \begin{enumerate}
     \item
         The \emph{abstract domain}~$ Q $, i.e., a~type of an \emph{abstract
@@ -251,17 +253,17 @@ the analysis in parallel.
 \begin{example}
     \label{ex:fbinferAnalysis}
     For demonstrating the order of the analysis in Facebook Infer and its
-    incrementality, assume a~call graph in Figure~\ref{fig:inferCallGraph}. At
-    first, leaf functions \texttt{F5} and \texttt{F6} are analysed. Further,
-    the analysis goes on towards the root of the call
-    graph\,--\,\texttt{F\textsubscript{MAIN}}, while taking into consideration
-    the dependencies denoted by the edges. This order ensures that a~summary is
-    available once a~nested function call is abstractly interpreted within the
-    analysis. When there is a~subsequent code change, only directly changed
-    functions and all the functions up the call path are re-analysed. For
-    instance, if there is a~change of source code of function \texttt{F4},
-    Facebook Infer triggers re-analysis of functions \texttt{F4}, \texttt{F2},
-    and \texttt{F\textsubscript{MAIN}} only.
+    incrementality, assume a~call graph given in
+    Figure~\ref{fig:inferCallGraph}. At first, leaf functions \texttt{F5} and
+    \texttt{F6} are analysed. Further, the analysis goes on towards the root of
+    the call graph\,--\,\texttt{F\textsubscript{MAIN}}, while taking into
+    consideration the dependencies denoted by the edges. This order ensures
+    that a~summary is available once a~nested function call is abstractly
+    interpreted within the analysis. When there is a~subsequent code change,
+    only directly changed functions and all the functions up the call path are
+    re-analysed. For instance, if there is a~change of source code of function
+    \texttt{F4}, Facebook Infer triggers re-analysis of functions \texttt{F4},
+    \texttt{F2}, and \texttt{F\textsubscript{MAIN}} only.
 \end{example}
 
 \begin{figure}[hbt]
@@ -277,14 +279,14 @@ the analysis in parallel.
 The last part of the architecture consists of a~set of analyser plugins. Each
 plugin performs some analysis by interpreting of SIL instructions. The result
 of the analysis of each function (function summary) is stored to the results
-database. The interpretation of SIL instructions (\emph{commands}) is done using
+database. The interpretation SIL instructions (\emph{commands}) is done using
 an \emph{abstract interpreter} (also called a~\emph{control interpreter}) and
 \emph{transfer functions} (also called a~\emph{command interpreter}). The
-transfer functions take an actual \emph{abstract state} of an analysed function
-as an input, and by applying the interpreting command, produce a~new abstract
-state. The abstract interpreter interprets the command in an \emph{abstract
-domain} according to the CFG. This workflow is shown in a~simplified form in
-Figure~\ref{fig:inferAnalysis}.
+transfer functions take a~previously generated \emph{abstract state} of an
+analysed function as an input, and by applying the interpreting command,
+produce a~new abstract state. The abstract interpreter interprets the command
+in an \emph{abstract domain} according to the CFG. This workflow is shown in
+a~simplified form in Figure~\ref{fig:inferAnalysis}.
 
 \begin{figure}[hbt]
     \centering
@@ -305,7 +307,7 @@ Figure~\ref{fig:inferAnalysis}.
 \label{sec:atomer}
 
 In the thesis~\cite{harmimBP} and the paper~\cite{excel2019FBInfer}, there
-was proposed the \emph{Atomer}\,--\,a~\emph{static analyser} for finding some
+was proposed\ \,\emph{Atomer}\,--\,a~\emph{static analyser} for finding some
 forms of \emph{atomicity violations} implemented as a~module of \emph{Facebook
 Infer}. The proposed solution is slightly inspired by ideas from~\cite{contract,
 contracts2017, contracts2015, muzikovskaBP, excel2018Muzikovska}.
@@ -334,14 +336,15 @@ in~\cite{harmimBP}\,--\,Chapters~3 and~4.
     Approximation with Sets of Function Calls%
 }
 
-Working with \emph{sequences of function calls} was approximated by working
-with \emph{sets of function calls} to make the solution more \emph{scalable}.
-I.e., the solution is more scalable because the order of stored function calls
-is not relevant while working with sets. Thus, less memory is required
-because the same sets of function calls are not stored multiple times. The
-analysis is also faster since there are stored fewer function calls to work
-with. Indeed, the analysis is less accurate because this causes loss of
-some information. The analysis after the approximation is illustrated in
+In this work, the approach of~\cite{harmimBP} that worked with \emph{sequences
+of function calls} was approximated by working with \emph{sets of function
+calls} to make the solution more \emph{scalable}. In particular, the solution
+is more scalable because the order of stored function calls is not relevant
+while working with sets. Thus, less memory is required because the same sets
+of function calls are not stored multiple times. The analysis is also faster
+since there are stored fewer function calls to work with. On the other hand,
+the analysis is less accurate because the new approach causes some loss of
+information. The analysis after the approximation is illustrated in
 Figure~\ref{fig:atomerProposalSets}.
 
 \begin{figure}[hbt]
@@ -356,10 +359,10 @@ Figure~\ref{fig:atomerProposalSets}.
     function calls, assume functions from Listing~\ref{list:approx}.
     Before the approximation, when the analysis was working with sequences
     of function calls, \textbf{Phase~1} of the analysis produced the
-    following \emph{summery} while analysed function~\texttt{f}:
+    following \emph{summary} while analysing function~\texttt{f}:
     (\textcolor{red}{(\texttt{a}, \texttt{b}, \texttt{c})}, \textcolor{blue}{%
     (\texttt{x}, \texttt{a}, \texttt{b}, \texttt{c})}), and the following
-    summary while analysed function~\texttt{g}:
+    summary while analysing function~\texttt{g}:
     (\textcolor{red}{(\texttt{c}, \texttt{b}, \texttt{a})}, \textcolor{blue}{%
     (\texttt{x}, \texttt{c}, \texttt{b}, \texttt{a})}), where
     \textcolor{red}{the first component is a~sequence of atomic calls}
@@ -413,13 +416,13 @@ void g(void)
 
 \subsection{Distinguishment of Multiple Locks Used}
 
-As it was Atomer designed in~\cite{harmimBP}, different locks were not
-distinguished at all. Only calls of locks/unlocks were identified, and
-parameters of these calls (\emph{lock objects}) were not considered. So,
-if there had been several lock objects used, the analysis would not have
-been working correctly. Therefore, lock objects are now taking into
-consideration. They are distinguishing using Facebook Infer's built-in
-mechanism called \emph{access paths}\footnote{Facebook Infer uses
+In the original version of Atomer designed in~\cite{harmimBP}, different
+locks were not distinguished at all. Only calls of locks/unlocks were
+identified, and parameters of these calls (\emph{lock objects}) were not
+considered. So, if there had been several lock objects used, the analysis
+would not have worked correctly. Therefore, lock objects are now
+taken into consideration. They are distinguishing using Facebook Infer's
+built-in mechanism called \emph{access paths}\footnote{Facebook Infer uses
 \textbf{syntactic access paths} for naming heap locations via the paths used
 to access them.~\cite{racerD}}. During the analysis (both phases), each
 \emph{atomic section} is identified by an access path of a~lock that
@@ -430,11 +433,12 @@ guards that section.
     Listing~\ref{list:multipleLocks}. There are two lock objects
     \texttt{L1} and \texttt{L2} that are used simultaneously.
     After the extension of the distinguishment of multiple locks used, the
-    analysis works as follows. In function~\texttt{x}, there is recognised
-    that lock~\texttt{L1} guards a~set of atomic calls \{\texttt{a},
-    \texttt{b}, \texttt{c}\}, and lock~\texttt{L2} guards \{\texttt{b}\}.
-    Further, in function~\texttt{y}, lock~\texttt{L1} guards \{\texttt{a},
-    \texttt{b}\}, and lock~\texttt{L2} guards \{\texttt{b}, \texttt{c}\}.
+    analysis works as follows. In function~\texttt{x}, the analyser
+    recognises that lock~\texttt{L1} guards a~set of atomic calls
+    \{\texttt{a}, \texttt{b}, \texttt{c}\}, and lock~\texttt{L2} guards
+    \{\texttt{b}\}. Further, in function~\texttt{y}, lock~\texttt{L1} guards
+    \{\texttt{a}, \texttt{b}\}, and lock~\texttt{L2} guards \{\texttt{b},
+    \texttt{c}\}.
 \end{example}
 
 \begin{lstlisting}[%
@@ -476,14 +480,14 @@ in practice, there are not negligible differences between these languages.
 Thus, individual non-trivial analysers have to be adapted for specific
 languages.
 
-Earlier, Atomer supported only C/C++ languages using \emph{PThread locks}.
+Earlier, Atomer supported only the C/C++ languages using \emph{PThread locks}.
 Within this project, it was adjusted to support more complicated \emph{mutual
 exclusion} C++ mechanisms and to support analysis of Java programs with its
-mutual exclusion mechanisms. To identification of locks for different
+mutual exclusion mechanisms. For identification of locks for different
 languages, it was used and extended the Facebook Infer's built-in module
 \texttt{ConcurrencyModels}.
 
-Currently, Atomer supports these lock mechanisms:
+Currently, Atomer supports the following lock mechanisms:
 \begin{itemize}
     \item
         \textbf{C/C++ classic locks:}
@@ -555,32 +559,33 @@ of the new features of the \emph{Atomer} analyser presented in
 Section~\ref{sec:atomer}. Each feature was tested independently as soon as it
 had been implemented. It was tested on suitable programs created for testing
 purposes and got inspired by test programs from~\cite{harmimBP}. In more
-detail, it is described in Section~\ref{sec:expPurpos}. Moreover,
-Section~\ref{sec:expGluon} shows performed experiments on test programs
-derived from the static analyser \emph{Gluon}. Finally,
+detail, the testing is described in Section~\ref{sec:expPurpos}. Moreover,
+Section~\ref{sec:expGluon} shows experiments performed on test programs
+derived from the static analyser \emph{Glu\-on}. Finally,
 Section~\ref{sec:expReal} is about the experimental evaluation of Atomer on
 \emph{publicly available real-life complex} programs.
 
 \subsection{Testing on Hand-Crafted Examples}
 \label{sec:expPurpos}
 
-The correct behaviour of Atomer was already tested in~\cite{harmimBP}, described
-in Section~5.1, and test programs are available in Appendix~A. There are
-reasonable \emph{C} programs that use \emph{PThread} locks. These programs
+The correct behaviour of Atomer was already tested in~\cite{harmimBP},
+described in Section~5.1, and test programs are available in Appendix~A
+of~\cite{harmimBP}. In the considered suite of test programs, there are
+suitable~\emph{C} programs that use \emph{PThread} locks. These programs
 contain sequences of function calls inside and outside \emph{atomic blocks},
 \emph{not paired lock/unlock calls}, \emph{iteration}, \emph{selection}, and
-\emph{nested function calls}. So, the functions are designed in order to
-check all the aspects of the analyser. It comprises all the components of
-the \emph{abstract state} and the \emph{summary}.
+\emph{nested function calls}. So, the functions are designed in order to check
+all the aspects of the analyser. It comprises all the components of the
+\emph{abstract state} and the \emph{summary}.
 
 Because working with \emph{sequences of function calls} was approximated to
 working with \emph{sets of function calls}, reference outputs for test programs
-from~\cite{harmimBP} (Appendix~A) were modified to the appropriate form, and the
-same tests were performed again\footnote{\textbf{Atomic sets} testing\,--\,%
+from Appendix~A of~\cite{harmimBP} were modified to the appropriate form, and
+the same tests were performed again\footnote{\textbf{Atomic sets} testing\,--\,%
 \url{https://github.com/harmim/vut-ibt/tree/master/experiments}.}. Further,
-new test programs were derived from those in~\cite{harmimBP}, and they were
-changed to test the new feature that adds support for distinguish \emph{multiple
-locks} used\footnote{\label{fn:test2}\textbf{Multiple locks} and
+new test programs were derived from those \linebreak in~\cite{harmimBP}, and
+they were changed to test the new feature that adds support for distinguishing
+\emph{multiple locks} used\footnote{\label{fn:test2}\textbf{Multiple locks} and
 \textbf{C++/Java} languages support testing\,--\,%
 \url{https://github.com/harmim/vut-pp1/tree/master/experiments}.}. In the end,
 several new test programs were written in \emph{C++} and \emph{Java}
@@ -588,7 +593,7 @@ for validation that the support for these languages is
 working\textsuperscript{\ref{fn:test2}}. Various kinds of lock mechanisms were
 used.
 
-In all the cases above, it was proved the correct behaviour of the analysis
+In all the cases above, it was validated a~correct behaviour of the analysis
 of Atomer (concerning the proposal).
 
 \subsection{Experiments on Test Programs Derived from the Gluon Tool}
@@ -621,8 +626,9 @@ Kroening's static deadlock analyser for
 Several potential atomicity violations were found. In more detail, the results
 are listed in~\cite{harmimBP}\,--\,Section~5.2.
 
-Since Atomer supports analysis of Java programs, two \emph{real-life open-source
-extensive} Java programs \linebreak were analysed\,--\,\emph{Apache
+Since the new version of Atomer supports analysis of Java programs, two
+\emph{real-life open-source extensive} Java programs were
+analysed\,--\,\emph{Apache
 Cassandra}\footnote{\textbf{Apache Cassandra's} repository\,--\,%
 \url{https://github.com/apache/cassandra}.} and \emph{Apache
 Tomcat}\footnote{\textbf{Apache Tomcat's} repository\,--\,%
@@ -635,12 +641,12 @@ Reported atomicity violations in Apache Tomcat}\,--\,%
 the reported bugs were real atomicity violation errors, and they were later
 fixed. Thus, within this project, these programs were analysed by Atomer, and
 the bugs were successfully \emph{rediscovered}. Unfortunately, so far, quite
-some \emph{false alarms} were reported. However, make the analyser more
-\emph{accurate} is currently the work under progress. Besides, the results
+some \emph{false alarms} were reported. However, works on improvements of the
+accuracy of the analyser are currently under progress. Besides, the results
 of the analysis can be used as an input for \emph{dynamic analysis}, which
 can be able to check whether the atomicity violations are real errors. For
-instance, one cloud uses \emph{ANaConDA}\footnote{Website of \textbf{ANaConDA
-framework}\,--\,%
+instance, one cloud use the \emph{ANaConDA}\footnote{Website of
+\textbf{ANaConDA framework}\,--\,%
 \url{http://www.fit.vutbr.cz/research/groups/verifit/tools/anaconda}.} dynamic
 analyser, which uses \emph{noise-based testing} with \emph{extrapolated
 checking} for violations of contracts for concurrency. ANaConDA could be
@@ -655,32 +661,33 @@ sets whose atomicity was found broken.
 \section{Conclusion}
 \label{sec:conc}
 
-This paper started by discussing a~\emph{static analysis} framework that uses
-\emph{abstract interpretation}\,---\,\emph{Facebook Infer}\,---\,its features,
-architecture, and existing analysers implemented in this tool. The major part
-of the paper then aimed at the description of a~static analyser for detecting
-\emph{atomicity violations}\,---\,\emph{Atomer}\,---\,implemented as a~module
+This report started by discussing a~\emph{static analysis} \linebreak framework
+that uses \emph{abstract interpretation}\,---\,\emph{Face\-book Infer}\,---\,its
+features, architecture, and existing analysers implemented in this tool. The
+major part of the report then aimed at the description of a~static analyser for
+detecting \emph{atomicity
+violations}\,---\,\emph{Atomer}\linebreak\,---\,implemented as a~module
 of Facebook Infer and its extensions and improvements. Lastly, it is described
 the experimental evaluation of the new features and other experiments performed
 in this project practice.
 
-The original analyser works on the level of \emph{sequences of function calls},
-but in this project, it was changed to work on the level of \emph{sets of
-function calls}. The solution is based on the assumption that sequences
-executed \emph{atomically once} should probably be executed \emph{always
-atomically}. Within this project, two new main features were introduced:
+The original analyser is based on the assumption that \emph{sequences of
+function calls} executed \emph{atomically once} should probably be executed
+\emph{always atomically}, and it naturally works with. In this work, to improve
+\emph{scalability}, the use of sequences is \emph{approximated by sets}.
+Further, in this project, two new features were introduced:
 \begin{enumerate*}[label={(\roman*)}]
     \item
-        support for \emph{C++ and Java locks},
+        support for \emph{C++} and \emph{Java} locks,
 
     \item
-        and distinguish \emph{multiple locks used}.
+        and distinguishing \emph{multiple locks used}.
 \end{enumerate*}
 
 The introduced extensions and improvements were successfully tested on
 smaller \emph{hand-crafted} programs. It turned out that such innovations
 enhanced the \emph{accuracy} and \emph{scalability} of the analysis. Moreover,
-Atomer was experimentally evaluated on another software. \linebreak Notably,
+Atomer was experimentally evaluated on additional software. \linebreak Notably,
 it was evaluated on \emph{open-source real-life Java programs}\,--\,\emph{%
 Apache Cassandra} and \emph{Tomcat}. Already fixed and reported real bugs
 were successfully rediscovered. Nevertheless, so far, quite some \emph{false
