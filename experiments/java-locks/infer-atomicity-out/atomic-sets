@@ -1,11 +1,3 @@
 void Locks.testSynchronizedMethod(): {void Locks.f1(), void Locks.f2(), void Locks.f3()} {void Locks.f3()}
-Test.<init>(): 
-void Locks.g(): 
 void Locks.testLock(): {void Locks.f1(), void Locks.f2()} {void Locks.f1(), void Locks.f2(), void Locks.f3()} {void Locks.f3()}
-void Locks.f1(): 
 void Locks.testSynchronizedBlocks(): {void Locks.f1(), void Locks.f2(), void Locks.f3()} {void Locks.f3()}
-void Locks.f3(): 
-void Locks.f2(): 
-Locks.<init>(): 
-void Test.main(String[]): 
-void Locks.testViolations(): 

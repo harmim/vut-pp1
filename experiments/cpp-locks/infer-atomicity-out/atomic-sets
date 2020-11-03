@@ -1,12 +1,4 @@
-main: 
-Test::Test: 
 Test::test_std_lock: {Test::f1, Test::f2} {Test::f1, Test::f2, Test::f3}
 Test::test_lock_guard: {Test::f1, Test::f2, Test::f3} {Test::f3}
-Test::~Test: 
-Test::g: 
 Test::test_std_mutex: {Test::f1, Test::f2} {Test::f1, Test::f2, Test::f3} {Test::f3}
 Test::test_unique_lock: {Test::f2, Test::f3} {Test::f3}
-Test::test_violations: 
-Test::f2: 
-Test::f3: 
-Test::f1: 
