@@ -1,5 +1,5 @@
 #0
-main.cpp:79: error: ATOMICITY_VIOLATION
+main.cpp:79: error: Atomicity Violation
   Atomicity Violation! - Functions 'Test::f1' and 'Test::f2' should be called atomically.
   77. 	void test_violations(void)
   78. 	{
@@ -9,4 +9,5 @@ main.cpp:79: error: ATOMICITY_VIOLATION
   81. };
 
 Found 1 issue
-  ATOMICITY_VIOLATION: 1
+                Issue Type(ISSUED_TYPE_ID): #
+  Atomicity Violation(ATOMICITY_VIOLATION): 1

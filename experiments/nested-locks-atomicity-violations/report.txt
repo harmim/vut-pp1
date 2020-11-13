@@ -1,5 +1,5 @@
 #0
-main.c:13: error: ATOMICITY_VIOLATION
+main.c:13: error: Atomicity Violation
   Atomicity Violation! - Functions 'f1' and 'f4' should be called atomically.
   11. void f4(void) {}
   12. void g(void) {}
@@ -9,7 +9,7 @@ main.c:13: error: ATOMICITY_VIOLATION
   15. 
 
 #1
-main.c:13: error: ATOMICITY_VIOLATION
+main.c:13: error: Atomicity Violation
   Atomicity Violation! - Functions 'f3' and 'f1' should be called atomically.
   11. void f4(void) {}
   12. void g(void) {}
@@ -19,7 +19,7 @@ main.c:13: error: ATOMICITY_VIOLATION
   15. 
 
 #2
-main.c:54: error: ATOMICITY_VIOLATION
+main.c:54: error: Atomicity Violation
   Atomicity Violation! - Functions 'f1' and 'f2' should be called atomically.
   52. 	f1();
   53. 	pthread_mutex_lock(&lockA); // {f2, f3}
@@ -29,7 +29,7 @@ main.c:54: error: ATOMICITY_VIOLATION
   56. 	f3();
 
 #3
-main.c:68: error: ATOMICITY_VIOLATION
+main.c:68: error: Atomicity Violation
   Atomicity Violation! - Functions 'f1' and 'f2' should be called atomically.
   66. 	pthread_mutex_lock(&lockB); // {f1, f2}
   67. 	pthread_mutex_unlock(&lockA);
@@ -39,7 +39,7 @@ main.c:68: error: ATOMICITY_VIOLATION
   70. }
 
 #4
-main.c:60: error: ATOMICITY_VIOLATION
+main.c:60: error: Atomicity Violation
   Atomicity Violation! - Functions 'f4' and 'f3' should be called atomically.
   58. 	f4();
   59. 	pthread_mutex_unlock(&lockB);
@@ -49,7 +49,7 @@ main.c:60: error: ATOMICITY_VIOLATION
   62. 	g();
 
 #5
-main.c:87: error: ATOMICITY_VIOLATION
+main.c:87: error: Atomicity Violation
   Atomicity Violation! - Functions 'f1' and 'f2' should be called atomically.
   85. 	f1();
   86. 	pthread_mutex_unlock(&lockA);
@@ -59,7 +59,7 @@ main.c:87: error: ATOMICITY_VIOLATION
   89. }
 
 #6
-main.c:87: error: ATOMICITY_VIOLATION
+main.c:87: error: Atomicity Violation
   Atomicity Violation! - Functions 'f2' and 'f3' should be called atomically.
   85. 	f1();
   86. 	pthread_mutex_unlock(&lockA);
@@ -69,7 +69,7 @@ main.c:87: error: ATOMICITY_VIOLATION
   89. }
 
 #7
-main.c:96: error: ATOMICITY_VIOLATION
+main.c:96: error: Atomicity Violation
   Atomicity Violation! - Functions 'f4' and 'f2' should be called atomically.
   94. 	ff(); // (ff, f3)
   95. 	pthread_mutex_lock(&lockA); // {f2, f3}
@@ -79,7 +79,7 @@ main.c:96: error: ATOMICITY_VIOLATION
   98. 	f3();
 
 #8
-main.c:102: error: ATOMICITY_VIOLATION
+main.c:102: error: Atomicity Violation
   Atomicity Violation! - Functions 'f4' and 'ff' should be called atomically.
   100. 	f4();
   101. 	pthread_mutex_unlock(&lockB);
@@ -89,7 +89,7 @@ main.c:102: error: ATOMICITY_VIOLATION
   104. 	g();
 
 #9
-main.c:110: error: ATOMICITY_VIOLATION
+main.c:110: error: Atomicity Violation
   Atomicity Violation! - Functions 'f4' and 'ff' should be called atomically.
   108. 	pthread_mutex_lock(&lockB); // {f1, f3, f4, ff}
   109. 	pthread_mutex_unlock(&lockA);
@@ -99,7 +99,7 @@ main.c:110: error: ATOMICITY_VIOLATION
   112. }
 
 #10
-main.c:94: error: ATOMICITY_VIOLATION
+main.c:94: error: Atomicity Violation
   Atomicity Violation! - Functions 'ff' and 'f3' should be called atomically.
   92. void test_nested(void)
   93. {
@@ -109,7 +109,7 @@ main.c:94: error: ATOMICITY_VIOLATION
   96. 	f2(); // (f4, f2)
 
 #11
-main.c:102: error: ATOMICITY_VIOLATION
+main.c:102: error: Atomicity Violation
   Atomicity Violation! - Functions 'ff' and 'f3' should be called atomically.
   100. 	f4();
   101. 	pthread_mutex_unlock(&lockB);
@@ -119,4 +119,5 @@ main.c:102: error: ATOMICITY_VIOLATION
   104. 	g();
 
 Found 12 issues
-  ATOMICITY_VIOLATION: 12
+                Issue Type(ISSUED_TYPE_ID): #
+  Atomicity Violation(ATOMICITY_VIOLATION): 12
