@@ -2,3 +2,5 @@ Test::test_std_lock: {Test::f1, Test::f2} {Test::f1, Test::f2, Test::f3}
 Test::test_lock_guard: {Test::f1, Test::f2, Test::f3} {Test::f3}
 Test::test_std_mutex: {Test::f1, Test::f2} {Test::f1, Test::f2, Test::f3} {Test::f3}
 Test::test_unique_lock: {Test::f2, Test::f3} {Test::f3}
+
+# Number of (analysed functions; atomic sets; atomic functions): (4; 9; 18)

@@ -3,3 +3,5 @@ test_only_lock: {f1, f2, f3} {f2, f3}
 test1_struct: {f1, f2} {f1, f2, f3} {f2} {f2, f3}
 test2: {f1} {f1, f2, f3} {f1, f2, f3, f4, f5} {f2} {f2, f3, f4} {f3} {f4}
 test_nested: {f1, f2, f3, f4, ff} {f1, f2, f4, f5, ff}
+
+# Number of (analysed functions; atomic sets; atomic functions): (5; 19; 46)
