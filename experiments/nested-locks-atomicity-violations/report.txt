@@ -1,104 +1,4 @@
 #0
-main.c:13: error: Atomicity Violation
-  Atomicity Violation! - Functions 'f1' and 'f4' should be called atomically.
-  11. void f4(void) {}
-  12. void g(void) {}
-  13. void ff(void) { f3(); f1(); f4(); } // (f1, f4); (f3, f1)
-                                  ^
-  14. 
-  15. 
-
-#1
-main.c:13: error: Atomicity Violation
-  Atomicity Violation! - Functions 'f3' and 'f1' should be called atomically.
-  11. void f4(void) {}
-  12. void g(void) {}
-  13. void ff(void) { f3(); f1(); f4(); } // (f1, f4); (f3, f1)
-                            ^
-  14. 
-  15. 
-
-#2
-main.c:54: error: Atomicity Violation
-  Atomicity Violation! - Functions 'f1' and 'f2' should be called atomically.
-  52. 	f1();
-  53. 	pthread_mutex_lock(&lockA); // {f2, f3}
-  54. 	f2(); // (f1, f2)
-       ^
-  55. 	pthread_mutex_lock(&lockB); // {f3, f4}
-  56. 	f3();
-
-#3
-main.c:68: error: Atomicity Violation
-  Atomicity Violation! - Functions 'f1' and 'f2' should be called atomically.
-  66. 	pthread_mutex_lock(&lockB); // {f1, f2}
-  67. 	pthread_mutex_unlock(&lockA);
-  68. 	f2(); f1(); // (f1, f2)
-       ^
-  69. 	pthread_mutex_unlock(&lockB);
-  70. }
-
-#4
-main.c:60: error: Atomicity Violation
-  Atomicity Violation! - Functions 'f4' and 'f3' should be called atomically.
-  58. 	f4();
-  59. 	pthread_mutex_unlock(&lockB);
-  60. 	f3(); // (f4, f3)
-       ^
-  61. 
-  62. 	g();
-
-#5
-main.c:87: error: Atomicity Violation
-  Atomicity Violation! - Functions 'f1' and 'f2' should be called atomically.
-  85. 	f1();
-  86. 	pthread_mutex_unlock(&lockA);
-  87. 	f2(); f3(); // (f1, f2); (f2, f3)
-       ^
-  88. 	pthread_mutex_unlock(&lockB);
-  89. }
-
-#6
-main.c:87: error: Atomicity Violation
-  Atomicity Violation! - Functions 'f2' and 'f3' should be called atomically.
-  85. 	f1();
-  86. 	pthread_mutex_unlock(&lockA);
-  87. 	f2(); f3(); // (f1, f2); (f2, f3)
-             ^
-  88. 	pthread_mutex_unlock(&lockB);
-  89. }
-
-#7
-main.c:96: error: Atomicity Violation
-  Atomicity Violation! - Functions 'f4' and 'f2' should be called atomically.
-  94. 	ff(); // (ff, f3)
-  95. 	pthread_mutex_lock(&lockA); // {f2, f3}
-  96. 	f2(); // (f4, f2)
-       ^
-  97. 	pthread_mutex_lock(&lockB); // {f3, f4}
-  98. 	f3();
-
-#8
-main.c:102: error: Atomicity Violation
-  Atomicity Violation! - Functions 'f4' and 'ff' should be called atomically.
-  100. 	f4();
-  101. 	pthread_mutex_unlock(&lockB);
-  102. 	ff(); // (f4, ff); (ff, f3)
-        ^
-  103. 
-  104. 	g();
-
-#9
-main.c:110: error: Atomicity Violation
-  Atomicity Violation! - Functions 'f4' and 'ff' should be called atomically.
-  108. 	pthread_mutex_lock(&lockB); // {f1, f3, f4, ff}
-  109. 	pthread_mutex_unlock(&lockA);
-  110. 	ff(); f3(); // (f4, ff)
-        ^
-  111. 	pthread_mutex_unlock(&lockB);
-  112. }
-
-#10
 main.c:94: error: Atomicity Violation
   Atomicity Violation! - Functions 'ff' and 'f3' should be called atomically.
   92. void test_nested(void)
@@ -108,7 +8,7 @@ main.c:94: error: Atomicity Violation
   95. 	pthread_mutex_lock(&lockA); // {f2, f3}
   96. 	f2(); // (f4, f2)
 
-#11
+#1
 main.c:102: error: Atomicity Violation
   Atomicity Violation! - Functions 'ff' and 'f3' should be called atomically.
   100. 	f4();
@@ -118,6 +18,127 @@ main.c:102: error: Atomicity Violation
   103. 
   104. 	g();
 
-Found 12 issues
-                Issue Type(ISSUED_TYPE_ID): #
-  Atomicity Violation(ATOMICITY_VIOLATION): 12
+#2
+main.c:13: error: Atomicity Violation
+  Atomicity Violation! - Functions 'f1' and 'f4' should be called atomically.
+  11. void f4(void) {}
+  12. void g(void) {}
+  13. void ff(void) { f3(); f1(); f4(); } // (f1, f4); (f3, f1); warning (f1, f4); warning (f3, f1)
+                                  ^
+  14. 
+  15. 
+
+#3
+main.c:13: warning: Atomicity Violation within a Function
+  Atomicity Violation within a Current Function! - Functions 'f3' and 'f1' should be called atomically.
+  11. void f4(void) {}
+  12. void g(void) {}
+  13. void ff(void) { f3(); f1(); f4(); } // (f1, f4); (f3, f1); warning (f1, f4); warning (f3, f1)
+                            ^
+  14. 
+  15. 
+
+#4
+main.c:96: error: Atomicity Violation
+  Atomicity Violation! - Functions 'f4' and 'f2' should be called atomically.
+  94. 	ff(); // (ff, f3)
+  95. 	pthread_mutex_lock(&lockA); // {f2, f3}
+  96. 	f2(); // (f4, f2)
+       ^
+  97. 	pthread_mutex_lock(&lockB); // {f3, f4}
+  98. 	f3();
+
+#5
+main.c:87: error: Atomicity Violation
+  Atomicity Violation! - Functions 'f2' and 'f3' should be called atomically.
+  85. 	f1();
+  86. 	pthread_mutex_unlock(&lockA);
+  87. 	f2(); f3(); // (f1, f2); (f2, f3)
+             ^
+  88. 	pthread_mutex_unlock(&lockB);
+  89. }
+
+#6
+main.c:13: error: Atomicity Violation
+  Atomicity Violation! - Functions 'f3' and 'f1' should be called atomically.
+  11. void f4(void) {}
+  12. void g(void) {}
+  13. void ff(void) { f3(); f1(); f4(); } // (f1, f4); (f3, f1); warning (f1, f4); warning (f3, f1)
+                            ^
+  14. 
+  15. 
+
+#7
+main.c:102: error: Atomicity Violation
+  Atomicity Violation! - Functions 'f4' and 'ff' should be called atomically.
+  100. 	f4();
+  101. 	pthread_mutex_unlock(&lockB);
+  102. 	ff(); // (f4, ff); (ff, f3)
+        ^
+  103. 
+  104. 	g();
+
+#8
+main.c:110: error: Atomicity Violation
+  Atomicity Violation! - Functions 'f4' and 'ff' should be called atomically.
+  108. 	pthread_mutex_lock(&lockB); // {f1, f3, f4, ff}
+  109. 	pthread_mutex_unlock(&lockA);
+  110. 	ff(); f3(); // (f4, ff)
+        ^
+  111. 	pthread_mutex_unlock(&lockB);
+  112. }
+
+#9
+main.c:54: error: Atomicity Violation
+  Atomicity Violation! - Functions 'f1' and 'f2' should be called atomically.
+  52. 	f1();
+  53. 	pthread_mutex_lock(&lockA); // {f2, f3}
+  54. 	f2(); // (f1, f2)
+       ^
+  55. 	pthread_mutex_lock(&lockB); // {f3, f4}
+  56. 	f3();
+
+#10
+main.c:68: error: Atomicity Violation
+  Atomicity Violation! - Functions 'f1' and 'f2' should be called atomically.
+  66. 	pthread_mutex_lock(&lockB); // {f1, f2}
+  67. 	pthread_mutex_unlock(&lockA);
+  68. 	f2(); f1(); // (f1, f2)
+       ^
+  69. 	pthread_mutex_unlock(&lockB);
+  70. }
+
+#11
+main.c:87: error: Atomicity Violation
+  Atomicity Violation! - Functions 'f1' and 'f2' should be called atomically.
+  85. 	f1();
+  86. 	pthread_mutex_unlock(&lockA);
+  87. 	f2(); f3(); // (f1, f2); (f2, f3)
+       ^
+  88. 	pthread_mutex_unlock(&lockB);
+  89. }
+
+#12
+main.c:60: error: Atomicity Violation
+  Atomicity Violation! - Functions 'f4' and 'f3' should be called atomically.
+  58. 	f4();
+  59. 	pthread_mutex_unlock(&lockB);
+  60. 	f3(); // (f4, f3)
+       ^
+  61. 
+  62. 	g();
+
+#13
+main.c:13: warning: Atomicity Violation within a Function
+  Atomicity Violation within a Current Function! - Functions 'f1' and 'f4' should be called atomically.
+  11. void f4(void) {}
+  12. void g(void) {}
+  13. void ff(void) { f3(); f1(); f4(); } // (f1, f4); (f3, f1); warning (f1, f4); warning (f3, f1)
+                                  ^
+  14. 
+  15. 
+
+Found 14 issues
+                                          Issue Type(ISSUED_TYPE_ID): #
+                      Atomicity Violation(ATOMICITY_VIOLATION_ERROR): 12
+  Atomicity Violation within a Function(ATOMICITY_VIOLATION_WARNING): 2
