@@ -1,3 +1,5 @@
+// Author: Dominik Harmim <iharmim@fit.vut.cz>
+
 #include <mutex>
 
 
@@ -7,19 +9,17 @@ private:
 	std::mutex mutexA, mutexB;
 
 
-	void f1(void) {}
-	void f2(void) {}
-	void f3(void) {}
-	void g(void) {}
+	void f1() {}
+	void f2() {}
+	void f3() {}
+	void g() {}
 
 
 public:
-	void test_std_mutex(void)
+	void test_std_mutex()
 	{
 		mutexA.lock(); // {f1, f2}
-		{
-			f1(); f2();
-		}
+		f1(); f2();
 		mutexA.unlock();
 
 		g();
@@ -28,9 +28,7 @@ public:
 		{
 			f1();
 			mutexB.lock(); // {f3}
-			{
-				f3();
-			}
+			f3();
 			mutexB.unlock();
 			f2();
 		}
@@ -38,7 +36,7 @@ public:
 	}
 
 
-	void test_std_lock(void)
+	void test_std_lock()
 	{
 		std::lock(mutexA, mutexB); // {f1, f2}; {f1, f2, f3}
 		f1(); f2();
@@ -48,7 +46,7 @@ public:
 	}
 
 
-	void test_lock_guard(void)
+	void test_lock_guard()
 	{
 		std::lock_guard<std::mutex> guardA(mutexA); // {f1, f2, f3}
 		f1();
@@ -60,7 +58,7 @@ public:
 	}
 
 
-	void test_unique_lock(void)
+	void test_unique_lock()
 	{
 		std::unique_lock<std::mutex> lockA(mutexA, std::defer_lock); // {f2, f3}
 		g();
@@ -74,14 +72,14 @@ public:
 	}
 
 
-	void test_violations(void)
+	void test_violations()
 	{
 		f1(); f2(); // (f1, f2)
 	}
 };
 
 
-int main(void)
+int main()
 {
 	Test test;
 

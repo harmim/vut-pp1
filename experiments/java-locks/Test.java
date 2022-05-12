@@ -1,3 +1,5 @@
+// Author: Dominik Harmim <iharmim@fit.vut.cz>
+
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -17,9 +19,7 @@ class Locks
 	public void testLock()
 	{
 		lockA.lock(); // {f1, f2}
-		{
-			f1(); f2();
-		}
+		f1(); f2();
 		lockA.unlock();
 
 		g();
@@ -28,9 +28,7 @@ class Locks
 		{
 			f1();
 			lockB.lock(); // {f3}
-			{
-				f3();
-			}
+			f3();
 			lockB.unlock();
 			f2();
 		}

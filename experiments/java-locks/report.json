@@ -1,0 +1,24 @@
+[
+    {
+        "bug_type": "ATOMICITY_VIOLATION_ERROR",
+        "qualifier": "Atomicity Violation! - Functions 'void Locks.f1()' and 'void Locks.f2()' should be called atomically.",
+        "severity": "ERROR",
+        "line": 66,
+        "column": -1,
+        "procedure": "Test.main(java.lang.String[]):void",
+        "procedure_start_line": 0,
+        "file": "Test.java",
+        "bug_trace": [
+            {
+                "level": 0,
+                "filename": "Test.java",
+                "line_number": 66,
+                "column_number": -1,
+                "description": "Atomicity Violation! - Functions 'void Locks.f1()' and 'void Locks.f2()' should be called atomically."
+            }
+        ],
+        "key": "Test.java|main|ATOMICITY_VIOLATION_ERROR",
+        "hash": "672a56e6acd686e40989fc0a2bf86086",
+        "bug_type_hum": "Atomicity Violation"
+    }
+]

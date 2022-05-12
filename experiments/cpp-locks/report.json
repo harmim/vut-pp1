@@ -1,0 +1,24 @@
+[
+    {
+        "bug_type": "ATOMICITY_VIOLATION_ERROR",
+        "qualifier": "Atomicity Violation! - Functions 'Test::f1' and 'Test::f2' should be called atomically.",
+        "severity": "ERROR",
+        "line": 77,
+        "column": 9,
+        "procedure": "main",
+        "procedure_start_line": 0,
+        "file": "main.cpp",
+        "bug_trace": [
+            {
+                "level": 0,
+                "filename": "main.cpp",
+                "line_number": 77,
+                "column_number": 9,
+                "description": "Atomicity Violation! - Functions 'Test::f1' and 'Test::f2' should be called atomically."
+            }
+        ],
+        "key": "main.cpp|main|ATOMICITY_VIOLATION_ERROR",
+        "hash": "04a20064b957d80062eadac366d241bf",
+        "bug_type_hum": "Atomicity Violation"
+    }
+]

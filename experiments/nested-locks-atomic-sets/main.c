@@ -1,3 +1,5 @@
+// Author: Dominik Harmim <iharmim@fit.vut.cz>
+
 #include <stdlib.h>
 #include <pthread.h>
 
@@ -24,9 +26,7 @@ void test1(void)
 	{
 		f1();
 		pthread_mutex_lock(&lockB); // {f2}
-		{
-			f2();
-		}
+		f2();
 		pthread_mutex_unlock(&lockB);
 		f3();
 	}
@@ -52,9 +52,7 @@ void test1_struct(void)
 	{
 		f1();
 		pthread_mutex_lock(&locks.lockB); // {f2}
-		{
-			f2();
-		}
+		f2();
 		pthread_mutex_unlock(&locks.lockB);
 		f3();
 	}
@@ -79,15 +77,11 @@ void test2(void)
 	{
 		f1();
 		pthread_mutex_lock(&lockB); // {f2}
-		{
-			f2();
-		}
+		f2();
 		pthread_mutex_unlock(&lockB);
 		f3();
 		pthread_mutex_lock(&lockB); // {f4}
-		{
-			f4();
-		}
+		f4();
 		pthread_mutex_unlock(&lockB);
 		f5();
 	}

@@ -1,1 +1,6 @@
 /testing-programs/pos-proj02-padtad/
+
+*.o
+*.class
+*.ast.sh
+infer-out/

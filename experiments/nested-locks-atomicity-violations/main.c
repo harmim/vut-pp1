@@ -1,3 +1,5 @@
+// Author: Dominik Harmim <iharmim@fit.vut.cz>
+
 #include <stdlib.h>
 #include <pthread.h>
 
@@ -10,39 +12,32 @@ void f2(void) {}
 void f3(void) {}
 void f4(void) {}
 void g(void) {}
-void ff(void) { f3(); f1(); f4(); } // (f1, f4); (f3, f1); warning (f1, f4); warning (f3, f1)
+// (f1, f4); (f3, f1); warning (f1, f4); warning (f3, f1)
+void ff(void) { f3(); f1(); f4(); }
 
 
 void atomic_sequences(void)
 {
 	pthread_mutex_lock(&lockA); // {f1, f2, f3}
-	{
-		f1(); f2(); f3();
-	}
+	f1(); f2(); f3();
 	pthread_mutex_unlock(&lockA);
 
 	g();
 
 	pthread_mutex_lock(&lockA); // {f2, f4}
-	{
-		f4(); f2();
-	}
+	f4(); f2();
 	pthread_mutex_unlock(&lockA);
 
 	g();
 
 	pthread_mutex_lock(&lockA); // {f1, f3}
-	{
-		f1(); f3();
-	}
+	f1(); f3();
 	pthread_mutex_unlock(&lockA);
 
 	g();
 
 	pthread_mutex_lock(&lockA); // {f1, f3, f4, ff}
-	{
-		ff(); f3();
-	}
+	ff(); f3();
 	pthread_mutex_unlock(&lockA);
 }
 
